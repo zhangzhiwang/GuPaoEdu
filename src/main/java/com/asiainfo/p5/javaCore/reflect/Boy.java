@@ -10,19 +10,43 @@ public class Boy implements IPerson {
 	private String name;
 	private static String address;
 	public static String desc;
-	
-	public void boyMet1(String s, int i) {}
+
+	private Boy(int age) {
+		super();
+		this.age = age;
+	}
+
+	public Boy() {
+		super();
+	}
+
+	private Boy(int age, String name) {
+		super();
+		this.age = age;
+		this.name = name;
+	}
+
+	public void boyMet1(String s, int i) {
+	}
+
 	protected String boyMet2(String name) {
 		return null;
 	}
+
 	int boyMet3() {
 		return 0;
 	}
-	private void boyMet4(int age) {}
+
+	private void boyMet4(int age) {
+	}
+
 	private static int boyMet5() {
 		return 1;
 	}
-	public static final void boyMet6() {}
+
+	public static final void boyMet6() {
+	}
+
 	public int getMoney() {
 		return money;
 	}

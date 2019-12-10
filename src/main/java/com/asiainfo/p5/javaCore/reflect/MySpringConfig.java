@@ -48,5 +48,4 @@ public class MySpringConfig {
 	public String toString() {
 		return "MySpringConfig [id=" + id + ", clazz=" + clazz + ", factoryBean=" + factoryBean + ", factoryMethod=" + factoryMethod + "]";
 	}
-
 }

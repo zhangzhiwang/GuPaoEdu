@@ -3,8 +3,6 @@ package com.asiainfo.p5.javaCore.reflect;
 import java.lang.annotation.Annotation;
 import java.util.logging.Logger;
 
-import org.junit.Test;
-
 /**
  * Java反射机制——获取Clas对象的方式
  *

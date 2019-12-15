@@ -23,4 +23,6 @@
 	<!-- 注意：通过实例工厂创建bean就是通过工厂的实例方法来创建bean，既然是实例方法就必须首先要创建工厂的实例（如本例中的beanFactory），factory-method属性值是工厂的实例方法名 -->
 	<bean id="beanFactory" class="com.asiainfo.p5.javaCore.reflect.BeanFactory"></bean>
 	<bean id="springTest3" factory-bean="beanFactory" factory-method="getInstance"></bean>
+	
+	<context:component-scan base-package="com.asiainfo.p5.javaCore.reflect"></context:component-scan>
 </beans>

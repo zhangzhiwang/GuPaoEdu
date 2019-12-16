@@ -20,5 +20,11 @@ import org.springframework.util.StringUtils;
 public class IOCContainnerTest {
 	public static void main(String[] args) {
 		IOCContainner.init("src/main/resources/applicationContext.xml");
+		Object bean1 = IOCContainner.getBean("com.asiainfo.p5.javaCore.annotation.MyClass");
+		Object bean2 = IOCContainner.getBean("getA");
+		Object bean3 = IOCContainner.getBean("getB");
+		System.out.println(bean1);
+		System.out.println(bean2);
+		System.out.println(bean3);
 	}
 }

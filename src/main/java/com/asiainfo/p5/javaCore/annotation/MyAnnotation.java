@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
 @Target(value = {ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 /**
  *  @Retention定义注解的保留策略，也就是规定注解的声明周期，它的值至能有一个且为RetentionPolicy枚举。RetentionPolicy一共有三个枚举值，分别是SOURCE、CLASS、RUNTIME。</p>
- *  1、SOURCE表示该注解的生命周期只在源码阶段有效，被编译成class文件后该注解失效，典型的注解为@Override，这也就解释了为什么方法上是不是标注了@Override对程序的运行没有影响，因为在编译成class文件后该注解被去除。</p>
+ *  1、SOURCE表示该注解的生命周期只在源码阶段有效，被编译成class文件后该注解失效，典型的注解为@Override、@SuppressWarnings，这也就解释了为什么方法上是不是标注了@Override对程序的运行没有影响，因为在编译成class文件后该注解被去除。</p>
  *  2、CLASS表示该注解的生命周期为字节码阶段，即该注解在源码和class文件内有效，运行时失效。</p>
  *  3、RUNTIME表示该注解的生命周期为运行时有效，即该注解在源码、class文件和运行时都有效。</p>
  *  三者的作用域大小为SOURCE<CLASS<RUNTIME，如果不标注@Retention，那么默认的作用周期为RetentionPolicy.CLASS。

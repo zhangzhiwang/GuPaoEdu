@@ -36,6 +36,16 @@ public class CreateThread {
 		newFixedThreadPool.execute(t2);
 		newFixedThreadPool.shutdown();
 	}
+	
+	public void met1() {
+		int i = 0;
+		int b = i++;
+		synchronized (this) {
+			System.out.println();
+		}
+		
+		i = b + i;
+	}
 
 	static class Thread1 implements Runnable {
 		@Override

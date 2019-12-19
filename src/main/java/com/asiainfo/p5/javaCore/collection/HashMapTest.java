@@ -12,5 +12,9 @@ public class HashMapTest {
 	public static void main(String[] args) {
 		HashMap<Integer, String> map = new HashMap<Integer, String>();
 		map.put(1, "aaa");
+		
+		Integer i = new Integer(123456789);
+		int hashCode = i.hashCode();
+		System.out.println(hashCode);
 	}
 }

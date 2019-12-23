@@ -17,6 +17,7 @@ public class CreateThread {
 		// 1、继承Thread类（略）
 		// 2、实现Runnable接口（略）
 		// 3、实现Callable接口
+		// 1、2、3之间的区别请见自己的博客
 		Callable<Integer> callable = new MyThread1();
 		FutureTask<Integer> futureTask = new FutureTask<Integer>(callable);// FutureTask实现了Runnable接口
 		Thread thread = new Thread(futureTask);

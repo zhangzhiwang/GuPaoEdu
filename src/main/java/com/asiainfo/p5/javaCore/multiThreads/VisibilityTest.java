@@ -7,23 +7,26 @@ package com.asiainfo.p5.javaCore.multiThreads;
  * @date Dec 25, 2019 9:51:41 AM
  */
 public class VisibilityTest extends Thread {
-	private static boolean isStop = false;
-	private static long num = 0;
+	private static boolean isStop = false;// 没有加volatile
+	private static int num = 0;
 	
 	public static void main(String[] args) throws InterruptedException {
 		VisibilityTest visibilityTest = new VisibilityTest();
 		visibilityTest.setName("VisibilityTest");
 		visibilityTest.start();
 		
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		isStop = true;
-		System.out.println(num);
-	}
+	} 
 	
+	@SuppressWarnings("unused")
 	public void run() {
+		int i = 0;
 		while(!isStop) {
 			num=10;
+			synchronized (VisibilityTest.class) {
+				// 无意义的同步快，目的是测试synchronized对线程可见性的影响
+			}
 		}
-		System.out.println("已经停止了");
 	}
 }

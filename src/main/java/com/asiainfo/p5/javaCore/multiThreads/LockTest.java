@@ -33,6 +33,7 @@ public class LockTest extends Thread {
 		 * 	  然后去除head节点并将该节点的waitStatus设置成0，并将它next节点（这里是B线程所代表的节点）唤醒，线程A从unlock方法返回并运行结束。</p>
 		 * 4、B线程被唤醒之后会从新尝试获取锁，发现这回获取成功了，就将AQS的state置为1，将表示哪个线程获取了锁的变量置为自己，然后将自己置为head节点并将原head节点的next引用置为null，然后结束。</p>
 		 * 5、C线程就不分析了，如果等待的话它所代表的Node会挂在B后面。
+		 * 6、公平锁也不分析了。
 		 */
 		try {
 			System.out.println(Thread.currentThread().getName() + "执行一些逻辑");

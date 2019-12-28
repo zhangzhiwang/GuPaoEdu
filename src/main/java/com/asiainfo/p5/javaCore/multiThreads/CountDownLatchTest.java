@@ -13,7 +13,7 @@ public class CountDownLatchTest {
 	
 	public static void main(String[] args) throws InterruptedException {
 		// 需求：一个线程等到其他所有线程都运行结束之后才继续运行
-		// 面试题：多线程编程，50个线程生成随机数，然后相加。这里使用CountDownLatch来实现。
+		// 面试题：多线程编程，50个线程生成随机数，然后相加。这里使用CountDownLatch来实现，还有会用CyclicBarrier来实现。
 		int threadNum = 50;// 启动n个线程
 		final CountDownLatch countDownLatch = new CountDownLatch(threadNum);
 		

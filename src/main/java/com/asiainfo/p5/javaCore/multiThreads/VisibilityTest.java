@@ -15,7 +15,7 @@ public class VisibilityTest extends Thread {
 		visibilityTest.setName("VisibilityTest");
 		visibilityTest.start();
 		
-		Thread.sleep(100);
+//		Thread.sleep(100);
 		isStop = true;
 	} 
 	
@@ -23,10 +23,10 @@ public class VisibilityTest extends Thread {
 	public void run() {
 		int i = 0;
 		while(!isStop) {
-			num=10;
-			synchronized (VisibilityTest.class) {
-				// 无意义的同步快，目的是测试synchronized对线程可见性的影响
-			}
+			i++;
+//			synchronized (VisibilityTest.class) {
+//				// 无意义的同步快，目的是测试synchronized对线程可见性的影响
+//			}
 		}
 	}
 }

@@ -18,7 +18,7 @@ public class FileChannelTest {
 			MappedByteBuffer inMappedByteBuffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
 			MappedByteBuffer outMappedByteBuffer = outChannel.map(FileChannel.MapMode.READ_WRITE, 0, inChannel.size());
 			
-			byte[] buffer = new byte[inMappedByteBuffer.limit()];
+			byte[] buffer = new byte[inMappedByteBuffer.limit()];// 用户空间的缓冲区，虽然这里用到了用户缓冲区，但是没有从内核缓冲区到用户缓冲区的复制过程（反过来也一样），二者共享一块内存
 			inMappedByteBuffer.get(buffer);
 			outMappedByteBuffer.put(buffer);
 		} catch (Exception e) {

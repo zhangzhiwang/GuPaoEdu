@@ -4,17 +4,24 @@ import java.io.Serializable;
 
 import com.asiainfo.p5.io.BufferedInputStreamTest;
 
-public class HelloWorld extends BufferedInputStreamTest implements Serializable {
+public class HelloWorld implements Serializable {
 	/***/
 	private static final long serialVersionUID = 6206219526612889637L;
 	private int i;
 	private String name;
-	private static byte b = 3;
+	private static byte b = 3;// 类的静态变量保存在方法区里面
+	private	static Object obj;// 类的静态变量保存在方法区里面，但是这个变量是一个对象，那么这个对象保存在堆里面，方法区保存的是这个对象的引用
 	
 	public void met1() {}
 	
 	public static int met2(int i) {
+		int a = 1;
+		HelloWorld h = new HelloWorld();// 局部变量保存在栈帧的局部变量表里面，但是这个局部变量是一个对象，那么这个对象存储在堆中，局部变量表保存这个对象的引用
 		return i;
+	}
+	
+	public static void main(String[] args) throws InterruptedException {
+		Thread.sleep(Integer.MAX_VALUE);
 	}
 	
 	/**

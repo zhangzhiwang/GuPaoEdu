@@ -14,7 +14,7 @@ public class GenericClass1<E extends Number> {// 泛定定义在类声明出，�
 		this.e = e;
 	}
 
-	public E met1(E e) {// 此方法虽然通到了泛泛型，但是所用的泛型不只在方法声明出定义的，而是使用的类的泛型，所以该方法不是泛型方法而是一个普通的方法
+	public E met1(E e) {// 此方法虽然通到了泛型，但是所用的泛型不是在方法声明出定义的，而是使用的类的泛型，所以该方法不是泛型方法而是一个普通的方法
 		return e;
 	}
 

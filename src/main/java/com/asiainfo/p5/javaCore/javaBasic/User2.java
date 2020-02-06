@@ -1,14 +1,14 @@
 package com.asiainfo.p5.javaCore.javaBasic;
 
-public class User implements Cloneable {
+public class User2 {
 	private int age;
 	private String name;
 
-	public User() {
+	public User2() {
 		super();
 	}
 
-	public User(int age, String name) {
+	public User2(int age, String name) {
 		super();
 		this.age = age;
 		this.name = name;
@@ -52,7 +52,7 @@ public class User implements Cloneable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		User2 other = (User2) obj;
 		if (age != other.age)
 			return false;
 		if (name == null) {
@@ -61,10 +61,5 @@ public class User implements Cloneable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-
-	@Override
-	public User clone() throws CloneNotSupportedException {
-		return (User) super.clone();
 	}
 }

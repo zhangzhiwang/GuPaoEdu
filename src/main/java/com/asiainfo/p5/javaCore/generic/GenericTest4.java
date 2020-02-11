@@ -14,9 +14,13 @@ public class GenericTest4<T> {
 	public static void main(String[] args) throws Exception {
 		// 1、？与T都代表不确定的类型，但是T可以更精确的翻译为“某一个”不确定的类型，就是说如果T的类型一旦确定，任何使用T的地方都必须是该类型，而?可以是任意不同的类型
 		met1(new ArrayList<Integer>(), new ArrayList<Integer>());
+		Number met1_12 = met1_1(1, 1.1);
+//		Number met1_13 = GenericTest4.<Integer>met1_1(1, 1.1);
+		Object met1_1 = met1_1(15, "abc");
+//		Object met1_15 = GenericTest4.<Integer>met1_1(15, "abc");
 //		met1(new ArrayList<Integer>(), new ArrayList<Double>());// 编译不通过
 		
-		met2(new ArrayList<Integer>(), new ArrayList<Double>());// 编译可以通过
+		met2(new ArrayList<Integer>(), new ArrayList<String>());// 编译可以通过
 		
 		// 2、T类型的对象可以参与操作，？不可以
 		met3(new ArrayList<ArrayList>(), new ArrayList<ArrayList>());
@@ -32,6 +36,9 @@ public class GenericTest4<T> {
 	}
 	
 	public static <T> void met1(List<T> list1, List<T> list2) {}
+	public static <T> T met1_1(T t1, T t2) {
+		return null;
+	}
 	public static <T> void met2(List<?> list1, List<?> list2) {}
 	
 	public static <T extends List> void met3(List<T> list, List<?> list2) {

@@ -3,6 +3,8 @@ package com.asiainfo.p5.javaCore.generic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.asiainfo.p5.javaCore.javaBasic.JavaFileTest;
+
 /**
  * 泛型</p>
  * 泛型是什么？泛型可以理解为广泛的类型，就是它可以将参数的类型参数化，因此它也叫参数类型或者类型参数。</p>

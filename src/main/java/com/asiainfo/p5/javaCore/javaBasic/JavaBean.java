@@ -11,4 +11,9 @@ public class JavaBean {
 		final short f3 = 5;
 		int result = 100 * param;
 	}
+	
+	public static void main(String[] args) {
+		new JavaFileTest();
+		new JavaFileTest_1();
+	}
 }

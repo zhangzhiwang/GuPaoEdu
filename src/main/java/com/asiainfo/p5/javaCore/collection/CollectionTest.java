@@ -39,5 +39,7 @@ public class CollectionTest {
 		// 类似的还有：
 		Collections.unmodifiableList(new ArrayList());
 		Collections.unmodifiableSet(new HashSet());
+		
+//		Collections.synchronizedMap(new HashMap());
 	}
 }

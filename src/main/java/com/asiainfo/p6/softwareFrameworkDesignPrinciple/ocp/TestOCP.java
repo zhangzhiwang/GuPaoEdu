@@ -2,7 +2,7 @@ package com.asiainfo.p6.softwareFrameworkDesignPrinciple.ocp;
 
 /**
  * OCP测试</p>
- * 开闭原则(Open Close Principle)：用扩展来适应需求的变化而不是用修改来适应需求的变化，OCP是所有原则的核心。
+ * 开闭原则(Open Close Principle)：用扩展来适应需求的变化而不是用修改来适应需求的变化，OCP是所有原则的核心。对扩展开放，对修改关闭。
  *
  * @author zhangzhiwang
  * @date Oct 21, 2019 12:51:15 PM

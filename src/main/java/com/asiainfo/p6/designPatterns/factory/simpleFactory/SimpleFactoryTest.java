@@ -1,6 +1,7 @@
 package com.asiainfo.p6.designPatterns.factory.simpleFactory;
 
 import java.util.Calendar;
+
 import com.asiainfo.p6.designPatterns.factory.AICourse;
 import com.asiainfo.p6.designPatterns.factory.ICourse;
 import com.asiainfo.p6.designPatterns.factory.JavaCourse;
@@ -29,7 +30,7 @@ public class SimpleFactoryTest {
 		iCourse.record();
 
 		/**
-		 * 简单工厂模式的优缺点：优点是比不使用工厂模式要强，毕竟它把创建产品的具体过成封装起来了，是客户端不用再担心创建产品的问题；缺点是简单工厂什么对象都负责创建，“有点杂”，所承担的职责比较重，违反了单一职责原则，而且如果增加一个产品就势必要修改简单工厂的代码，违反了开闭原则
+		 * 简单工厂模式的优缺点：优点是比不使用工厂模式要强，毕竟它把创建产品的具体过成封装起来了，使客户端不用再担心创建产品的问题；缺点是简单工厂什么对象都负责创建，“有点杂”，所承担的职责比较重，违反了单一职责原则，而且如果增加一个产品就势必要修改简单工厂的代码，违反了开闭原则
 		 * </p>
 		 * 简单工厂模式使用场合：产品数量不多且不会变化的情况下
 		 */

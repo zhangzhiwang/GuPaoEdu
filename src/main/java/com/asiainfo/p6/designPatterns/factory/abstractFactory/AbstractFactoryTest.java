@@ -25,7 +25,7 @@ public class AbstractFactoryTest {
 	}
 
 	public static void main(String[] args) {
-		// 集体选择哪个品牌的工厂由客户端说了算
+		// 具体选择哪个品牌的工厂由客户端说了算
 		ICar car = factory.createCar();
 		car.run();
 		ISportsCar sportsCar = factory.createSportsCar();

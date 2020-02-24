@@ -1,4 +1,4 @@
-package com.asiainfo.p6_2020.designPatterns.factory.simpleFactory.entity;
+package com.asiainfo.p6_2020.designPatterns.factory.entity.car;
 
 /**
  * 奥迪轿车

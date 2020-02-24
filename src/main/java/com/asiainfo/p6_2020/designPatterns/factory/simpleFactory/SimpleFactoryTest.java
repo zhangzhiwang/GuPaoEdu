@@ -1,9 +1,9 @@
 package com.asiainfo.p6_2020.designPatterns.factory.simpleFactory;
 
-import com.asiainfo.p6_2020.designPatterns.factory.simpleFactory.entity.AudiCar;
-import com.asiainfo.p6_2020.designPatterns.factory.simpleFactory.entity.BMWCar;
-import com.asiainfo.p6_2020.designPatterns.factory.simpleFactory.entity.BenzCar;
-import com.asiainfo.p6_2020.designPatterns.factory.simpleFactory.entity.ICar;
+import com.asiainfo.p6_2020.designPatterns.factory.entity.car.AudiCar;
+import com.asiainfo.p6_2020.designPatterns.factory.entity.car.BMWCar;
+import com.asiainfo.p6_2020.designPatterns.factory.entity.car.BenzCar;
+import com.asiainfo.p6_2020.designPatterns.factory.entity.car.ICar;
 
 /**
  * 简单工厂模式

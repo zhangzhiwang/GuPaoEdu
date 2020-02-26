@@ -1,6 +1,7 @@
 package com.asiainfo.p5.javaCore.collection;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class HashTableTest {
@@ -14,12 +15,12 @@ public class HashTableTest {
 		 * 5、HashMap计算index的方法为：(数组长度 - 1) & hash(key)，而HashTable计算index的方法为：(hash(key) & Integer最大值) % 数组的长度;
 		 */
 		
-		Map<String, String> map1 = new HashMap<String, String>();
-		map1.put(null, null);// HashMap的key和value都可以为null
-		System.out.println(map1);
+//		Map<String, String> map1 = new HashMap<String, String>();
+//		map1.put(null, null);// HashMap的key和value都可以为null
+//		System.out.println(map1);
 		
-//		Map<String, String> map2 = new Hashtable<String, String>();
-//		map2.put("a", null);// HashTable的key和value都不能为null
-//		System.out.println(map2);// java.lang.NullPointerException
+		Map<String, String> map2 = new Hashtable<String, String>();
+		map2.put("a", null);// HashTable的key和value都不能为null
+		System.out.println(map2);// java.lang.NullPointerException
 	}
 }

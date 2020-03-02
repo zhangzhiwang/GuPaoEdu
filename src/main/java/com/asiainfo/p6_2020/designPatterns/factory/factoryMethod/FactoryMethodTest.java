@@ -32,5 +32,11 @@ public class FactoryMethodTest {
 		 * 这样每个工厂确实职责单一：A1只负责生产Audi的轿车，A2只生产Audi的跑车，A3只生产Audi的SUV。刚才在缺点里面也说了，一个品牌一个工厂，这样当有大量品牌加入的时候会产生大量的工厂类，导致类文件增多。这回可好，现在一个品牌有三个工厂了，类文件是原来的三倍了，更多了。</p>
 		 * 那怎么办呢？就像上面所说折中的办法就是扩大“职责”的粒度，原来我们对“职责”的理解就是一个工厂只生产一个品牌的一种汽车，现在一个工厂生产一个品牌的所有种类的汽车但是它不负责生产其他品牌的，这也是单一职责，只不过我们要把“职责”的定义扩展一下，这样一来需要创建的工厂类就大大减少了，于是乎就诞生了抽象工厂模式。
 		 */
+		
+		/**
+		 *  工厂方法模式的应用场景：</p>
+		 *  可以把Collection当作抽象工厂，这个工厂生产一种抽象的产品Iterator，生产产品的方法叫做iterator()。Collection的实现类可以看作是各种不同的具体工厂，比如ArrayList、HashSet、ArrayBlockingQueue等，它们都生产各自的具体的产品，这些产品都是Iterator的实现类。</p>
+		 *  比如ArrayList通过实现iterator()方法生产java.util.ArrayList.Itr，HashSet通过实现iterator()方法生产java.util.HashMap.KeyIterator，ArrayBlockingQueue通过实现iterator()方法生产java.util.concurrent.ArrayBlockingQueue.Itr。
+		 */
 	}
 }

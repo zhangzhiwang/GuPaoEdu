@@ -1,5 +1,7 @@
 package com.asiainfo.p6_2020.designPatterns.factory.simpleFactory;
 
+import java.util.Calendar;
+
 import com.asiainfo.p6_2020.designPatterns.factory.entity.car.AudiCar;
 import com.asiainfo.p6_2020.designPatterns.factory.entity.car.BMWCar;
 import com.asiainfo.p6_2020.designPatterns.factory.entity.car.BenzCar;
@@ -66,5 +68,8 @@ public class SimpleFactoryTest {
 		 * 缺点：可以看到，简单工厂方法再怎么优化他也是一个万能工厂，就是这个工厂什么都生产。在第一种获取实例的方式下每增加一个品牌的轿车产品就要修改简单工厂的逻辑——增加if判断来迎合新产品的创建，违反了开闭原则；</p>
 		 * 在第二、三种获取实例的方式下虽然不需要随着产品的增加而修改代码，但是一个工厂负责创建所有品牌的所有产品违反了类的单一职责原则。为了解决单一职责原则呢，这三个品牌商决定要分开生产——各品牌生产各品牌的矫车，这样的话一个工厂只负责生产一个品牌的轿车，工厂职责单一了代价是每个品牌都得创建自己的工厂，于是工厂方法模式诞生了。
 		 */
+		
+		// 简单工厂模式的应用场景：
+		Calendar calendar = Calendar.getInstance();// 通过源码可以看出来简单工厂模式虽然简单且原始，但仍然有在被使用，只要你创建对象的种类比较少且固定完全可以使用简单工厂模式
 	}
 }

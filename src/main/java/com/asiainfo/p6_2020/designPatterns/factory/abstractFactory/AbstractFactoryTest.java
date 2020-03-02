@@ -27,5 +27,6 @@ public class AbstractFactoryTest {
 		car.run();
 		sportsCar.run();
 		suv.run();
+		
 	}
 }

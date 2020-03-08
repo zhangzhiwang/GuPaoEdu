@@ -63,6 +63,16 @@
 			<artifactId>ojdbc10</artifactId>
 			<version>19.3.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>5.1.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>5.1.2.RELEASE</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>GuPaoEdu</finalName>

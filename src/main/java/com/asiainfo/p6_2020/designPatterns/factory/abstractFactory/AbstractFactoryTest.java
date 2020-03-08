@@ -28,5 +28,10 @@ public class AbstractFactoryTest {
 		sportsCar.run();
 		suv.run();
 		
+		/**
+		 * 抽象工厂模式的应用场景：jdbc</p>
+		 * java.sql.Connection可以看作是抽象工厂，这个抽象工厂生产两个产品等级结构的产品（这里只拿两个举例子），且它们都是抽象产品接口，分别是Statement、PreparedStatement。</p>
+		 * Connection有好多实现类，比如MySql的实现类com.mysql.jdbc.ConnectionImpl生产com.mysql.jdbc.StatementImpl、com.mysql.jdbc.PreparedStatement；Oracle的实现类oracle.jdbc.OracleConnectionWrapper生产具体产品com.mysql.jdbc.jdbc2.optional.StatementWrapper、com.mysql.jdbc.jdbc2.optional.PreparedStatementWrapper。
+		 */
 	}
 }

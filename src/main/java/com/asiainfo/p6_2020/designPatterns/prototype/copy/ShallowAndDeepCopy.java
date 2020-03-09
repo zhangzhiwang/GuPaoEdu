@@ -1,14 +1,5 @@
 package com.asiainfo.p6_2020.designPatterns.prototype.copy;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 /**
  * 浅拷贝和深拷贝
  *

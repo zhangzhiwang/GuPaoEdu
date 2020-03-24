@@ -78,11 +78,11 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.5.2</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.4</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>commons-beanutils</groupId> -->
+<!-- 			<artifactId>commons-beanutils</artifactId> -->
+<!-- 			<version>1.9.4</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
@@ -114,11 +114,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.28</version>
         </dependency>
-        <dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.3.0</version>
-		</dependency>
+<!--         <dependency> -->
+<!-- 			<groupId>cglib</groupId> -->
+<!-- 			<artifactId>cglib</artifactId> -->
+<!-- 			<version>3.3.0</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 	<build>
 		<finalName>GuPaoEdu</finalName>

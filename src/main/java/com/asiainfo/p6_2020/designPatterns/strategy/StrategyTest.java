@@ -20,5 +20,11 @@ public class StrategyTest {
 		
 		Context context = new Context();
 		context.pay(StrategyEnum.ALI_PAY);// 策略是客户端选择的
+		
+		/**
+		 * 其实策略模式很简单，也很常用，只不过在平时使用中没有意识到自己已经使用了设计模式，说白了就是一个接口有好多实现类，使用者在使用的使用来决定用哪个实现类而已。比如一个Service接口有好多实现类，在Controller注入Service实现的时候要制定bean的名称（比如@Autowired(name="abc")），这就是策略模式的应用。</p>
+		 * 这种例子有好多，比如java.util.Comparator接口有好多实现类，自己也可以定义它的实现类，然后在使用的时候穿一个具体的实现类即可。</p>
+		 * Spring的初始化也采用了策略模式，只不过默认有两种策略实现，而这两种策略实现还具有继承关系，所以这个比较特殊，可以参考InstantiationStrategy类。
+		 */
 	}
 }

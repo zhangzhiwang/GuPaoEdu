@@ -16,7 +16,7 @@ public class OOM_StackOverflowError {
 	}
 	
 	private static void met1(int i) {
-		System.out.println(i);
+//		System.out.println(i);
 		met1(num++);
 	}
 }

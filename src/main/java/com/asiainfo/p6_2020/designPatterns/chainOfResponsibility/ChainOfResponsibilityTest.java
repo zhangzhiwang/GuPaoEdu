@@ -8,6 +8,9 @@ package com.asiainfo.p6_2020.designPatterns.chainOfResponsibility;
  */
 public class ChainOfResponsibilityTest {
 	public static void main(String[] args) {
-		
+		CheckService checkService = new CheckService();
+		User user = new User("zs", "1234", "admin");
+		boolean b = checkService.loginCheckChain2(user);
+		System.out.println(b);
 	}
 }

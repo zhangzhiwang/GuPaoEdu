@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.jsoup.helper.StringUtil;
 
+import com.asiainfo.p6_2020.designPatterns.chainOfResponsibility.Handler.Builder;
+
 /**
  * 数据校验服务
  *
@@ -34,6 +36,39 @@ public class CheckService {
 		}
 
 		return true;
+	}
+	
+	/**
+	 * 使用责任链模式
+	 * 
+	 * @param user
+	 * @return
+	 * @author zhangzhiwang
+	 * @date 2020年4月5日 下午2:03:12
+	 */
+	public boolean loginCheckChain(User user) {
+		ValidHandler validHandler = new ValidHandler();
+		LoginCheckHandler loginCheckHandler = new LoginCheckHandler();
+		RoleCheckHandler roleCheckHandler = new RoleCheckHandler();
+		
+		validHandler.setNextHandler(loginCheckHandler);// 这么构造责任链很容易出错，尤其是在链中节点很多的情况下，如果改成链式编程可读性会更好一些，见下面的loginCheckChain2方法
+		loginCheckHandler.setNextHandler(roleCheckHandler);
+		
+		return validHandler.handle(user);
+	}
+	
+	/**
+	 * 使用链式编程改造loginCheckChain方法
+	 * 
+	 * @param user
+	 * @return
+	 * @author zhangzhiwang
+	 * @date 2020年4月5日 下午5:09:08
+	 */
+	public boolean loginCheckChain2(User user) {
+		Builder builder = new Builder();
+		builder.addHandler(new ValidHandler()).addHandler(new LoginCheckHandler()).addHandler(new RoleCheckHandler());
+		return builder.head.handle(user);
 	}
 
 	private User getLoginUser(String name, String password) {

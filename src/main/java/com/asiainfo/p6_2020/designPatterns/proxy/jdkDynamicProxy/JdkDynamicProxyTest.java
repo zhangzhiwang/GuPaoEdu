@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import sun.misc.ProxyGenerator;
+//import sun.misc.ProxyGenerator;
 
 /**
  * jdk动态代理
@@ -32,10 +32,10 @@ public class JdkDynamicProxyTest {
 		
 		// 将动态生成的代理类通过下面的方式输出到硬盘以供分析
 		// 注意：动态代理生成的代理类是在运行时在内存中动态生成的，不会存在真实的class文件，进程结束该代理类消失。这里是为了分析代理的过程采取人为干预的手段将class文件保存到硬盘，实际运行时不存在这一步
-		byte[] bs = ProxyGenerator.generateProxyClass("proxyInstanceDogImpl", new Class[]{IDog.class});// 第一个参数是类名称，第二个是该类需实现的接口
-		FileOutputStream fileOutputStream = new FileOutputStream("/Users/zhangzhiwang/Desktop/proxyInstanceDogImpl.class");
-		fileOutputStream.write(bs);
-		fileOutputStream.close();
+//		byte[] bs = ProxyGenerator.generateProxyClass("proxyInstanceDogImpl", new Class[]{IDog.class});// 第一个参数是类名称，第二个是该类需实现的接口
+//		FileOutputStream fileOutputStream = new FileOutputStream("/Users/zhangzhiwang/Desktop/proxyInstanceDogImpl.class");
+//		fileOutputStream.write(bs);
+//		fileOutputStream.close();
 	}
 
 	static class MyInvocationHandler implements InvocationHandler {

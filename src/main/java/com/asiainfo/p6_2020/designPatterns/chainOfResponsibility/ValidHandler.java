@@ -7,10 +7,10 @@ public class ValidHandler extends Handler {
 	@Override
 	protected boolean handle(User user) {
 		if (StringUtil.isBlank(user.getName()) || StringUtil.isBlank(user.getPassword())) {
-			System.out.println("用户名或密码为空！");
+			System.out.println("validate:用户名或密码为空！");
 			return false;
 		}
-		return true;
+		return this.nextHandler.handle(user);
 	}
 
 }

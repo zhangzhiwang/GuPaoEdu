@@ -5,8 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MyJdbcTempalteTest {
-	private static DataSource dataSource;// 假设dataSource已经被注入进来
-	
+	private static DataSource dataSource; 	
 	public static void main(String[] args) {
 		DaoImpl daoImpl = new DaoImpl(null);
 		daoImpl.getAllStudent();

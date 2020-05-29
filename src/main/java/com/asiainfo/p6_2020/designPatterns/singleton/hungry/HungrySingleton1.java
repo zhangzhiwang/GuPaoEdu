@@ -34,7 +34,7 @@ public class HungrySingleton1 implements Serializable {
 		return INSTANCE;
 	}
 
-	private Object readResolve() {// 防止反序列化破坏单例
+	private Object readResolve() {// 防止反序列化破坏单例，注意如果有序列化和反序列化的需求那么单例类必须实现Serializable接口，否则无意义
 		/**
 		 * 为什么要写这个方法？打开java.io.ObjectInputStream.readObject()的源码，查找路径：readObject0()->readOrdinaryObject()->hasReadResolveMethod()->invokeReadResolve()
 		 */

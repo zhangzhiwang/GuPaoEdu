@@ -16,6 +16,9 @@ public class LazySingleton1 implements Serializable {
 	private static LazySingleton1 instance;
 
 	private LazySingleton1() {
+		if(instance != null) {// 对反射不起作用
+			throw new UnsupportedOperationException("不支持的操作");
+		}
 	}
 
 	public static synchronized LazySingleton1 getInstance() {

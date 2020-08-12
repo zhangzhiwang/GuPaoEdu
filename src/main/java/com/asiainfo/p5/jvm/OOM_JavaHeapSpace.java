@@ -12,14 +12,14 @@ import java.util.List;
 public class OOM_JavaHeapSpace {
 	public static void main(String[] args) throws InterruptedException {
 		// -Xms10m -Xmx10m
-//		List<byte[]> list = new ArrayList<byte[]>();
-//		while(true) {
-//			list.add(new byte[1024]);
-//		}
-		
-		List<Car> list = new ArrayList<Car>();
+		List<byte[]> list = new ArrayList<byte[]>();
 		while(true) {
-			list.add(new Car());
+			list.add(new byte[1024]);
 		}
+		
+//		List<Car> list = new ArrayList<Car>();
+//		while(true) {
+//			list.add(new Car());
+//		}
 	}
 }

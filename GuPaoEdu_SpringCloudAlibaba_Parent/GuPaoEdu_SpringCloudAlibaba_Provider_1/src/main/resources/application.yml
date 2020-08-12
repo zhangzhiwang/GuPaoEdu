@@ -1,0 +1,12 @@
+server:
+  port: 8090
+  
+dubbo:
+  application:
+    name: Provider-1  #dubbo应用名称
+  protocol:
+    name: dubbo #dubbo使用的协议
+    port: 1234  #该协议的端口，自定义
+    
+  registry:
+    address: nacos://127.0.0.1:8848

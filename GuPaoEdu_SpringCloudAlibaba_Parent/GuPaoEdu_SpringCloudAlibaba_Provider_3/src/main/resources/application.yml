@@ -1,13 +1,12 @@
 server:
-  port: 8090
+  port: 8092
   
 dubbo:
   application:
-    name: provider-1
+    name: provider-3
   registries:
     beijing:  #相当于配置文件：<dubbo:registry id="beijing" address="nacos://127.0.0.1:8848" />
       address: nacos://127.0.0.1:8848
-      check: true #启动服务检查，当启动时检查注册中心是否可用，如果不可用则服务启动失败，如果不进行检查则当注册中心不可用时服务依然能启动成功
     shanghai: #相当于配置文件：<dubbo:registry id="shanghai" address="zookeeper://127.0.0.1:2181" />
       address: zookeeper://127.0.0.1:2181
 #  protocol:
@@ -15,8 +14,8 @@ dubbo:
   protocols:  #dubbo配置多协议
     protocal_1:  #相当于配置文件：<dubbo:protocol id="protocal_1" name="dubbo" port="-1" />
       name: dubbo
-      port: 20880 #-1代表不指定协议端口让系统自动生成
+      port: 20882 #不指定协议端口让系统自动生成
     protocal_2:  #相当于配置文件：<dubbo:protocol id="protocal_2" name="rest" port="-1" />
       name: rest  #如果使用rest协议则需要做三方面配置：1、引入依赖：resteasy-jaxrs、resteasy-client、jetty-server和jetty-servlet 2、配置文件在配置rest协议时要加上web容器的配置，即server属性 3、要在接口上加上rest的路径注解@Path
-      port: 80  #客户端在消费rest协议的接口时要注意：访问的端口号是rest协议的端口号，即port指定的值，如果指定的是-1可以到注册中心看一下端口号是多少，千万注意调用时url的端口号是rest协议的，不是应用的端口号（本工程应用的端口号是8090）
+      port: 82
       server: jetty  #rest协议需要web容器的支持，这里容器选择jetty

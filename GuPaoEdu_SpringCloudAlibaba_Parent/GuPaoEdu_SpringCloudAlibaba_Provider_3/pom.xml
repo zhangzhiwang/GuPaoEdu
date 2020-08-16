@@ -10,8 +10,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>GuPaoEdu_SpringCloudAlibaba_Provider_1</artifactId>
-	<name>GuPaoEdu_SpringCloudAlibaba_Provider_1</name>
+	<artifactId>GuPaoEdu_SpringCloudAlibaba_Provider_3</artifactId>
+	<name>GuPaoEdu_SpringCloudAlibaba_Provider_3</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -33,11 +33,6 @@
 		<dependency>
 			<groupId>com.asiainfo</groupId>
 			<artifactId>GuPaoEdu_SpringCloudAlibaba_Api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.asiainfo</groupId>
-			<artifactId>GuPaoEdu_SpringCloudAlibaba_Cyclic_Api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

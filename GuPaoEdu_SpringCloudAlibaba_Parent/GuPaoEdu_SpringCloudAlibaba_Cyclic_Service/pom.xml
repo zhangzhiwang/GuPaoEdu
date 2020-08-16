@@ -10,35 +10,34 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>GuPaoEdu_SpringCloudAlibaba_Provider_1</artifactId>
-	<name>GuPaoEdu_SpringCloudAlibaba_Provider_1</name>
+	<artifactId>GuPaoEdu_SpringCloudAlibaba_Cyclic_Service</artifactId>
+	<name>GuPaoEdu_SpringCloudAlibaba_Cyclic_Service</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<resteasy.version></resteasy.version>
 	</properties>
 
 	<dependencies>
-		<!-- spring boot -->
+		<!-- 发布接口的依赖 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<!-- 集成nacos作为注册中心 -->
-		<dependency>
-			<groupId>com.alibaba.boot</groupId>
-			<artifactId>nacos-discovery-spring-boot-starter</artifactId>
+			<groupId>com.asiainfo</groupId>
+			<artifactId>GuPaoEdu_SpringCloudAlibaba_Cyclic_Api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.asiainfo</groupId>
 			<artifactId>GuPaoEdu_SpringCloudAlibaba_Api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- spring boot -->
 		<dependency>
-			<groupId>com.asiainfo</groupId>
-			<artifactId>GuPaoEdu_SpringCloudAlibaba_Cyclic_Api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.boot</groupId>
+			<artifactId>nacos-discovery-spring-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
 </project>

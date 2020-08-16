@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.asiainfo</groupId>
@@ -85,10 +88,36 @@
 			<type>pom</type>
 			<version>2.7.7</version>
 		</dependency>
+		<!--resteasy -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>3.13.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.13.0.Final</version>
+		</dependency>
+		<!--jetty -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>9.4.19.v20190610</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>9.4.19.v20190610</version>
+		</dependency>
 	</dependencies>
 	<modules>
 		<module>GuPaoEdu_SpringCloudAlibaba_Provider_1</module>
 		<module>GuPaoEdu_SpringCloudAlibaba_Api</module>
 		<module>GuPaoEdu_SpringCloudAlibaba_Consumer_1</module>
+		<module>GuPaoEdu_SpringCloudAlibaba_Provider_2</module>
+		<module>GuPaoEdu_SpringCloudAlibaba_Provider_3</module>
+		<module>GuPaoEdu_SpringCloudAlibaba_Cyclic_Api</module>
+		<module>GuPaoEdu_SpringCloudAlibaba_Cyclic_Service</module>
 	</modules>
 </project>

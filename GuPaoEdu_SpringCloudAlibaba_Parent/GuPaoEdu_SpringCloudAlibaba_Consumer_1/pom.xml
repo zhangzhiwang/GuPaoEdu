@@ -31,5 +31,11 @@
 			<artifactId>GuPaoEdu_SpringCloudAlibaba_Api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 使用kryo进行序列化 -->
+		<dependency>
+			<groupId>de.javakaffee</groupId>
+			<artifactId>kryo-serializers</artifactId>
+			<version>0.45</version>
+		</dependency>
 	</dependencies>
 </project>

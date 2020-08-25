@@ -4,9 +4,14 @@ server:
 dubbo:
   application:
     name: provider-1
+    qos-enable: true  #开启qos
+    qos-port: 33333 #默认是22222，和dubbo协议是不同的端口。这个是2.5.8新增的功能，通过telnet对dubbo服务进行运维管理，当然是通过命令行，其可视化的管理界面就是dubbo-admin。
+                    #另外dubbo-admin只是一个可视化的运维工具，可以看查询服务列表和进行配置管理，但是要注意服务和配置明没有放在dubbo-admin上，而是放在了zookeeper上，dubbo-admin只是读取了zookeeper的配置然后展示在了页面上而已。
+                    #和nacos不同，nacos页面也能查询这些信息，和dbbo-admin不同的是服务和配置值真真正正放在了nacos上面，因为nacos就是注册中心和配置中心，这一点要分清dubbo-admin和nacos。
+    qos-accept-foreign-ip: false  #是否支持远端服务连接，默认是支持的，如果设置为false则禁止远端ip通过qos-port端口进行连接，只允许本机连接
   registries:
     beijing:  #相当于配置文件：<dubbo:registry id="beijing" address="nacos://127.0.0.1:8848" />
-      address: nacos://127.0.0.1:8848
+      address: zookeeper://127.0.0.1:2181 #nacos://127.0.0.1:8848
       check: true #启动服务检查，当启动时检查注册中心是否可用，如果不可用则服务启动失败，如果不进行检查则当注册中心不可用时服务依然能启动成功
 #    shanghai: #相当于配置文件：<dubbo:registry id="shanghai" address="zookeeper://127.0.0.1:2181" />
 #      address: zookeeper://127.0.0.1:2181

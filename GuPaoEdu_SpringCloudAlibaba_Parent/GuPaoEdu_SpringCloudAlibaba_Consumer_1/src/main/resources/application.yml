@@ -8,13 +8,13 @@ dubbo:
 #    address: nacos://127.0.0.1:8848
   registries:
     beijing:
-      address: nacos://127.0.0.1:8848
+      address: zookeeper://127.0.0.1:2181 #nacos://127.0.0.1:8848
       file: /Users/zhangzhiwang/Desktop/dubbo_file.cache  #dubbo缓存。为了防止注册中心挂掉提高系统的高可用，dubbo消费者会将从注册中心获取到的服务信息存下来放到文件里，以备注册中心不可用时仍然可以继续调用服务
 #      weight: 100 #权重。weight、zone和preferred都是干预dubbo对多注册中心的负载
 #      zone: beijing  #区域优先
 #      preferred: true #优先选择
-    shanghai:
-      address: zookeeper://127.0.0.1:2181
+#    shanghai:
+#      address: zookeeper://127.0.0.1:2181
 #      weight: 10
   protocol:
     name: dubbo

@@ -1,6 +1,8 @@
-package com.asiainfo.p5.rabbitmq;
+package com.asiainfo.p5.rabbitmq.basics;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.AMQP;
@@ -22,7 +24,7 @@ public class RabbitMqConsumer {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 		connectionFactory.setHost("127.0.0.1");// 设置rabbitmq服务器的ip和端口
 		connectionFactory.setPort(5672);// 15672是给浏览器访问rabbitmq的管理界面用的端口，程序连rabbitmq服务器的端口默认是5672
-		connectionFactory.setVirtualHost("/");// 设置虚拟主机（VHost）地址，默认的VHost就是“/”。每一个exchange都归属于一个VHost，VHost起到对exchange的隔离作用，使不同VHost下的exchange互相不受影响，类似Java中的package
+		connectionFactory.setVirtualHost("new_vhost");// 设置虚拟主机（VHost）地址，默认的VHost就是“/”。每一个exchange都归属于一个VHost，VHost起到对exchange的隔离作用，使不同VHost下的exchange互相不受影响，类似Java中的package
 		connectionFactory.setUsername("guest");// rabbitmq默认的用户名和密码是guest
 		connectionFactory.setPassword("guest");
 //		connectionFactory.setConnectionTimeout(30000);
@@ -39,12 +41,13 @@ public class RabbitMqConsumer {
 				null// 其他参数
 		);
 		// 用Channel声明队列
-		channel.queueDeclare("queue_1", // 给队列起一个名称
-				false, // 是否持久化
-				false, // 是否排他
-				false, // 是否自动删除
-				null// 其他参数
-		);
+		
+//		channel.queueDeclare("queue_1", // 给队列起一个名称
+//				false, // 是否持久化
+//				false, // 是否排他
+//				false, // 是否自动删除
+//				null// 其他参数，至于有哪些参数以及key都是什么，可以通过rabbitmq的管理页面的“Queues”标签查看
+//		);
 		// 用Channel来绑定交换机和队列
 		channel.queueBind("queue_1", // 要绑定的队列名字
 				"exchange_1", // 要绑定的交换机名字

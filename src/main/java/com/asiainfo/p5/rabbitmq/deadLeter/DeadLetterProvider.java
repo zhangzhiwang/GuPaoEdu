@@ -50,7 +50,7 @@ public class DeadLetterProvider {
 		 * 2、消息被消费者拒收后没有将该消息重新放入队列
 		 * 3、消息挤压超过了队列的容量，即x-max-length或x-max-length-bytes
 		 */
-//		AMQP.BasicProperties props = new AMQP.BasicProperties().builder().expiration("10000").build();// 使消息成为死信情况1
+//		AMQP.BasicProperties props = new AMQP.BasicProperties().builder().expiration("10000").build();// 使消息成为死信情况1。消息队列本质上是一个队列，队列就是FIFO的，所以到期的时候先从队列头来时移除
 		channel.basicPublish("normal_exchange", "key123", null, msg.getBytes());
 		
 		channel.close();

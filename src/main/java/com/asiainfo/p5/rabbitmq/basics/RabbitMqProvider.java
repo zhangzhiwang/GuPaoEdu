@@ -42,6 +42,7 @@ public class RabbitMqProvider {
 		// 给单个消息设置过期时间TTL（Time To Live），这个时间只适用于单个消息，如果与队列的消息过期时间冲突那么该消息最终的过期时间是二者的最小值
 		AMQP.BasicProperties properties = new AMQP.BasicProperties().builder().expiration("3000").build();
 		
+//		for(int i = 1; i <= 10; i++) {
 		// 用Channel来发送消息，生产者发送消息和消费者接受消息都是通过Channel来进行的
 		channel.basicPublish("exchange_1", // 要发送的交换机，如果没有指定交换机的名字，那么会发送到一个默认的交换机，名字叫“AMQP default”，该交换机的direct类型的，这时第二个参数（路由键）可以传入队列的名称，该交换机会把消息直接送到该队列里面
 				"zzw_rabbitmq_test", // 路由键，由于创建的交换机类型是直连，所以routingKey必须和bindingKey一致
@@ -49,10 +50,9 @@ public class RabbitMqProvider {
 				properties, // BasicProperties，消息的其他属性，比如过期时间等
 				msg.getBytes());
 		
-		for(int i = 1; i <= 10; i++) {
-			Thread.sleep(1000);
-			System.out.println(i);
-		}
+//			Thread.sleep(1000);
+//			System.out.println(i);
+//		}
 		
 		
 		// 发送完消息要将信道关闭掉，注意关闭信道不是关闭长连接，长连接是Connection

@@ -31,7 +31,7 @@ public class DelayProvider {
 		channel.exchangeDeclare("delay_exchange_zzw", "x-delayed-message",// 注意只有安装了rabbitmq_delayed_message_exchange插件并且启动之后才能使用延时队列，延时交换机的类型是x-delayed-message
 				false, false, arguments);
 		
-		channel.queueDeclareNoWait("delay_queue_zzw", false, false, false, null);
+//		channel.queueDeclareNoWait("delay_queue_zzw", false, false, false, null);
 		channel.queueBind("delay_queue_zzw", "delay_exchange_zzw", "delay_key");
 		
 		Map<String, Object> headers = new HashMap<String, Object>();

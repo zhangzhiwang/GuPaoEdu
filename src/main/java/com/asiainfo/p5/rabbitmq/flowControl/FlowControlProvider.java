@@ -7,7 +7,6 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
@@ -23,8 +22,8 @@ import com.rabbitmq.client.Envelope;
  * @author zhangzhiwang
  * @date Sep 2, 2020 11:47:13 AM
  */
-public class FlowControlConsumer {
-	public static void main(String[] args) throws IOException, TimeoutException {
+public class FlowControlProvider {
+	public static void main(String[] args) throws Exception {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 		connectionFactory.setHost("localhost");
 		connectionFactory.setPort(5672);
@@ -34,29 +33,14 @@ public class FlowControlConsumer {
 
 		Connection connection = connectionFactory.newConnection();
 		Channel channel = connection.createChannel();
-
-		Consumer consumer = new DefaultConsumer(channel) {
-			@Override
-			public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
-					byte[] body) throws IOException {
-				System.out.println("body = " + new String(body));
-				
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				// 如果将autoAck设置为false，则必须进行手工应答
-				channel.basicAck(envelope.getDeliveryTag(), true);
-			}
-		};
-		// 消费者限流要调用basicQos方法，同时要配合着将autoAck设置为false。该方法的意思是消费者在消费了多少条消息之后仍然没有给服务端发送ack应答，那么服务端就不会发送消息了
-		// 消费者消费消息（basicConsume）和处理消息（handleDelivery）是在不同的线程来进行的，如果处理速度跟不上接收速度的话那么就要在消费端控制流量，basicQos方法可以理解为能够缓存消息的数量，超过这个数量服务端就不会发送消息了（不会抛异常）直到没有处理的消息数量降到了这个值以下，这个时候会继续投递消息
-		channel.basicQos(2);
-		channel.basicConsume("queue_4", 
-				false,// autoAck，是否自动应答，默认情况下是true。默认情况下消费者一接收到服务端的消息就立即返回一个ack应答，代表已经接收了该条消息，服务端接收到ack应答后继续投递下一条消息。
-					 // 如果需要手动应答，改值设置为false，如果设置为false，那么必须在handleDelivery方法进行手动应答
-				consumer);
+		
+		channel.exchangeDeclare("exchange_4", "direct", false, false, null);
+		channel.queueDeclare("queue_4", false, false, false, null);
+		channel.queueBind("queue_4", "exchange_4", "key_4");
+		for(int i = 0; i < 1000; i++) {
+			Thread.sleep(300);
+			channel.basicPublish("exchange_4", "key_4", null, "FlowControlTest".getBytes());
+			System.out.println(i);
+		}
 	}
 }

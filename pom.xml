@@ -138,12 +138,18 @@
 			<version>2.5</version>
 		</dependency>
 		<!-- rabbitmq -->
+		<!-- spring-rabbit间接地引入了amqp-client -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.rabbitmq</groupId> -->
+<!-- 			<artifactId>amqp-client</artifactId> -->
+<!-- 			<version>6.0.0.M1</version> -->
+<!-- 		</dependency> -->
+		<!-- spring整合rabbitmq，引入spring-rabbit之后就无须显示地引入amqp-client依赖 -->
 		<dependency>
-			<groupId>com.rabbitmq</groupId>
-			<artifactId>amqp-client</artifactId>
-			<version>6.0.0.M1</version>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>1.3.5.RELEASE</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/rabbit
+     http://www.springframework.org/schema/rabbit/spring-rabbit-1.2.xsd">
+
+	<!-- 配置connectionFactory，相当于原生api的ConnectionFactory对象 -->
+	<rabbit:connection-factory id="connectionFactory" host="localhost" port="5672" username="guest" password="guest" virtual-host="new_vhost_5"/>
+	<!-- 在原生api中，由ConnectionFactory创建连接Connection，由Connection创建信道Channel，然后由Channel声明交换机和队列。
+		 Spring整合rabbiqmq之后，以上这些工作都由admin对象来完成，即上面的所有步骤都封装到了admin对象里面
+	 -->
+	<rabbit:admin id="connectAdmin" connection-factory="connectionFactory"/>
+	
+	<!-- 通过admin声明交换机并绑定队列 -->
+	<!-- 交换机的类型直接就是标签的定义“rabbit:”后面的部分，相当于原生api：
+		 channel.exchangeDeclare(String exchange, String type, boolean durable, boolean autoDelete,  Map<String, Object> arguments);
+		 最后要声明由谁来声明（declared-by）
+	 -->
+	<rabbit:direct-exchange name="exchange_5" durable="false" auto-delete="false" declared-by="connectAdmin">
+		<rabbit:bindings>
+			<rabbit:binding queue="queue_5" key="key_5"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+	
+	<!-- 通过admin声明队列 -->
+	<!-- 相当于原生api：
+		 channel.queueDeclare(String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments)
+		 最后要声明由谁来声明（declared-by）
+	 -->
+	<rabbit:queue name="queue_5" durable="false" auto-delete="false" exclusive="false" declared-by="connectAdmin"></rabbit:queue>
+	
+	<!-- 定义模版template，里面封装了数据发送和接收的api（和各种技术跟spring整合都喜欢提供一个template来提供api） -->
+	<rabbit:template id="rabbitmqTemplate" connection-factory="connectionFactory"></rabbit:template>
+	
+	<!-- 配置消费者所监听的队列，一单队列由消息推送就会回调消费者的onMessage方法 -->
+	<rabbit:listener-container connection-factory="connectionFactory">
+		<!-- ref引用的就是消费者的bean名称 -->
+		<rabbit:listener ref="springRabbitConsumer" queues="queue_5"/>	<!-- 配置消费者监听哪个队列 -->
+	</rabbit:listener-container>
+</beans>

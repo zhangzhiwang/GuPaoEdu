@@ -24,5 +24,9 @@
 	<bean id="beanFactory" class="com.asiainfo.p5.javaCore.reflect.BeanFactory"></bean>
 	<bean id="springTest3" factory-bean="beanFactory" factory-method="getInstance"></bean>
 	
-	<context:component-scan base-package="com.asiainfo.p5.javaCore.annotation"></context:component-scan>
+<!-- 	<context:component-scan base-package="com.asiainfo.p5.javaCore.annotation"></context:component-scan> -->
+
+	<bean id="springRabbitProvider" class="com.asiainfo.p5.rabbitmq.spring.SpringRabbitProvider"></bean>
+	<context:component-scan base-package="com.asiainfo.p5"></context:component-scan>
+	<import resource="classpath:rabbitmq.xml"/>
 </beans>

@@ -42,12 +42,12 @@ public class RabbitMqConsumer {
 		);
 		// 用Channel声明队列
 		
-//		channel.queueDeclare("queue_1", // 给队列起一个名称
-//				false, // 是否持久化
-//				false, // 是否排他
-//				false, // 是否自动删除
-//				null// 其他参数，至于有哪些参数以及key都是什么，可以通过rabbitmq的管理页面的“Queues”标签查看
-//		);
+		channel.queueDeclare("queue_1", // 给队列起一个名称
+				false, // 是否持久化
+				false, // 是否排他
+				false, // 是否自动删除
+				null// 其他参数，至于有哪些参数以及key都是什么，可以通过rabbitmq的管理页面的“Queues”标签查看
+		);
 		// 用Channel来绑定交换机和队列
 		channel.queueBind("queue_1", // 要绑定的队列名字
 				"exchange_1", // 要绑定的交换机名字

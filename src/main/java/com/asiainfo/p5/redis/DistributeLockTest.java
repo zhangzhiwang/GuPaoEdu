@@ -15,7 +15,7 @@ import org.redisson.config.SingleServerConfig;
 public class DistributeLockTest {
 	public static void main(String[] args) {
 		Config config = new Config();
-		config.useSingleServer().setAddress("redis://localhost:6379");
+		config.useSingleServer().setAddress("redis://localhost:6389");
 		RedissonClient redissonClient = Redisson.create(config);
 		RLock rLock = redissonClient.getLock("disLock");
 		if (rLock.tryLock()) {

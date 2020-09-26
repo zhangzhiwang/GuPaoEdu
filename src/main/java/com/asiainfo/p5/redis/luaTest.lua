@@ -1,0 +1,2 @@
+--客户端使用./redis-cli --eval /Users/zhangzhiwang/Desktop/luaTest.lua  1 name2 , v4    注意：在未进入redis-cli模式下运行lua脚本时key和value之间有个逗号而且逗号前后有空格，在已进入redis-cli的模式下key和value之间是没有逗号的，用空格分隔，这两个不一样
+redis.call('set',KEYS[1],ARGV[1])

@@ -1,0 +1,13 @@
+server:
+  port: 8089
+
+spring: 
+  redis:
+#    host: localhost  #使用sentinel之后客户端要连接sentinel不需要直接连接redis服务器
+#    port: 6379
+    sentinel:
+      master: redis-master
+      nodes:
+      - 192.168.15.63:26379
+      - 192.168.15.85:26379
+      - 192.168.15.88:26379

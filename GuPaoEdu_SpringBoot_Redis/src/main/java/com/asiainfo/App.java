@@ -1,10 +1,14 @@
 package com.asiainfo;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asiainfo.util.RedisUtil;
@@ -26,5 +30,13 @@ public class App {
 		redisUtil.set("test", "11123");
 		String result = redisUtil.get("");
 		System.out.println(result);
+	}
+	
+	@RequestMapping("/test2")
+	public String test2(HttpServletRequest request) {
+		System.out.println(request.getHeader("Host"));
+		System.out.println(request.getHeader("X-Real-IP"));
+		System.out.println(request.getHeader("X-Forwarded-For"));
+		return "test2 : " + request.getMethod() + ",uri = " + request.getRequestURI() + ",host = " + request.getRemoteHost() + ",port = " + request.getRemotePort();
 	}
 }

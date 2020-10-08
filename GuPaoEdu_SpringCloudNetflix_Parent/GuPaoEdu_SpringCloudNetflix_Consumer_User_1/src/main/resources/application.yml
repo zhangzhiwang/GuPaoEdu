@@ -1,0 +1,13 @@
+server:
+  port: 8091
+  
+spring:
+  application:
+    name: GuPaoEdu-SpringCloudNetflix-Consumer-User-1
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8989/eureka
+    register-with-eureka: true
+    fetch-registry: true  #本工程最为消费者必须从eureka获取注册信息

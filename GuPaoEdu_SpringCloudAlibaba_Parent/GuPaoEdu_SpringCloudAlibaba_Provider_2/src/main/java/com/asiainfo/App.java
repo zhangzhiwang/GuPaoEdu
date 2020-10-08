@@ -14,12 +14,15 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.nacos.spring.context.annotation.discovery.EnableNacosDiscovery;
 
 @SpringBootApplication
-@EnableNacosDiscovery // 开启nacos注册中心
-@DubboComponentScan({ "com.asiainfo.service.impl" }) // 指定在哪里扫描标注了@DubboService注解的类，然后将其作为bean放入Spring的容器中
+//@EnableNacosDiscovery // 开启nacos注册中心
+//@DubboComponentScan({ "com.asiainfo.service.impl" }) // 指定在哪里扫描标注了@DubboService注解的类，然后将其作为bean放入Spring的容器中
+@RestController
 public class App {
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
@@ -83,4 +86,11 @@ public class App {
 //			rLock.unlock();
 //		}
 	}
+	
+	//*************************借用GuPaoEdu_SpringCloudAlibaba_Provider_【1-3】三个工程测试基于Nginx的负载均衡，此测试和SpringCloudAlibaba没有关系
+		@GetMapping("/test")
+		public String test() {
+			System.out.println(2);
+			return "	2";
+		}
 }

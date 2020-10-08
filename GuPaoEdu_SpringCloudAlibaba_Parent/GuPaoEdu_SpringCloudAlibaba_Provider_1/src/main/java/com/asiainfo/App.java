@@ -17,11 +17,15 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.alibaba.nacos.spring.context.annotation.discovery.EnableNacosDiscovery;
 
 @SpringBootApplication
-@EnableNacosDiscovery // 开启nacos注册中心
-@DubboComponentScan({ "com.asiainfo.service.impl" }) // 指定在哪里扫描标注了@DubboService注解的类，然后将其作为bean放入Spring的容器中
+//@EnableNacosDiscovery // 开启nacos注册中心
+//@DubboComponentScan({ "com.asiainfo.service.impl" }) // 指定在哪里扫描标注了@DubboService注解的类，然后将其作为bean放入Spring的容器中
+@RestController
 public class App {
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
@@ -32,7 +36,7 @@ public class App {
 		 * 3、生产者通过dubbo发布的服务消费者也必须通过dubbo来消费，通过netflex的eureka是消费不了的。
 		 */
 
-		// 借用一下GuPaoEdu_SpringCloudAlibaba_Provider_【1-3】三个工程测试一下基于Redis实现的分布式锁，此测试和SpringCloudAlibaba没有关系
+		//************************ 借用GuPaoEdu_SpringCloudAlibaba_Provider_【1-3】三个工程测试基于Redis实现的分布式锁，此测试和SpringCloudAlibaba没有关系
 		// 创建一个文件count.txt，里面的内容只有一个“0”，然后三个进程Provider_【1-3】分别去加1
 //		InputStream inputStream = null;
 //		OutputStream outputStream = null;
@@ -88,5 +92,14 @@ public class App {
 //		}
 //		
 //		redissonClient.shutdown();
+		
+		//*******************************************
+	}
+	
+	//*************************借用GuPaoEdu_SpringCloudAlibaba_Provider_【1-3】三个工程测试基于Nginx的负载均衡，此测试和SpringCloudAlibaba没有关系
+	@GetMapping("/test")
+	public String test() {
+		System.out.println(1);
+		return "1";
 	}
 }

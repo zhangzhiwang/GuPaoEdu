@@ -4,11 +4,11 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-<!-- 	<parent> -->
-<!-- 		<groupId>com.asiainfo</groupId> -->
-<!-- 		<artifactId>GuPaoEdu</artifactId> -->
-<!-- 		<version>0.0.1-SNAPSHOT</version> -->
-<!-- 	</parent> -->
+	<parent>
+		<groupId>com.asiainfo</groupId>
+		<artifactId>GuPaoEdu</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 
 	<artifactId>GuPaoEdu_SpringCloudAlibaba_Parent</artifactId>
 	<packaging>pom</packaging>
@@ -82,6 +82,8 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- 除非dubbo不实用注册中心，否则使用什么注册中心就要加入该注册中心相关的依赖 -->
+		<!-- dubbo没有内置zookeeper，所以如果要用zookeeper作为注册中心就必须加此依赖 -->
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-dependencies-zookeeper</artifactId>

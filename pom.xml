@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.asiainfo</groupId>
 	<artifactId>GuPaoEdu</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GuPaoEdu Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -216,6 +216,7 @@
 	<modules>
 		<module>GuPaoEdu_SpringCloudAlibaba_Parent</module>
 		<module>GuPaoEdu_SpringBoot_Redis</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Parent</module>
 	</modules>
 
 </project>

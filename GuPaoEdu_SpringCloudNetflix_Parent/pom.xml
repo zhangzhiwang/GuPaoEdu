@@ -46,5 +46,7 @@
     <module>GuPaoEdu_SpringCloudNetflix_Eureka_1</module>
     <module>GuPaoEdu_SpringCloudNetflix_Provider_Product_1</module>
     <module>GuPaoEdu_SpringCloudNetflix_Consumer_User_1</module>
+    <module>GuPaoEdu_SpringCloudNetflix_Eureka_2</module>
+    <module>GuPaoEdu_SpringCloudNetflix_Eureka_3</module>
   </modules>
 </project>

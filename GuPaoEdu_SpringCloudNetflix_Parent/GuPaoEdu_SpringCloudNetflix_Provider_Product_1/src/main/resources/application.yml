@@ -8,6 +8,6 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8989/eureka
+      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka #配置集群的所有节点以防单点故障
     register-with-eureka: true  #本工程作为服务的提供者必须系那个eureka注册自己
     fetch-registry: false #有无本工程不需要最为消费者来调用服务作为不需要从eureka获取注册信息

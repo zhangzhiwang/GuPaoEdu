@@ -3,7 +3,7 @@ server:
   
 spring:
   application:
-    name: GuPaoEdu-SpringCloudNetflix-Provider-Product-1  #本工程是产品微服务的生产者
+    name: GuPaoEdu-SpringCloudNetflix-Provider-Product  #本工程是产品微服务的生产者
   
 eureka:
   client:

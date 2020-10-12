@@ -11,3 +11,8 @@ eureka:
       defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka #配置集群的所有节点以防单点故障
     register-with-eureka: true
     fetch-registry: true  #本工程最为消费者必须从eureka获取注册信息
+
+#设置Ribbon负载均衡策略（默认是轮询），配置规则是：【服务生产者的applicationName】.ribbon.NFLoadBalancerRuleClassName:【某个负载均衡算法类（IRule的实现类）】
+GuPaoEdu-SpringCloudNetflix-Provider-Product:  
+  ribbon: 
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

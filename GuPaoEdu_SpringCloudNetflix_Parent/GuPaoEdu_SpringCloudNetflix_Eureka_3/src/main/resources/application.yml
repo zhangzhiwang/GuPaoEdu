@@ -3,7 +3,7 @@ server:
   
 spring:
   application:
-    name: GuPaoEdu-SpringCloudNetflix-Eureka-1
+    name: GuPaoEdu-SpringCloudNetflix-Eureka-3
     
 eureka:
   client:

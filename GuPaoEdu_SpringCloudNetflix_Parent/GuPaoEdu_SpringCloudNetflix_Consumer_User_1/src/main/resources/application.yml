@@ -11,8 +11,28 @@ eureka:
       defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka #配置集群的所有节点以防单点故障
     register-with-eureka: true
     fetch-registry: true  #本工程最为消费者必须从eureka获取注册信息
+  instance:
+    prefer-ip-address: false  #在spb2.3.1版本里面测试prefer-ip-address属性的作用，在页面显示上没什么效果
+    ip-address: 127.0.0.1 #默认情况下服务都是以应用名注册到eureka上面的，要想以ip和端口的方式注册可以配置ip-address和instance-id，或者只配置instance-id，但是instance-id的ip要写死
+    instance-id: ${eureka.instance.ip-address}:${server.port}
 
 #设置Ribbon负载均衡策略（默认是轮询），配置规则是：【服务生产者的applicationName】.ribbon.NFLoadBalancerRuleClassName:【某个负载均衡算法类（IRule的实现类）】
 GuPaoEdu-SpringCloudNetflix-Provider-Product:  
   ribbon: 
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    NFLoadBalancerRuleClassName: com.asiainfo.MyBalanceRule  #自定义负载均衡策略
+    
+feign:
+  compression:
+    request:
+      enabled: true #开启request请求的压缩
+      min-request-size: 1024  #压缩阈值，即达到多少大小之后会启用压缩，默认是2048
+      mime-types: #压缩文件的类型，即对什么类型的文件进行压缩，默认是{ "text/xml", "application/xml", "application/json" }
+      - text/xml
+      - application/json
+    response:
+      enabled: true #是否开启response的压缩
+      
+logging:
+  level:  #logging.level是一个Map，key是需要被打印日志的类的全限定名，value是日志级别
+    com.asiainfo.service.IServiceFeign: debug #对类com.asiainfo.service.IServiceFeign开启级别为debug的日志

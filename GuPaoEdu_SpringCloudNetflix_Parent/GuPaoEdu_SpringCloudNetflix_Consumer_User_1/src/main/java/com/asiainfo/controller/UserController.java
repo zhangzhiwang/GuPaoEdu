@@ -1,7 +1,9 @@
 package com.asiainfo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,15 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.netflix.discovery.converters.Auto;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
+	/**
+	 * RestTemplate是Spring提供的用于访问Rest服务的客户端，它提 供了很多可以方便方位远程http服务的方法，这些方法可以减少 开发人员在编写客户端代码的工作量。
+	 * */
 	@Autowired
 	private RestTemplate restTemplate;// 在没有使用feign的情况下，可以使用Spring提供的原生调用http服务的API——RestTemplate。注意：RestTemplate不是spb提供的接口类，而是Spring原生的。
 									  // 打开RestTemplate的源码可以看到该类并没有被任何注解标注为一个Bean，所以@Autowired肯定注入不进来，必须手动声明它为一个Bean
 	
+	@Autowired
+	private LoadBalancerClient loadBalancerClient;// 注意：使用LoadBalancerClient必须将RestTemplate的@LoadBalanced注解去掉，否则
+	
 	@Bean
-	@LoadBalanced
+//	@LoadBalanced
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
@@ -31,6 +41,14 @@ public class UserController {
 		 * 4、Ribbon负载均衡器的默认算法是轮询
 		 */
 		String result = restTemplate.getForObject("http://GuPaoEdu-SpringCloudNetflix-Provider-Product/product/test1", String.class);
+		return result;
+	}
+	
+	@GetMapping("/userTest2")
+	public String userTest2() {
+		ServiceInstance instance = loadBalancerClient.choose("GuPaoEdu-SpringCloudNetflix-Provider-Product");// 参数是服务提供者的应用名称
+		String url = "http://" + instance.getHost() + ":" + instance.getPort() + "/product/test1";
+		String result = restTemplate.getForObject(url, String.class);
 		return result;
 	}
 }

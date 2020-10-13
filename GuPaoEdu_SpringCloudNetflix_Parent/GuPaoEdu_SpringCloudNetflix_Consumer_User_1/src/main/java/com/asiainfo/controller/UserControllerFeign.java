@@ -13,17 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.asiainfo.entityTest.User;
 import com.asiainfo.service.IServiceFeign;
+import com.asiainfo.service.interfaceTest.IUserServiceFeign;
 import com.netflix.discovery.converters.Auto;
 
 @RestController
 @RequestMapping("userWithFeign")
 public class UserControllerFeign {
-	@Autowired// 注意：IServiceFeign标注了@FeignClient注解但是并没有声明为一个Bean，所以直接@Autowired会报Bean找不到，必须在启动类使用注解@EnableFeignClients
-	private IServiceFeign serviceFeign;
+//	@Autowired// 注意：IServiceFeign标注了@FeignClient注解但是并没有声明为一个Bean，所以直接@Autowired会报Bean找不到，必须在启动类使用注解@EnableFeignClients
+//	private IServiceFeign serviceFeign;
 	
-	@GetMapping("/testFeign")
-	public String testFeign() {
-		return serviceFeign.testFeign();
+	@Autowired
+	private IUserServiceFeign userServiceFeign;
+	
+//	@GetMapping("/testFeign")
+//	public String testFeign() {
+//		return serviceFeign.testFeign();
+//	}
+	
+	@GetMapping("/testFeign2")
+	public String testFeign2() {
+		return userServiceFeign.getUser(new User(18));
 	}
 }

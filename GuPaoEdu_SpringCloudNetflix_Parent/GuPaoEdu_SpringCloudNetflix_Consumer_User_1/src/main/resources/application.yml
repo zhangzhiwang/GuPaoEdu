@@ -22,7 +22,7 @@ GuPaoEdu-SpringCloudNetflix-Provider-Product:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
     NFLoadBalancerRuleClassName: com.asiainfo.MyBalanceRule  #自定义负载均衡策略
     
-feign:
+feign: 
   compression:
     request:
       enabled: true #开启request请求的压缩
@@ -32,6 +32,11 @@ feign:
       - application/json
     response:
       enabled: true #是否开启response的压缩
+  #替换feign底层默认使用的httpClient
+#  httpclient:
+#    enabled: false  #将httpClient禁用
+#  okhttp:
+#    enabled: true   #替换为okhttp，需要引入okhttp的依赖
       
 logging:
   level:  #logging.level是一个Map，key是需要被打印日志的类的全限定名，value是日志级别

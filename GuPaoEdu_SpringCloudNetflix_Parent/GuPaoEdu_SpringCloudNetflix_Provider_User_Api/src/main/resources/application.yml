@@ -1,0 +1,13 @@
+server:
+  port: 8084
+  
+spring:
+  application:
+    name: GuPaoEdu-SpringCloudNetflix-Provider-User-Api  
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka 
+    register-with-eureka: true  
+    fetch-registry: false 

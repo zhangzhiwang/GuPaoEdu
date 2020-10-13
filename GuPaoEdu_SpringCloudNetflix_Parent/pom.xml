@@ -51,5 +51,7 @@
     <module>GuPaoEdu_SpringCloudNetflix_Provider_Product_2</module>
     <module>GuPaoEdu_SpringCloudNetflix_Provider_Product_3</module>
     <module>GuPaoEdu_SpringCloudNetflix_Config_Server</module>
+    <module>GuPaoEdu_SpringCloudNetflix_Provider_User_Api</module>
+    <module>GuPaoEdu_SpringCloudNetflix_Provider_User_Service</module>
   </modules>
 </project>

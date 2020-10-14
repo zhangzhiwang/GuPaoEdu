@@ -3,7 +3,7 @@ server:
   
 spring:
   application:
-    name: GuPaoEdu-SpringCloudNetflix-Provider-User-Api  
+    name: GuPaoEdu-SpringCloudNetflix-Provider-User-Service 
   
 eureka:
   client:

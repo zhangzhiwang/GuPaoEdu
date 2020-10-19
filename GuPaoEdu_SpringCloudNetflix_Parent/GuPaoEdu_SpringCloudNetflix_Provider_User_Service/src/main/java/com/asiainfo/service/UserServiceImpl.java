@@ -1,15 +1,19 @@
 package com.asiainfo.service;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.asiainfo.entityTest.User;
 import com.asiainfo.service.interfaceTest.IUserService;
 
-@RestController
+@Service
 public class UserServiceImpl implements IUserService {
-
-	public String getUser(User user) {
-		System.out.println(user);
+	public String getUser(String s) {
+		System.out.println(s);
 		return "ok";
+	}
+
+	public String insertUser(User user) {
+		System.out.println(user);
+		return "insert success";
 	}
 }

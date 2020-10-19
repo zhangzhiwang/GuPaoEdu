@@ -4,7 +4,11 @@ server:
 spring:
   application:
     name: GuPaoEdu-SpringCloudNetflix-Consumer-User-1
-    
+
+ribbon:
+  eureka:
+    enabled: true
+
 eureka:
   client:
     service-url:
@@ -33,8 +37,8 @@ feign:
     response:
       enabled: true #是否开启response的压缩
   #替换feign底层默认使用的httpClient
-#  httpclient:
-#    enabled: false  #将httpClient禁用
+  httpclient:
+    enabled: true  #将httpClient禁用
 #  okhttp:
 #    enabled: true   #替换为okhttp，需要引入okhttp的依赖
       

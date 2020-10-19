@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import com.asiainfo.entityTest.User;
 import com.asiainfo.service.IServiceFeign;
-import com.asiainfo.service.interfaceTest.IUserServiceFeign;
+import com.asiainfo.service.interfaceTest.IUserService;
 import com.netflix.discovery.converters.Auto;
 
 @RestController
@@ -25,7 +24,7 @@ public class UserControllerFeign {
 //	private IServiceFeign serviceFeign;
 	
 	@Autowired
-	private IUserServiceFeign userServiceFeign;
+	private IUserService userService;
 	
 //	@GetMapping("/testFeign")
 //	public String testFeign() {
@@ -34,6 +33,11 @@ public class UserControllerFeign {
 	
 	@GetMapping("/testFeign2")
 	public String testFeign2() {
-		return userServiceFeign.getUser(new User(18));
+		return userService.getUser("18");
+	}
+	
+	@GetMapping("/testFeign3")
+	public String testFeign3() {
+		return userService.insertUser(new User(18));
 	}
 }

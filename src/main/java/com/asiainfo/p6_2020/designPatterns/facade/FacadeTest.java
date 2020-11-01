@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.support.JdbcUtils;
 
 /**
  * 门面模式——客户端只依赖一个总的接口就可以了，这个总接口往下去掉各子系统的分接口，减少客户端调用的复杂度</p>

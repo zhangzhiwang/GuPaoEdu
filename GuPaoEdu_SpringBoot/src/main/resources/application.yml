@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /helloSpb
+    
+user: 
+  userName: 张
+  age: 18

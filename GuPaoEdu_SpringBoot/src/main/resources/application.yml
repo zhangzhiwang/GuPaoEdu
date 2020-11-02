@@ -1,7 +1,24 @@
 server:
   servlet:
     context-path: /helloSpb
-    
+
+#spb内置logback，配置有两种方式，使用时二者选其一即可：
+#方式一：logback的配置可以在application.yml里面进行简单滴配置，如下：
+#logging:
+#  file:
+#    name: /Users/zhangzhiwang/Desktop/spb.log #设置输出的日志文件
+#  level:  #设置日志级别，是一个Map：key为包名，value为日志级别
+#    org.springframework: info
+#    com.asiainfo.controller: debug
+#    com.asiainfo.service: debug
+#方式二：ogback的配置也可以单独地放在一个配置文件里面，这个配置文件的名字是logback.xml，且该文件无需被application.yml引入或者在代码中引入，单独存在即可。
+#因为spb内置logback，所以会默认在项目的classpath路径下按顺序查找名为logback-test.xml、logback.groovy、logback.xml的文件，如果上述文件均未找到，则使用默认配置（debug级别）将日志输出到控制台
+
+spring:
+  profiles:
+    active:
+    - prod  #激活对应的配置文件，命名规则为application-${spring.profiles.active}.yml或者properties，注意application后面必须是“-”而不是“_”
+
 user: 
   userName: 张
   age: 18

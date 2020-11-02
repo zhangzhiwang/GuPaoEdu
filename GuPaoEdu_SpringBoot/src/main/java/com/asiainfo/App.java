@@ -31,8 +31,8 @@ public class App {
 		 *  上面两种方式是在使用原生spring且不气痛tomcat的情况下获取ioc容器中的bean的，spb的原理相当于上面的方式二——启动Spring上下文之后通过扫描注解来加载并获取bean。
 		 *  spb的启动顺序是先运行main方法中的SpringApplication.run()来启动并加载Spring的上下文，然后会扫描@SpringBootApplication注解来加载spb的东西，所以执行main方法在先，扫描@SpringBootApplication注解在后。
 		 */
-//		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
-//		System.out.println(applicationContext);
+		ApplicationContext applicationContext = SpringApplication.run(App.class, args);
+		System.out.println(applicationContext);
 		
 		/**
 		 * 更换及禁用启动的banner：
@@ -48,8 +48,8 @@ public class App {
  			如果想禁用banner，需要在main方法里面创建一个SpringApplication对象，如下：
 		 */
 		// 禁用banner
-		SpringApplication springApplication = new SpringApplication(App.class);
-		springApplication.setBannerMode(Mode.OFF);// 关闭banner
-		springApplication.run(args);
+//		SpringApplication springApplication = new SpringApplication(App.class);
+//		springApplication.setBannerMode(Mode.OFF);// 关闭banner
+//		springApplication.run(args);
 	}
 }

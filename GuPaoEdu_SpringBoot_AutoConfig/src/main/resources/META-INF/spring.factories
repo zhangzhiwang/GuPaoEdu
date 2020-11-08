@@ -1,0 +1,3 @@
+#key是@EnableAutoConfiguration注解的全限定名
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com1.asiainfo1.autoConfig1.AutoConfig

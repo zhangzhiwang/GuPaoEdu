@@ -217,6 +217,7 @@
 		<module>GuPaoEdu_SpringBoot_Redis</module>
 		<module>GuPaoEdu_SpringCloudNetflix_Parent</module>
     <module>GuPaoEdu_SpringBoot</module>
+    <module>GuPaoEdu_SpringBoot_AutoConfig</module>
   </modules>
 
 </project>

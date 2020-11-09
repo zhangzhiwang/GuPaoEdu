@@ -2,6 +2,8 @@ package com.asiainfo;
 
 import org.springframework.boot.Banner.Mode;
 
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 
 import org.springframework.boot.SpringApplication;
@@ -9,7 +11,9 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurationImportSelector;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,6 +28,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import com.asiainfo.entity.Order;
 import com.asiainfo.entity.Product;
 import com.asiainfo.entity.User;
+import com.asiainfo.filter.MyFilter2;
+import com.asiainfo.listener.MyListener2;
 import com.asiainfo.service.UserService;
 import com.asiainfo.servlet.ServletTest2;
 
@@ -56,10 +62,20 @@ import com1.asiainfo1.service1.AutoConfigService;
 @SpringBootApplication// 启动main方法后，默认情况下会扫描启动类所在包及其子包下面的注解，这一默认功能是@SpringBootApplication注解里面的@ComponentScan起的作用
 /**
  * spb整合servlet的方式有两种：
- * 1、自定义servlet类，并在类声明处添加@WebServlet注解，然后在启动类加上@ServletComponentScan注解来扫描@WebServlet
- * 2、自定义servlet类，不需要在类声明处添加@WebServlet注解，然后定义一个Configuration类，用@Bean的方式返回ServletRegistrationBean，此种方法也无需在启动类添加@ServletComponentScan注解
+ * 1、自定义servlet类（继承HttpServlet），并在类声明处添加@WebServlet注解，然后在启动类加上@ServletComponentScan注解来扫描@WebServlet
+ * 2、自定义servlet类（继承HttpServlet），不需要在类声明处添加@WebServlet注解，然后定义一个Configuration类，用@Bean的方式返回ServletRegistrationBean，此种方法也无需在启动类添加@ServletComponentScan注解
+ * 
+ * 和整合servlet一样，spb整合filter的方式也有两种：
+ * 1、自定义filter类（实现Filter接口），并在类声明处添加@WebFilter注解，然后在启动类加上@ServletComponentScan注解来扫描@WebFilter
+ * 2、自定义filter类（实现Filter接口），不需要在类声明处添加@WebFilter注解，然后定义一个Configuration类，用@Bean的方式返回FilterRegistrationBean，此种方法也无需在启动类添加@ServletComponentScan注解
+ * 
+ * 和整合servlet一样，spb整合listener的方式也有两种：
+ * 1、自定义listener类（实现ServletContextListener接口），并在类声明处添加@WebListener注解，然后在启动类加上@ServletComponentScan注解来扫描@WebListener
+ * 2、自定义listener类（实现ServletContextListener接口），不需要在类声明处添加@WebListener注解，然后定义一个Configuration类，用@Bean的方式返回ServletListenerRegistrationBean，此种方法也无需在启动类添加@ServletComponentScan注解
+ * 
+ * 注意：@ServletComponentScan注解不仅可以扫描@WebServlet注解也可以扫描@WebFilter注解和@WebListener注解。
  */
-//@ServletComponentScan(basePackages = {"com.asiainfo.servlet"})// 扫描@WebServlet注解
+//@ServletComponentScan(basePackages = {"com.asiainfo.servlet", "com.asiainfo.filter", "com.asiainfo.listener"})// 扫描@WebServlet注解
 public class App {
 	public static void main(String[] args) {
 		
@@ -111,5 +127,18 @@ public class App {
 	public ServletRegistrationBean<ServletTest2> servlet2() {
 		ServletRegistrationBean<ServletTest2> servletRegistrationBean = new ServletRegistrationBean<>(new ServletTest2(), "/servletTest2");
 		return servletRegistrationBean;
+	}
+	
+	@Bean
+	public FilterRegistrationBean<MyFilter2> filter2() {
+		FilterRegistrationBean<MyFilter2> filterRegistrationBean = new FilterRegistrationBean<MyFilter2>(new MyFilter2());
+		filterRegistrationBean.addUrlPatterns("/logout1", "/logout2");
+		return filterRegistrationBean;
+	}
+	
+	@Bean
+	public ServletListenerRegistrationBean<MyListener2> listener2() {
+		ServletListenerRegistrationBean<MyListener2> servletListenerRegistrationBean =  new ServletListenerRegistrationBean<MyListener2>(new MyListener2());
+		return servletListenerRegistrationBean;
 	}
 }

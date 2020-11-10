@@ -5,9 +5,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/upload" method="post" enctype="multipart/form-data">
-		<input type="file" name="上传"/>
+	<form action="/helloSpb/upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="multipartFile" multiple="multiple"/>
 		<input type="submit" name="提交"/>
+	</form>
+	<form action="/helloSpb/download" method="post" enctype="multipart/form-data">
+		<input type="submit" name="下载"/>
 	</form>
 </body>
 </html>

@@ -15,4 +15,9 @@ public class UserService {
 		LOGGER.info("	service info");
 		LOGGER.error("	service error");
 	}
+	
+	public void testService2() {
+		String s = null;
+		s.length();
+	}
 }

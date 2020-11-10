@@ -26,8 +26,18 @@ spring:
 #    - classpath:/xjk
 #    - classpath:/static #虽然是默认的但如果配置了其它自定义的静态资源路径，该路径也必须显式地配置
 #    - classpath:/META-INF/resources #第三方jar包的静态资源路径
+  servlet:
+    multipart:
+      enabled: true #开启以文件上传可下载
+      max-file-size: 1024MB #单个文件最大大小，默认1M，注意：单位如果是兆要写“MB”不要写成“M”，否则不识别
+      max-request-size: 2048MB #上传总文件大小，默认10M
+  devtools: #开启spb热部署，eclipse开启spb热部署的方式：https://blog.csdn.net/rongyong/article/details/90741245
+    restart:
+      enabled: true
+        
+      
 
 user: 
-  userName: 张
+  userName: 张三
   age: 18
   

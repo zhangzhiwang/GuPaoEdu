@@ -27,8 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.asiainfo.entity.User;
 import com.asiainfo.service.UserService;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 public class TestController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
@@ -51,6 +51,14 @@ public class TestController {
 		return userName;
 	}
 	
+	/**
+	 * spb异常处理方式：
+	 * 1、自定义错误页面
+	 * 2、@ExceptionHandler 处理
+	 * 3、@ControllerAdvice+@ExceptionHandler处理
+	 * 4、SimpleMappingExceptionResolver处理
+	 * 5、自定义HandlerExceptionResolver处理（实际上和第四种一样，只不过第四种是Spring一共了一个默认的实现，第五种方式是自己实现）
+	 */
 	@GetMapping("/test2")
 	public String test2() {
 		String s = null;
@@ -77,12 +85,17 @@ public class TestController {
 		return userName;
 	}
 	
+	@GetMapping("/testJedis")
+	public void testJedis() {
+		userService.test3();
+	}
+	
 	/**
 	 * 对特定异常做特殊处理，返回特定页面可以使用这种方式，在方法上标注@ExceptionHandler，里面的属性是需要映射的异常，该注解表明发生什么异常的时候调用次方法来处理。
 	 * 这种异常处理的方式有两个缺点：
 	 * 1、这种处理方式只嗯呢个处理本类发生的异常，其他类（比如TestController2）里面的异常是不能被捕获的
 	 * 2、异常处理代码耦合到了业务代码中
-	 * 解决这些缺点的做法就是把异常处理逻辑抽离出去，放在一个专门处理异常的处理器中，并在处理器的类定义处添加@ControllerAdvice注解
+	 * 解决这些缺点的做法就是把异常处理逻辑抽离出去，放在一个专门处理异常的处理器中，并在处理器的类定义处添加@ControllerAdvice注解，如本包中的ExceptionController.java
 	 */
 //	@ExceptionHandler(value = {NullPointerException.class})
 //	public ModelAndView handleNullPointer() {

@@ -1,6 +1,9 @@
 package com.asiainfo;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner.Mode;
+
+import java.util.Properties;
 
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebListener;
@@ -15,6 +18,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -23,8 +28,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import com.asiainfo.config.MyHandlerExceptionResolver;
 import com.asiainfo.entity.Order;
 import com.asiainfo.entity.Product;
 import com.asiainfo.entity.User;
@@ -76,6 +84,18 @@ import com1.asiainfo1.service1.AutoConfigService;
  * 注意：@ServletComponentScan注解不仅可以扫描@WebServlet注解也可以扫描@WebFilter注解和@WebListener注解。
  */
 //@ServletComponentScan(basePackages = {"com.asiainfo.servlet", "com.asiainfo.filter", "com.asiainfo.listener"})// 扫描@WebServlet注解
+@MapperScan(basePackages = {"com.asiainfo.mapper"})
+/**
+ * spb整合ehcache的步骤：
+ * 1、引入相关依赖：spring-boot-starter-cache和ehcache
+ * 2、编写ehcache配置文件，比如名为ehcache.xml
+ * 3、在application.yml中引入该配置文件：spring.cache.ehcache.cofnig=ehcache.xml
+ * 4、在需要缓存的方法或者类上添加@Cacheable注解，其中value属性必须写
+ * 5、在启动类上添加@EnableCaching
+ * （6、编写配置类，@Bean注解的方法返回CacheManager对象，可参考CacheConfig.java）
+ */
+@EnableCaching// 启用缓存
+@EnableScheduling// 开启定时任务
 public class App {
 	public static void main(String[] args) {
 		
@@ -140,5 +160,22 @@ public class App {
 	public ServletListenerRegistrationBean<MyListener2> listener2() {
 		ServletListenerRegistrationBean<MyListener2> servletListenerRegistrationBean =  new ServletListenerRegistrationBean<MyListener2>(new MyListener2());
 		return servletListenerRegistrationBean;
+	}
+	
+//	@Bean
+//	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+//		System.out.println("进入SimpleMappingExceptionResolver...");
+//		SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+//		Properties properties = new Properties();
+//		properties.put("java.lang.NullPointerException", "nullPointer");
+//		properties.put("java.lang.ArrayIndexOutOfBoundsException", "arrayIndexOutOfBounds");
+//		simpleMappingExceptionResolver.setExceptionMappings(properties);
+//		return simpleMappingExceptionResolver;
+//	}
+	
+//	@Bean
+	public MyHandlerExceptionResolver myHandlerExceptionResolver() {
+		MyHandlerExceptionResolver myHandlerExceptionResolver = new MyHandlerExceptionResolver();
+		return myHandlerExceptionResolver;
 	}
 }

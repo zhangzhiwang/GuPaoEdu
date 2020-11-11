@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class ExceptionController {
 	@ExceptionHandler(value = {NullPointerException.class})
 	public ModelAndView handleNullPointer() {

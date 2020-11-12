@@ -1,0 +1,63 @@
+server:
+  servlet:
+    context-path: /helloSpb
+
+#spb内置logback，配置有两种方式，使用时二者选其一即可：
+#方式一：logback的配置可以在application.yml里面进行简单滴配置，如下：
+#logging:
+#  file:
+#    name: /Users/zhangzhiwang/Desktop/spb.log #设置输出的日志文件
+#  level:  #设置日志级别，是一个Map：key为包名，value为日志级别
+#    org.springframework: info
+#    com.asiainfo.controller: debug
+#    com.asiainfo.service: debug
+#方式二：ogback的配置也可以单独地放在一个配置文件里面，这个配置文件的名字是logback.xml，且该文件无需被application.yml引入或者在代码中引入，单独存在即可。
+#因为spb内置logback，所以会默认在项目的classpath路径下按顺序查找名为logback-test.xml、logback.groovy、logback.xml的文件，如果上述文件均未找到，则使用默认配置（debug级别）将日志输出到控制台
+
+spring:
+  profiles:
+    active:
+    - prod  #激活对应的配置文件，命名规则为application-${spring.profiles.active}.yml或者properties，注意application后面必须是“-”而不是“_”
+#  webflux:
+#    static-path-pattern: /aaa/bbb/ccc/**  #静态资源路径模式匹配，符合该模式的走静态资源访问，如果配置成“/**”则表示所有路径都要先经过静态资源访问，如果找不到静态资源再去找动态资源映射到controller
+#  resources:
+#    static-locations: #自定义静态资源路径，默认的为classpath:/static和/src/main/webapp，注意如果配置了自定义的静态资源路径那么默认的classpath:/static已经不生效了，如果仍然需要访问classpath:/static里面的资源必须显式地进行配置
+#    - classpath:/zzw
+#    - classpath:/xjk
+#    - classpath:/static #虽然是默认的但如果配置了其它自定义的静态资源路径，该路径也必须显式地配置
+#    - classpath:/META-INF/resources #第三方jar包的静态资源路径
+  servlet:
+    multipart:
+      enabled: true #开启以文件上传可下载
+      max-file-size: 1024MB #单个文件最大大小，默认1M，注意：单位如果是兆要写“MB”不要写成“M”，否则不识别
+      max-request-size: 2048MB #上传总文件大小，默认10M
+  devtools: #开启spb热部署，eclipse开启spb热部署的方式：https://blog.csdn.net/rongyong/article/details/90741245
+    restart:
+      enabled: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/student
+    username: root
+    password: zzw1234
+  #整合ehcache  
+  cache:
+    ehcache:
+      config: ehcache.xml
+  #整合redis（如果host是localhost，port是6379，没有密码，那么就不需要在application.yml里面进行整合redis的配置，“约定大于配置”的原则，默认就是localhost:6379）
+#  redis:
+#    host: localhost
+#    port: 6379
+        
+mybatis:
+  type-aliases-package: com.asiainfo.entity
+  mapper-locations:
+  - classpath:mapper/*.xml
+
+
+      
+
+user: 
+  userName: 张三
+  age: 18
+  

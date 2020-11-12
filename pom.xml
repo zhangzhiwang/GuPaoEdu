@@ -13,6 +13,8 @@
 	<properties>
 		<spring.version>5.2.10.RELEASE</spring.version>
 		<springboot.version>2.3.5.RELEASE</springboot.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -219,6 +221,7 @@
 		<module>GuPaoEdu_SpringBoot_Redis</module>
 		<module>GuPaoEdu_SpringCloudNetflix_Parent</module>
 		<module>GuPaoEdu_SpringBoot_AutoConfig</module>
+		<module>GuPaoEdu_SpringBoot</module>
 	</modules>
 
 </project>

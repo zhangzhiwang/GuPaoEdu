@@ -18,14 +18,14 @@ spring:
   profiles:
     active:
     - prod  #激活对应的配置文件，命名规则为application-${spring.profiles.active}.yml或者properties，注意application后面必须是“-”而不是“_”
-#  webflux:
-#    static-path-pattern: /aaa/bbb/ccc/**  #静态资源路径模式匹配，符合该模式的走静态资源访问，如果配置成“/**”则表示所有路径都要先经过静态资源访问，如果找不到静态资源再去找动态资源映射到controller
-#  resources:
-#    static-locations: #自定义静态资源路径，默认的为classpath:/static和/src/main/webapp，注意如果配置了自定义的静态资源路径那么默认的classpath:/static已经不生效了，如果仍然需要访问classpath:/static里面的资源必须显式地进行配置
-#    - classpath:/zzw
-#    - classpath:/xjk
-#    - classpath:/static #虽然是默认的但如果配置了其它自定义的静态资源路径，该路径也必须显式地配置
-#    - classpath:/META-INF/resources #第三方jar包的静态资源路径
+  webflux:
+    static-path-pattern: /aaa/bbb/ccc/**  #静态资源路径模式匹配，符合该模式的走静态资源访问，如果配置成“/**”则表示所有路径都要先经过静态资源访问，如果找不到静态资源再去找动态资源映射到controller
+  resources:
+    static-locations: #自定义静态资源路径，默认的为classpath:/static和/src/main/webapp，注意如果配置了自定义的静态资源路径那么默认的classpath:/static已经不生效了，如果仍然需要访问classpath:/static里面的资源必须显式地进行配置
+    - classpath:/zzw
+    - classpath:/xjk
+    - classpath:/static #虽然是默认的但如果配置了其它自定义的静态资源路径，该路径也必须显式地配置
+    - classpath:/META-INF/resources #第三方jar包的静态资源路径
   servlet:
     multipart:
       enabled: true #开启以文件上传可下载

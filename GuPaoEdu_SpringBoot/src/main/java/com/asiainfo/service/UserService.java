@@ -32,8 +32,8 @@ public class UserService {
 	public void test3() {
 //		redisTemplate.opsForValue().set("k1", "111");// value使用StringRedisSerializer
 		
-//		redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Student.class));
+		redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+//		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Student.class));
 		Student student = new Student(1, "张三", 18);
 		redisTemplate.opsForValue().set("student", student);// value使用JdkSerializationRedisSerializer
 		

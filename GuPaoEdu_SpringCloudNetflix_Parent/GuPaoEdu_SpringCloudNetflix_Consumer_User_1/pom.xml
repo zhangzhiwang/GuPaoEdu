@@ -51,5 +51,9 @@
 <!-- 			<artifactId>feign-httpclient</artifactId> -->
 <!-- 			<version>8.16.2</version> -->
 <!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
 	</dependencies>
 </project>

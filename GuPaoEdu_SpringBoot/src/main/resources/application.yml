@@ -1,6 +1,7 @@
 server:
   servlet:
     context-path: /helloSpb
+  port: 8080
 
 #spb内置logback，配置有两种方式，使用时二者选其一即可：
 #方式一：logback的配置可以在application.yml里面进行简单滴配置，如下：
@@ -15,9 +16,9 @@ server:
 #因为spb内置logback，所以会默认在项目的classpath路径下按顺序查找名为logback-test.xml、logback.groovy、logback.xml的文件，如果上述文件均未找到，则使用默认配置（debug级别）将日志输出到控制台
 
 spring:
-  profiles:
-    active:
-    - prod  #激活对应的配置文件，命名规则为application-${spring.profiles.active}.yml或者properties，注意application后面必须是“-”而不是“_”
+#  profiles:
+#    active:
+#    - prod  #激活对应的配置文件，命名规则为application-${spring.profiles.active}.yml或者properties，注意application后面必须是“-”而不是“_”
   webflux:
     static-path-pattern: /aaa/bbb/ccc/**  #静态资源路径模式匹配，符合该模式的走静态资源访问，如果配置成“/**”则表示所有路径都要先经过静态资源访问，如果找不到静态资源再去找动态资源映射到controller
   resources:

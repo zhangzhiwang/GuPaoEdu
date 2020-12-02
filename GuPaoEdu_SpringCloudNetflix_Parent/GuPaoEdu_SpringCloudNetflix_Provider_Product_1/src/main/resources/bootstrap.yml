@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: GuPaoEdu-SpringCloudNetflix-Provider-Product  #本工程是产品微服务的生产者
+  cloud:
+    config:
+      discovery:
+        enabled: true #启动配置发现，作为config的客户端需要向服务端请求获取配置
+        #配置中心服务端的名字，这个名字是eureka上注册的配置中心的Application名称，该名称如果在config服务端没有特别指定的话默认为${spring.application.name}，这就是为什么config服务端也必须注册到注册中心的原因
+        service-id: GUPAOEDU-SPRINGCLOUDNETFLIX-CONFIG-SERVER
+      profile: dev  #指定配置文件的profile。默认情况下，config客户端会去请求文件名为${spring.application.name}-${spring.cloud.config.profile}.properties，如本工程的GuPaoEdu-SpringCloudNetflix-Provider-Product-dev.properties
+      label: main #默认是到master分支去取配置文件，如果不是master分支需要指定
+
+#config客户端也要注册到eureka 
+eureka: 
+  client:
+    service-url:
+      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka
+    register-with-eureka: true
+    fetch-registry: true
+      
+server:
+  port: 8089
+#  
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka #配置集群的所有节点以防单点故障
+#    register-with-eureka: true  #本工程作为服务的提供者必须系那个eureka注册自己
+#    fetch-registry: false #有无本工程不需要最为消费者来调用服务作为不需要从eureka获取注册信息
+#    
+#product1: 
+#  name: Apple

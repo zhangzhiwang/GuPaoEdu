@@ -1,3 +1,10 @@
+#对于bootstrap.yml的误解：
+#误解一：SpringBoot默认支持bootstrap.yml
+#       SpringBoot并不支持解析bootstrap.yml（bootstrap.properties），是Spring Cloud才支持。
+#       在不使用SpringCloud的前提下，如果使用纯Spring Boot，那么必须添加依赖spring-cloud-context才能解析bootstrap.yml（bootstrap.properties）。
+#误解二：application.yml不能覆盖bootstrap.yml的同名属性
+#       bootstrap.yml优先加载，优先级最高并且不会被覆盖，这倒没错。其中“不会被覆盖”指的非同名属性，同名属性是会被application.yml覆盖的，properties文件同理。
+       
 server:
   servlet:
     context-path: /helloSpb

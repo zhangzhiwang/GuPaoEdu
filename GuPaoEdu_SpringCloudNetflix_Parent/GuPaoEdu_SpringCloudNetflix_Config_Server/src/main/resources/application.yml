@@ -4,18 +4,44 @@ server:
 spring:
   application:
     name: GuPaoEdu-SpringCloudNetflix-Config-Server
-#  cloud:
-#    config: 
-#      server:
-#        git:
-#          uri: https://github.com/zhangzhiwang/GuPaoEdu_SpringCloudNetflix_Config_Server.git
-#          username: 934109401@qq.com
-#          password: Areyouhapp25?
+#  profiles:
+#    active:
+#    - test2
+  cloud:
+    config: 
+      server:
+        git:
+          uri: https://github.com/zhangzhiwang/GuPaoEdu_SpringCloudNetflix_Config_Server.git
+          username: 934109401@qq.com
+          password: Areyouhapp25?
+
+#注意：配置中心也要作为eureka客户端注册到eureka服务端，否则启动报错，这个配置是必须的
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka
+    register-with-eureka: true
+    fetch-registry: false
+
+#yml文件里面的三个横线表示可以把不同的yml文件都写在同一个yml文件里面，各文件的配置之间用“---”分割（注意必须是三个横线，多一个少一个都不行）并且用spring.profiles标注，所以三个横线是yml的语法之一
+#---
+#server:
+#  port: 8073
+#  
+#spring:
+#  profiles:
+#  - test1
 #
-##注意：配置中心也要作为eureka客户端注册到eureka服务端，否则启动报错
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka
-#    register-with-eureka: true
-#    fetch-registry: false
+#student: 
+#  name: aaa
+#  
+#---
+#server:
+#  port: 8074
+#  
+#spring:
+#  profiles:
+#  - test2
+#
+#student: 
+#  name: bbb

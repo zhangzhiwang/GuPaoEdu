@@ -19,7 +19,7 @@ eureka:
     fetch-registry: true
       
 server:
-  port: 8089
+  port: 8089  #远端的配置文件中如果属性和bootstrap.yml同名，那么bootstrap.yml中的同名属性会被覆盖
 #  
 #eureka:
 #  client:

@@ -9,7 +9,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8987/eureka,http://localhost:8989/eureka #eureka集群要互相注册
-    register-with-eureka: false #是否将本工程注册到eureka服务，因为本工程就是eureka服务不需要注册自己
+    register-with-eureka: true #是否将本工程注册到eureka服务，因为本工程就是eureka服务不需要注册自己
     fetch-registry: false #是否从eureka服务拉取注册信息，因为本工程就是eureka服务不需要拉取任何注册信息
   server:
     enable-self-preservation: true

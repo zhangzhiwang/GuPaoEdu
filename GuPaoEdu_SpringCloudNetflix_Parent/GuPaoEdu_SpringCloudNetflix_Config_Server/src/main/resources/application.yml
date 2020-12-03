@@ -14,14 +14,44 @@ spring:
           uri: https://github.com/zhangzhiwang/GuPaoEdu_SpringCloudNetflix_Config_Server.git
           username: 934109401@qq.com
           password: Areyouhapp25?
+    bus:  #bus的相关配置
+      enabled: true
+      refresh:
+        enabled: true
+  kafka:  #配置spc bus底层的kafka信息
+    bootstrap-servers:
+    - localhost:9092
+    consumer:
+      group-id: conf-s
 
 #注意：配置中心也要作为eureka客户端注册到eureka服务端，否则启动报错，这个配置是必须的
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8987/eureka,http://localhost:8988/eureka,http://localhost:8989/eureka
+      defaultZone: http://localhost:8987/eureka #,http://localhost:8988/eureka,http://localhost:8989/eureka
     register-with-eureka: true
     fetch-registry: false
+    
+#Spring Cloud Bus可以实现配置动态刷新的功能，它底层是通过消息队列的广播机制来实现的，所有微服务订阅消息队列的消息从而达到接受配置更新的消息，默认支持rabbitmq，同时也支持kafka。但无论底层用的消息队列是什么，在外部提供消息队列环境并提前启动，本示例使用kafka。
+#Spring Cloud Bus的配置过程：
+#1、选择底层使用什么消息队列，本示例使用kafka，所以要提前准备kafka的环境并启动。
+#2、config server端需要引入actuator和spring-cloud-starter-bus-kafka依赖，config client只需要引入spring-cloud-starter-bus-kafka即可
+#3、在config server端配置acuator并暴露bus-refresh的endpoint，因为将配置变更的消息发送到其他微服务还是需要手动触发的，需要访问config server端的url：/acuator/bus-refresh，注意是post请求
+#4、在config server端配置底层使用的kafka的信息
+#5、在config client端配置相同kafka的信息
+#6、bus的相关配置
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - bus-refresh
+
+
+
+
+
 
 #yml文件里面的三个横线表示可以把不同的yml文件都写在同一个yml文件里面，各文件的配置之间用“---”分割（注意必须是三个横线，多一个少一个都不行）并且用spring.profiles标注，所以三个横线是yml的语法之一
 #---

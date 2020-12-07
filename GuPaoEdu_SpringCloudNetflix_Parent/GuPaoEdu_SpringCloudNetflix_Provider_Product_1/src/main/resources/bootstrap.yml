@@ -1,21 +1,21 @@
 spring:
   application:
     name: GuPaoEdu-SpringCloudNetflix-Provider-Product  #本工程是产品微服务的生产者
-  cloud:
-    config:
-      discovery:
-        enabled: true #启动配置发现，作为config的客户端需要向服务端请求获取配置
-        #配置中心服务端的名字，这个名字是eureka上注册的配置中心的Application名称，该名称如果在config服务端没有特别指定的话默认为${spring.application.name}，这就是为什么config服务端也必须注册到注册中心的原因
-        service-id: GUPAOEDU-SPRINGCLOUDNETFLIX-CONFIG-SERVER
-      profile: dev  #指定配置文件的profile。默认情况下，config客户端会去请求文件名为${spring.application.name}-${spring.cloud.config.profile}.properties，如本工程的GuPaoEdu-SpringCloudNetflix-Provider-Product-dev.properties
-      label: main #默认是到master分支去取配置文件，如果不是master分支需要指定。注意：请求的外部配置文件如果有和bootstrap.yml同名的属性，那么bootstrap的属性会被覆盖
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true #启动配置发现，作为config的客户端需要向服务端请求获取配置
+#        #配置中心服务端的名字，这个名字是eureka上注册的配置中心的Application名称，该名称如果在config服务端没有特别指定的话默认为${spring.application.name}，这就是为什么config服务端也必须注册到注册中心的原因
+#        service-id: GUPAOEDU-SPRINGCLOUDNETFLIX-CONFIG-SERVER
+#      profile: dev  #指定配置文件的profile。默认情况下，config客户端会去请求文件名为${spring.application.name}-${spring.cloud.config.profile}.properties，如本工程的GuPaoEdu-SpringCloudNetflix-Provider-Product-dev.properties
+#      label: main #默认是到master分支去取配置文件，如果不是master分支需要指定。注意：请求的外部配置文件如果有和bootstrap.yml同名的属性，那么bootstrap的属性会被覆盖
       #配置文件的合并：假如有三个环境的配置文件，分别是abc-dev.yml、abc-test.yml、abc-prod.yml，那么如果这些配置文件里面有一些公共的配置，可以把这些公共的配置抽取出来放在一个公共的配置文件里，这个配置文件的命名就是原有的名字去掉后面的环境信息即可，比如abc.yml，
       #这样访问任意带环境的配置文件都会自动读取公共配置文件里的属性
-  kafka:
-    bootstrap-servers:
-    - localhost:9092
-    consumer:
-      group-id: conf-s
+#  kafka:
+#    bootstrap-servers:
+#    - localhost:9092
+#    consumer:
+#      group-id: conf-s
       
       
 #config客户端也要注册到eureka 
@@ -27,7 +27,7 @@ eureka:
     fetch-registry: true
       
 server:
-  port: 8089  #远端的配置文件中如果属性和bootstrap.yml同名，那么bootstrap.yml中的同名属性会被覆盖
+  port: 8081  #远端的配置文件中如果属性和bootstrap.yml同名，那么bootstrap.yml中的同名属性会被覆盖
 #  
 #eureka:
 #  client:

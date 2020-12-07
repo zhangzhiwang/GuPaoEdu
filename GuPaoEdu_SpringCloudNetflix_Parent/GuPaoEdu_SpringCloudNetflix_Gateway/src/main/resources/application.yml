@@ -5,10 +5,82 @@ spring:
   application:
     name: spring-cloud-gateway
   cloud:
-    gateway:
+    #spc gateway配置
+    #网关的作用就是起到路由转发、鉴权、日志、流量监控、限流等
+    gateway:  #spc的网关原本是采用netflix公司的zuul，但是zuul1.0使用的是阻塞IO，并发承受能力不强，zuul2.0使用的是非阻塞IO，但是2.0的发布一再推迟，经常跳票，后来spc团队决定自己研发一个网关来取代zuul，所以就有了spc团队自主研发的gateway
       routes:
-        - predicates:
-            - Path=/gateway/**
-          filters:
-            - StripPrefix=1
-          uri: http://localhost:8081
+      - id: test1
+        predicates:  #predicates下面各参数的key具体是什么可以打开spring-cloud-gateway-core-***.jar，到包org.springframework.cloud.gateway.handler.predicate下面，所有以“RoutePredicateFactory”结尾的类，前面的部分就是key，比如PathRoutePredicateFactory.java，前面的“Path”的是key，其他的同理
+        #以下各值是并且的关系，请求的url必须同时满足
+        - Path=/gateway/**  #匹配所有符合/gateway/**的url
+        - Header=china,010  #http请求的header里面必须有key为china的并且value是010的请求才能通过
+        - Cookie=token,123456  #http请求的cookie里必须有key为token且值为123456的请求才能通过
+        - Query=userName,zhangsan #http请求的参数里必须有key为userName且值为zhangsan的请求才能通过
+        - Method=GET #只有post请求才通过
+        - Zzw=zzwKey,abc  #自定义的key，等号后面的key要和ZzwRoutePredicateFactory.MyConfig里面的属性名相同，注意：ZzwRoutePredicateFactory类必须标明@Component
+        #过滤器分为两种：一种是全局生效的，一种是只针对routes下某一id生效的
+        #过滤器和predicates的关系是：请求先通过predicates的匹配，通过之后会进入到过滤器
+        filters: 
+        - StripPrefix=1 #匹配后去掉最前面的一层url，本例为去掉最前面的gateway，StripPrefix的值代表去掉最前面的几层url。如访问url：/gateway/a/b/c/，拦截匹配成功后去掉gateway，变成/a/b/c/
+        uri: http://localhost:8081  #拦截后将请求转发到本uri，该uri指定特定微服务的地址。
+        #完整过程：首先客户端访问gateway的ip和端口，然后后面请求路径中包含${spring.cloud.gateway.routes.predicates.Path}的路径，如客户端访问http://localhost:8010/gateway/a/b/c，经过上面的处理后最终会将请求转发到指定微服务的地址上：http://localhost:8081/a/b/c
+      - id: rateLimitTest #限流过滤器
+        predicates:
+          - Path=/rateLimit/**
+        filters:
+          - StripPrefix=1
+          - name: RequestRateLimiter  #该限流过滤器底层默认使用redis，所以要引入spring-boot-starter-data-redis，而且redis的ip和端口不是默认的话要进行配置
+            args: 
+              keyResolver: '#{@myIpKeyResolver}'  #对ip进行限流，对应自定义类MyIpKeyResolver.java
+              redis-rate-limiter.replenishRate: 1 #令牌的产生速率
+              redis-rate-limiter.burstCapacity: 2 #令牌桶的容量
+        uri: http://localhost:8081
+      - id: addHeaderParamTest  #增加header参数的过滤器
+        predicates:
+        - Path=/addHeader/**
+        filters:  #filters下面的各参数具体的key是什么，可以打开spring-cloud-gateway-core-***.jar，到包org.springframework.cloud.gateway.filter.factory下面，所有以“GatewayFilterFactory”结尾的类，前面的部分就是key，比如StripPrefixGatewayFilterFactory.java，前面的“StripPrefix”的是key，其他的同理
+        - StripPrefix=1
+        - AddRequestHeader=newParam,zzw #通过predicates的匹配后，往请求的header里面添加key为newParam且value为zzw的参数。这是一种简便方式的写法，即名称为AddRequestHeader的过滤器，该过滤器参数的key是newParam，value是zzw，还可以写成标准形式。
+        #以上是简便写法，标准写法是可以参考上面的RequestRateLimiter
+        uri: http://localhost:8081
+      - id: retryTtest
+        predicates:
+        - Path=/retry/**
+        filters:
+        - StripPrefix=1
+        - name: Retry #重试过滤器
+          args:
+            status: 500 #当服务端返回500的时候进行重试
+#            retries: 5  #重试5次，默认为3次，可以参考org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory.RetryConfig
+        uri: http://localhost:8081
+      - id: myFilterTest  #自定义过滤器，详见MyFilterGatewayFilterFactory.java
+        predicates:
+          - Path=/myFilter/**
+        filters:
+           - StripPrefix=1
+           - MyFilter=myConfigName
+        uri: http://localhost:8081
+      - id: loadBalanceTest #gateway也可以实现负载均衡，配置步骤：1、引入eureka客户端依赖 2、配置eureka 3、
+        predicates:
+          - Path=/loadBalance/**
+        filters: 
+          - StripPrefix=1
+        uri: lb://GuPaoEdu-SpringCloudNetflix-Provider-Product  #uri的配置以lb开头，后面是服务提供者的应用名称
+      #以上过滤器都是局部过滤器，只对某一路由起作用，还有一种是全局过滤器，对所有路由都起作用。全局过滤器可以进行鉴权、日志记录等。全局过滤器不需要配置，可以自定义全局过滤器，需要实现GlobalFilter和Ordered接口，自定义全局过滤器也不需要在application.yml里面配置。
+      discovery:
+        locator:
+          enabled: true #开启服务发现
+          lower-case-service-id: true #服务应用名称大小写转换
+      
+  redis:  #如果是本地的redis并且是默认端口，那么可以不配置redis的信息，因为spb的约定大于配置的原则默认访问localhost:6379
+    host: localhost
+    port: 6379
+    
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://localhost:8987/eureka
+    register-with-eureka: true
+    fetch-registry: true
+        
+        

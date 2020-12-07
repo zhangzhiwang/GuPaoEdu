@@ -19,9 +19,18 @@
 	</properties>
 
 	<dependencies>
+		<!-- 注意：spc gateway是基于WebFlux的而不是spring mvc，所以使用gateway一定不能引入spring-boot-starter-web，否则报错 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 	</dependencies>
 </project>

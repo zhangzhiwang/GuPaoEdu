@@ -22,9 +22,14 @@ public class ProductController {
 	private String common;
 	
 	@GetMapping("/test1")
-	public String test1() {
+	public String test1() throws Exception {
 //		throw new RuntimeException("测试异常");
 //		return name + "----" + common;
+		
+//		Thread.sleep(2000);
+		
+		int i = 1 / 0;
+		
 		return "product_1";
 	}
 	

@@ -40,4 +40,9 @@ public class UserControllerFeign {
 	public String testFeign3() {
 		return userService.insertUser(new User(18));
 	}
+	
+	@GetMapping("/testFeignHystrix")
+	public String testFeignHystrix() {
+		return userService.getUser("1");
+	}
 }

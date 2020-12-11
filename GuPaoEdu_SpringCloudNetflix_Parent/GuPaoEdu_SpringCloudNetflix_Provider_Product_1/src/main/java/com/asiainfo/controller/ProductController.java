@@ -28,7 +28,7 @@ public class ProductController {
 		
 //		Thread.sleep(2000);
 		
-		int i = 1 / 0;
+//		int i = 1 / 0;
 		
 		return "product_1";
 	}

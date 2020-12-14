@@ -1,0 +1,10 @@
+server:
+  port: 8060
+  
+spring:
+  application:
+    name: GuPaoEdu-SpringCloudNetflix-Hystrix-Dashboard
+ 
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "127.0.0.1"

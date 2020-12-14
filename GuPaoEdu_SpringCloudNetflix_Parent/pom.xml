@@ -54,5 +54,8 @@
     <module>GuPaoEdu_SpringCloudNetflix_Provider_User_Api</module>
     <module>GuPaoEdu_SpringCloudNetflix_Provider_User_Service</module>
     <module>GuPaoEdu_SpringCloudNetflix_Gateway</module>
-</modules>
+    <module>GuPaoEdu_SpringCloudNetflix_Hystrix_Dashboard</module>
+    <module>GuPaoEdu_SpringCloudNetflix_Hystrix_Turbine</module>
+    <module>GuPaoEdu_SpringCloudNetflix_Product_Api</module>
+  </modules>
 </project>

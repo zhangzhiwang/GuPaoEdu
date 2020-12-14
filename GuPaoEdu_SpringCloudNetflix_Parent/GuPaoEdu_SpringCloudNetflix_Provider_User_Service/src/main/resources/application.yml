@@ -4,10 +4,20 @@ server:
 spring:
   application:
     name: GuPaoEdu-SpringCloudNetflix-Provider-User-Service 
-  
-eureka:
+  zipkin:
+    base-url: http://127.0.0.1:9411 #zipkin的地址，需要提前下载并启动zipkin，官网：http://zipkin.io
+    
+eureka: 
   client:
-    service-url:
+    service-url: 
       defaultZone: http://localhost:8987/eureka #,http://localhost:8988/eureka,http://localhost:8989/eureka 
     register-with-eureka: true  
     fetch-registry: true 
+#  instance:
+#    prefer-ip-address: false  #在spb2.3.1版本里面测试prefer-ip-address属性的作用，在页面显示上没什么效果
+#    ip-address: 127.0.0.1 #默认情况下服务都是以应用名注册到eureka上面的，要想以ip和端口的方式注册可以配置ip-address和instance-id，或者只配置instance-id，但是instance-id的ip要写死
+#    instance-id: ${eureka.instance.ip-address}:${server.port}
+ 
+logging:
+  level:
+    org.springframework.web.servlet.DispatcherServlet: debug

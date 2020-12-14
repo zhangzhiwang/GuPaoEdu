@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: spring-cloud-gateway
-  cloud:
+  cloud: 
     #spc gateway配置
     #网关的作用就是起到路由转发、鉴权、日志、流量监控、限流等
     gateway:  #spc的网关原本是采用netflix公司的zuul，但是zuul1.0使用的是阻塞IO，并发承受能力不强，zuul2.0使用的是非阻塞IO，但是2.0的发布一再推迟，经常跳票，后来spc团队决定自己研发一个网关来取代zuul，所以就有了spc团队自主研发的gateway
@@ -24,17 +24,17 @@ spring:
         - StripPrefix=1 #匹配后去掉最前面的一层url，本例为去掉最前面的gateway，StripPrefix的值代表去掉最前面的几层url。如访问url：/gateway/a/b/c/，拦截匹配成功后去掉gateway，变成/a/b/c/
         uri: http://localhost:8081  #拦截后将请求转发到本uri，该uri指定特定微服务的地址。
         #完整过程：首先客户端访问gateway的ip和端口，然后后面请求路径中包含${spring.cloud.gateway.routes.predicates.Path}的路径，如客户端访问http://localhost:8010/gateway/a/b/c，经过上面的处理后最终会将请求转发到指定微服务的地址上：http://localhost:8081/a/b/c
-      - id: rateLimitTest #限流过滤器
-        predicates:
-          - Path=/rateLimit/**
-        filters:
-          - StripPrefix=1
-          - name: RequestRateLimiter  #该限流过滤器底层默认使用redis，所以要引入spring-boot-starter-data-redis，而且redis的ip和端口不是默认的话要进行配置
-            args: 
-              keyResolver: '#{@myIpKeyResolver}'  #对ip进行限流，对应自定义类MyIpKeyResolver.java
-              redis-rate-limiter.replenishRate: 1 #令牌的产生速率
-              redis-rate-limiter.burstCapacity: 2 #令牌桶的容量
-        uri: http://localhost:8081
+#      - id: rateLimitTest #限流过滤器
+#        predicates:
+#          - Path=/rateLimit/**
+#        filters:
+#          - StripPrefix=1
+#          - name: RequestRateLimiter  #该限流过滤器底层默认使用redis，所以要引入spring-boot-starter-data-redis，而且redis的ip和端口不是默认的话要进行配置
+#            args: 
+#              keyResolver: '#{@myIpKeyResolver}'  #对ip进行限流，对应自定义类MyIpKeyResolver.java
+#              redis-rate-limiter.replenishRate: 1 #令牌的产生速率
+#              redis-rate-limiter.burstCapacity: 2 #令牌桶的容量
+#        uri: http://localhost:8081
       - id: addHeaderParamTest  #增加header参数的过滤器
         predicates:
         - Path=/addHeader/**
@@ -66,15 +66,33 @@ spring:
         filters: 
           - StripPrefix=1
         uri: lb://GuPaoEdu-SpringCloudNetflix-Provider-Product  #uri的配置以lb开头，后面是服务提供者的应用名称
+      - id: hystrixTest
+        predicates:
+          - Path=/hystrixTest/**
+        filters: 
+          - StripPrefix=1
+          - name: Hystrix
+            args: 
+              name: default
+              fallbackUri: 'forward:/gatewayFallback/fallback'
+        uri: http://localhost:8081
+      - id: routes_sleuth
+        predicates: 
+          - Path=/routes_sleuth/**
+        filters: 
+          - StripPrefix=1
+        uri: http://localhost:8091
       #以上过滤器都是局部过滤器，只对某一路由起作用，还有一种是全局过滤器，对所有路由都起作用。全局过滤器可以进行鉴权、日志记录等。全局过滤器不需要配置，可以自定义全局过滤器，需要实现GlobalFilter和Ordered接口，自定义全局过滤器也不需要在application.yml里面配置。
       discovery:
         locator:
           enabled: true #开启服务发现
           lower-case-service-id: true #服务应用名称大小写转换
+  zipkin:
+    base-url: http://127.0.0.1:9411 #zipkin的地址，需要提前下载并启动zipkin，官网：http://zipkin.io
       
-  redis:  #如果是本地的redis并且是默认端口，那么可以不配置redis的信息，因为spb的约定大于配置的原则默认访问localhost:6379
-    host: localhost
-    port: 6379
+#  redis:  #如果是本地的redis并且是默认端口，那么可以不配置redis的信息，因为spb的约定大于配置的原则默认访问localhost:6379
+#    host: localhost
+#    port: 6379
     
 eureka:
   client:
@@ -89,3 +107,8 @@ management:
       exposure:
         include:
         - "*"
+        - "hystrix.stream"
+
+logging:
+  level:
+    org.springframework.web.servlet.DispatcherServlet: debug

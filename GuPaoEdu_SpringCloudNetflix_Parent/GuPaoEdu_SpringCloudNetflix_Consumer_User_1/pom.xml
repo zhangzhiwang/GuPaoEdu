@@ -40,6 +40,11 @@
 			<artifactId>GuPaoEdu_SpringCloudNetflix_Provider_User_Api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.asiainfo</groupId>
+			<artifactId>GuPaoEdu_SpringCloudNetflix_Product_Api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>com.fasterxml.jackson.core</groupId> -->
 		<!-- <artifactId>jackson-databind</artifactId> -->
@@ -60,9 +65,22 @@
 			<artifactId>spring-cloud-config-client</artifactId>
 		</dependency>
 		<!-- 断路器hystrix -->
+<!-- 		<dependency> -->
+<!--             <groupId>org.springframework.cloud</groupId> -->
+<!--             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId> -->
+<!--         </dependency> -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- 链路跟踪sleuth -->
+<!-- 		<dependency> -->
+<!--             <groupId>org.springframework.cloud</groupId> -->
+<!--             <artifactId>spring-cloud-starter-sleuth</artifactId> -->
+<!--         </dependency> -->
 		<dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
 	</dependencies>
 </project>

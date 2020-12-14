@@ -27,18 +27,32 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-		<dependency> 
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-client</artifactId>
 		</dependency>
 		<!-- 使用actuator对系统进行监控 -->
-<!-- 		<dependency> -->
-<!--             <groupId>org.springframework.boot</groupId> -->
-<!--             <artifactId>spring-boot-starter-actuator</artifactId> -->
-<!--         </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.boot</groupId> -->
+		<!-- <artifactId>spring-boot-starter-actuator</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.cloud</groupId> -->
+		<!-- <artifactId>spring-cloud-starter-bus-kafka</artifactId> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>com.asiainfo</groupId>
+			<artifactId>GuPaoEdu_SpringCloudNetflix_Product_Api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 链路跟踪sleuth -->
 <!-- 		<dependency> -->
 <!--             <groupId>org.springframework.cloud</groupId> -->
-<!--             <artifactId>spring-cloud-starter-bus-kafka</artifactId> -->
+<!--             <artifactId>spring-cloud-starter-sleuth</artifactId> -->
 <!--         </dependency> -->
+		<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
 	</dependencies>
 </project>

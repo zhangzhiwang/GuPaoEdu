@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import com.asiainfo.api.IProductService;
 import com.asiainfo.entityTest.User;
 import com.asiainfo.service.IServiceFeign;
 import com.asiainfo.service.interfaceTest.IUserService;
@@ -25,6 +27,9 @@ public class UserControllerFeign {
 	
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IProductService productService;
 	
 //	@GetMapping("/testFeign")
 //	public String testFeign() {
@@ -44,5 +49,18 @@ public class UserControllerFeign {
 	@GetMapping("/testFeignHystrix")
 	public String testFeignHystrix() {
 		return userService.getUser("1");
+	}
+	
+	@GetMapping("/routes")
+	public String routes() {
+		String result1 = userService.getUser("1");
+		String result2 = productService.getProductById();
+		return result1 + " --- " + result2;
+	}
+	
+	@GetMapping("/getProduct")
+	public String getProduct() {
+		String result = productService.getProductById();
+		return result;
 	}
 }

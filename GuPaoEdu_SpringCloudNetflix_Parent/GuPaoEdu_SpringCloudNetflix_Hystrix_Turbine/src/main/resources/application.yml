@@ -1,0 +1,18 @@
+server:
+  port: 8061
+  
+spring:
+  application:
+    name: GuPaoEdu-SpringCloudNetflix-Hystrix-Turbine
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8987/eureka #,http://localhost:8988/eureka,http://localhost:8989/eureka #配置集群的所有节点以防单点故障
+    register-with-eureka: true
+    fetch-registry: false  #本工程最为消费者必须从eureka获取注册信息
+    
+turbine:
+  app-config: GuPaoEdu-SpringCloudNetflix-Consumer-User-1,spring-cloud-gateway #被监控的应用名称，该名称是eureka上面的应用名
+  cluster-name-expression: new String("default")
+  combine-host-port: true

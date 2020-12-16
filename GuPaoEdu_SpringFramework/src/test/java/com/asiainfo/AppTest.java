@@ -2,9 +2,14 @@ package com.asiainfo;
 
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
+import com.asiainfo.config.ConfigTest;
+import com.asiainfo.controller.UserController;
 import com.asiainfo.entity.User;
 
 public class AppTest {
@@ -50,18 +55,69 @@ public class AppTest {
 //		System.out.println(bean);
 //	}
 	
-	@Test
-	public void testBeanFactory() {
-		/**
-		 * 面试题：BeanFactory和ApplicationContext的区别。
-		 * 1、从类结构上来看，ApplicationContext是BeanFactory的子接口，ApplicationContext间接继承了BeanFactory接口。既然是子接口，那么BeanFactory有的功能ApplicationContext全有。
-		 * 同时ApplicationContext还继承了其他接口，比如消息通知接口和事件发布接口等，所以ApplicationContext的功能比BeanFactory丰富。
-		 * 2、ApplicationContext会在ioc容器初始化的时候实例化所有对象，而BeanFactory实在使用的时候实例化用到的对象。
-		 */
-		
-		// 验证上面第2点
+//	@Test
+//	public void testBeanFactory() {
+//		/**
+//		 * 面试题：BeanFactory和ApplicationContext的区别。
+//		 * 1、从类结构上来看，ApplicationContext是BeanFactory的子接口，ApplicationContext间接继承了BeanFactory接口。既然是子接口，那么BeanFactory有的功能ApplicationContext全有。
+//		 * 同时ApplicationContext还继承了其他接口，比如消息通知接口和事件发布接口等，所以ApplicationContext的功能比BeanFactory丰富。
+//		 * 2、ApplicationContext会在ioc容器初始化的时候实例化所有对象（当然是已经在xml里面配置的或者其它标识为bean的情况），而BeanFactory是在使用的时候实例化用到的对象，用到什么实例化什么。
+//		 */
+//		
+//		// 验证上面第2点
 //		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");// 在ioc容器初始化的时候实例化所有在xml里面配置的bean
-		
-//		BeanFactory bea = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		
+////		BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
+////		beanFactory.getBean("product");
+//	}
+	
+	/**
+	 * 通过静态工程或动态工厂注入
+	 */
+//	@Test
+//	public void testFactory() {
+//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		Object bean = applicationContext.getBean("userDynamic");
+//		System.out.println(bean);
+//	}
+	
+	/**
+	 * 属性注入
+	 */
+//	@Test
+//	public void testFieldInjection() {
+//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		Object bean = applicationContext.getBean("user7");
+//		System.out.println(bean);
+//	}
+	
+	/**
+	 * Java配置类
+	 */
+//	@Test
+//	public void testJavaConfig() {
+//		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ConfigTest.class);
+//		Object bean = applicationContext.getBean("user8");
+//		System.out.println(bean);
+//	}
+	
+	/**
+	 * 测试使用xml/Java config的方式配置mvc的三层
+	 */
+//	@Test
+//	public void testController() {
+////		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ConfigTest.class);
+//		UserController userController = (UserController) applicationContext.getBean("userController");
+//		User user = userController.queryUser();
+//		System.out.println(user);
+//	}
+	
+	@Test
+	public void testAnnotation() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		UserController userController = (UserController) applicationContext.getBean("userController");
+		User user = userController.queryUser();
+		System.out.println(user);
 	}
 }

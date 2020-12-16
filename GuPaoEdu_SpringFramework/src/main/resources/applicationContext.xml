@@ -11,8 +11,98 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 		
+	<!-- xml配置bean的常用方法 -->
 <!-- 	<bean id="user1,user2,user3" name="u1,u2,u3" class="com.asiainfo.entity.User"></bean> -->
-	<bean id="user1" name="u1" class="com.asiainfo.entity.User" primary="true"></bean>
-	<bean id="user2" name="u2" class="com.asiainfo.entity.User"></bean>
-	<bean id="product" name="p1" class="com.asiainfo.entity.Product"></bean>
+<!-- 	<bean id="user1" name="u1" class="com.asiainfo.entity.User" primary="true"></bean> -->
+<!-- 	<bean id="user2" name="u2" class="com.asiainfo.entity.User"></bean> -->
+<!-- 	<bean id="product" name="p1" class="com.asiainfo.entity.Product"></bean> -->
+	
+	<!-- xml配置bean的非常用方法：配置静态工程和动态工厂 -->
+	<!-- 静态工厂 -->
+	<!-- 注意class是静态工厂的全限定名，但id是工厂所生产的对象的名称而不是工厂的名称 -->
+<!-- 	<bean id="userStatic" class="com.asiainfo.factory.StaticFactory" factory-method="getUserByStatic"></bean> -->
+	
+	<!-- 动态工厂 -->
+	<!-- 通过动态工厂注入首先要配置一个动态工厂的bean，此时bean的id是动态工厂的名称，然后再配置工厂所生产对象的bean，并用factory-bean属性引用动态工厂对象 -->
+<!-- 	<bean id="dynamicFactory" class="com.asiainfo.factory.DynamicFactory"></bean> -->
+<!-- 	<bean id="userDynamic" factory-bean="dynamicFactory" factory-method="getUserByDynamic"></bean> -->
+
+	<!-- 属性注入，属性注入的方式有两种：一个是通过构造器注入，一个是通过setter方法注入 -->
+	<!-- 构造器注入方式1——通过入參名称注入，需要该类有相应的构造器 -->
+<!-- 	<bean id="user4" class="com.asiainfo.entity.User"> -->
+<!-- 		<constructor-arg name="name" value="zhaoliu"></constructor-arg> -->
+<!-- 		<constructor-arg name="age" value="22"></constructor-arg> -->
+<!-- 	</bean> -->
+	<!-- 构造器注入方式1——通过入參名称注入（简写），简写的方式需要引入“xmlns:c”命名空间 -->
+<!-- 	<bean id="user4" class="com.asiainfo.entity.User" c:name="赵六" c:age="23"></bean> -->
+	
+	<!-- 构造器注入方式2——通过参数顺序注入，需要该类有相应的构造器 -->
+<!-- 	<bean id="user5" class="com.asiainfo.entity.User"> -->
+<!-- 		<constructor-arg index="0" value="zhaoliu"></constructor-arg> -->
+<!-- 		<constructor-arg index="1" value="22"></constructor-arg> -->
+<!-- 	</bean> -->
+	<!-- 构造器注入方式1——通过参数顺序注入（简写），简写的方式需要引入“xmlns:c”命名空间 -->
+<!-- 	<bean id="user5" class="com.asiainfo.entity.User" c:_0="赵六" c:_1="23"></bean> -->
+	
+	<!-- setter方式注入，需要有相应属性的setter方法 -->
+<!-- 	<bean id="user6" class="com.asiainfo.entity.User"> -->
+<!-- 		<property name="name" value="张三"></property> -->
+<!-- 		<property name="age" value="24"></property> -->
+<!-- 	</bean> -->
+	<!-- setter方式注入（简写），简写的方式需要引入“xmlns:p”命名空间 -->
+<!-- 	<bean id="user6" class="com.asiainfo.entity.User" p:name="李四" p:age="25"></bean> -->
+
+	<!-- 各种常见属性的注入 -->
+<!-- 	<bean id="user7" class="com.asiainfo.entity.User"> -->
+<!-- 		<property name="product" ref="product"> -->
+<!-- 			<bean class="com.asiainfo.entity.Product" p:productId="2" p:productName="Huawei"></bean> -->
+<!-- 		</property> -->
+<!-- 		<property name="hobbies"> -->
+<!-- 			<array> -->
+<!-- 				<value>钢琴</value> -->
+<!-- 				<value>羽毛球</value> -->
+<!-- 			</array> -->
+<!-- 		</property> -->
+<!-- 		<property name="products"> -->
+<!-- 			<list> -->
+<!-- 				<bean class="com.asiainfo.entity.Product" p:productId="3" p:productName="Xioami"></bean> -->
+<!-- 				<bean class="com.asiainfo.entity.Product" p:productId="4" p:productName="Vivo"></bean> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="myMap"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="username" value="root"></entry> -->
+<!-- 				<entry key="password" value="root123"></entry> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+<!-- 		<property name="properties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="url">localhost</prop> -->
+<!-- 				<prop key="port">8080</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="product" class="com.asiainfo.entity.Product" p:productId="1" p:productName="Apple"></bean> -->
+
+<!-- 	<bean id="userController" class="com.asiainfo.controller.UserController"> -->
+<!-- 		<property name="userService" ref="userService"></property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="userService" class="com.asiainfo.service.impl.UserServiceImpl" p:userDao-ref="userDao"></bean> -->
+<!-- 	<bean id="userDao2" class="com.asiainfo.dao.impl.UserDaoImpl"></bean> -->
+
+<!-- 	<context:component-scan base-package="com.asiainfo"></context:component-scan> -->
+	<!-- 如果需要扫描多个包可以有两种方式 -->
+	<!-- 方式1:使用多个<context:component-scan>标签，每个标签配置一个包 -->
+	<!-- @Controller、@Service、@Repository本质上都是@Component，它们之间可以混用。之所以它们之间可以混用是因为使用的是默认过滤器，但是混用会对代码的可读性带来误解，所以可以限制某一层用什么注解。 -->
+	<context:component-scan base-package="com.asiainfo.controller" use-default-filters="false">	<!-- 如果规定controller层只能使用@Controller注解，必须关掉默认过滤器 -->
+		<!-- 使用context:include-filter标签，expression的值是@Controller的全限定名，type使用annotation，这样controller层只能使用@Controller注解 -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<context:component-scan base-package="com.asiainfo.service" use-default-filters="true">
+		<!-- service层使用默认过滤器，但是使用了context:exclude-filter标签，表示service包下的类不能使用@Controller注解，但是可以混用其他注解 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<context:component-scan base-package="com.asiainfo.dao"></context:component-scan>
+	<!-- 方式2：base-package属性配置多个包并用逗号分割 -->
+<!-- 	<context:component-scan base-package="com.asiainfo.controller,com.asiainfo.service,com.asiainfo.dao"></context:component-scan> -->
 </beans>

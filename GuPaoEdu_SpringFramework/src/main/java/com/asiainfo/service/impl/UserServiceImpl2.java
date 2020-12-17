@@ -12,13 +12,10 @@ import com.asiainfo.service.IUserService;
 
 import lombok.Data;
 
-@Service("s1")
-//@Repository
-//@Controller
-//@Component
 @Data
-public class UserServiceImpl implements IUserService {
-	private int id = 1;
+//@Service("s2")
+public class UserServiceImpl2 implements IUserService {
+	private int id = 2;
 	
 	@Autowired
 	private IUserDao userDao;
@@ -36,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 		this.userDao = userDao;
 	}
 	
-//	public UserServiceImpl() {
-//		System.out.println("s1无參构造方法被调用");
+//	public UserServiceImpl2() {
+//		System.out.println("s2无參构造方法被调用");
 //	}
 }

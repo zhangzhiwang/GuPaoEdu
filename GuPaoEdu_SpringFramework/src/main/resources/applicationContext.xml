@@ -94,15 +94,15 @@
 	<!-- 如果需要扫描多个包可以有两种方式 -->
 	<!-- 方式1:使用多个<context:component-scan>标签，每个标签配置一个包 -->
 	<!-- @Controller、@Service、@Repository本质上都是@Component，它们之间可以混用。之所以它们之间可以混用是因为使用的是默认过滤器，但是混用会对代码的可读性带来误解，所以可以限制某一层用什么注解。 -->
-	<context:component-scan base-package="com.asiainfo.controller" use-default-filters="false">	<!-- 如果规定controller层只能使用@Controller注解，必须关掉默认过滤器 -->
+	<!-- <context:component-scan base-package="com.asiainfo.controller" use-default-filters="false"> -->	<!-- 如果规定controller层只能使用@Controller注解，必须关掉默认过滤器 -->
 		<!-- 使用context:include-filter标签，expression的值是@Controller的全限定名，type使用annotation，这样controller层只能使用@Controller注解 -->
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	<context:component-scan base-package="com.asiainfo.service" use-default-filters="true">
+<!-- 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
+<!-- 	</context:component-scan> -->
+<!-- 	<context:component-scan base-package="com.asiainfo.service" use-default-filters="true"> -->
 		<!-- service层使用默认过滤器，但是使用了context:exclude-filter标签，表示service包下的类不能使用@Controller注解，但是可以混用其他注解 -->
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	<context:component-scan base-package="com.asiainfo.dao"></context:component-scan>
+<!-- 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
+<!-- 	</context:component-scan> -->
+<!-- 	<context:component-scan base-package="com.asiainfo.dao"></context:component-scan> -->
 	<!-- 方式2：base-package属性配置多个包并用逗号分割 -->
 <!-- 	<context:component-scan base-package="com.asiainfo.controller,com.asiainfo.service,com.asiainfo.dao"></context:component-scan> -->
 </beans>

@@ -5,12 +5,13 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
-import com.asiainfo.config.ConfigTest;
 import com.asiainfo.controller.UserController;
 import com.asiainfo.entity.User;
+import com.asiainfo.service.impl.UserServiceImpl;
 
 public class AppTest {
 	/**
@@ -116,7 +117,12 @@ public class AppTest {
 	@Test
 	public void testAnnotation() {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		UserController userController = (UserController) applicationContext.getBean("userController");
+//		User user = userController.queryUser();
+//		System.out.println(user);
+		
 		UserController userController = (UserController) applicationContext.getBean("userController");
+//		System.out.println(bean);
 		User user = userController.queryUser();
 		System.out.println(user);
 	}

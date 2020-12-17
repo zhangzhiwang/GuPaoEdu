@@ -1,13 +1,17 @@
 package com.asiainfo;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.asiainfo.controller.UserController;
+import com.asiainfo.entity.User;
+
+public class App {
+	public static void main(String[] args) {
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ConfigTest.class);
+		UserController userController = (UserController) applicationContext.getBean("userController");
+		User user = userController.queryUser();
+		System.out.println(user);
+	}
 }

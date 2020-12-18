@@ -28,12 +28,15 @@ public class UserController {
 		4、同时指定name和type属性：这是时候两个条件是“与”的关系，并且是先按照类型匹配，无论是否匹配到都要往下进行名称匹配。
 	 */
 	@Autowired
-//	@Qualifier("s2")
+	@Qualifier("s2")
 //	@Resource(name = "s1", type = IUserService.class)
 	private IUserService userService;
+//	@Autowired
+	private User user;
 	
 	public User queryUser() {
 		System.out.println(userService);
+		System.out.println(user);
 		return userService.queryUser();
 	}
 

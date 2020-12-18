@@ -1,6 +1,7 @@
 package com.asiainfo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,8 @@ import com.asiainfo.service.IUserService;
 import lombok.Data;
 
 @Data
-//@Service("s2")
+@Service("s2")
+//@Primary
 public class UserServiceImpl2 implements IUserService {
 	private int id = 2;
 	

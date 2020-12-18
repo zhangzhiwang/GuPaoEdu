@@ -1,5 +1,10 @@
 package com.asiainfo;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.annotation.PreDestroy;
+
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -8,8 +13,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import com.asiainfo.controller.UserController;
+import com.asiainfo.entity.Product;
 import com.asiainfo.entity.User;
 import com.asiainfo.service.impl.UserServiceImpl;
 
@@ -104,6 +111,7 @@ public class AppTest {
 	
 	/**
 	 * 测试使用xml/Java config的方式配置mvc的三层
+	 * @throws IOException 
 	 */
 //	@Test
 //	public void testController() {
@@ -115,15 +123,37 @@ public class AppTest {
 //	}
 	
 	@Test
-	public void testAnnotation() {
+	public void testAnnotation() throws IOException {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 //		UserController userController = (UserController) applicationContext.getBean("userController");
 //		User user = userController.queryUser();
 //		System.out.println(user);
 		
-		UserController userController = (UserController) applicationContext.getBean("userController");
-//		System.out.println(bean);
-		User user = userController.queryUser();
-		System.out.println(user);
+//		UserController userController = (UserController) applicationContext.getBean("userController");
+//		User user = (User) applicationContext.getBean("u1");
+//		System.out.println(user);
+//		User user = userController.queryUser();
+//		System.out.println(user);
+		
+//		Product product = (Product) applicationContext.getBean("product");
+//		System.out.println(product);
+//		Resource resource = product.getFileResource();
+//		String filename = resource.getFilename();
+//		System.out.println("filename = " + filename);
+//		InputStream inputStream = resource.getInputStream();
+//		byte[] bs = new byte[128];
+//		int i = 0;
+//		StringBuilder stringBuilder=new StringBuilder();
+//		while((i = inputStream.read(bs, 0, bs.length)) != -1) {
+//			stringBuilder.append(new String(bs));
+//		}
+//		System.out.println(stringBuilder.toString());
+		
+//		System.out.println("spring上下文初始化完成！");
+//		applicationContext.getBean("product");
+//		applicationContext.getBean("u1");
+		
+//		applicationContext.getBean("product2");
+		((ClassPathXmlApplicationContext)applicationContext).close();// 测试被@PreDestroy标注的方法
 	}
 }

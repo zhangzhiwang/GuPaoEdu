@@ -16,8 +16,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.asiainfo.controller.UserController;
+import com.asiainfo.entity.DBInfo;
 import com.asiainfo.entity.Product;
+import com.asiainfo.entity.Product4;
+import com.asiainfo.entity.Product5;
 import com.asiainfo.entity.User;
+import com.asiainfo.proxy.staticProxy.StaticProxy;
 import com.asiainfo.service.impl.UserServiceImpl;
 
 public class AppTest {
@@ -122,38 +126,87 @@ public class AppTest {
 //		System.out.println(user);
 //	}
 	
+//	@Test
+//	public void testAnnotation() throws IOException {
+//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+////		UserController userController = (UserController) applicationContext.getBean("userController");
+////		User user = userController.queryUser();
+////		System.out.println(user);
+//		
+////		UserController userController = (UserController) applicationContext.getBean("userController");
+////		User user = (User) applicationContext.getBean("u1");
+////		System.out.println(user);
+////		User user = userController.queryUser();
+////		System.out.println(user);
+//		
+////		Product product = (Product) applicationContext.getBean("product");
+////		System.out.println(product);
+////		Resource resource = product.getFileResource();
+////		String filename = resource.getFilename();
+////		System.out.println("filename = " + filename);
+////		InputStream inputStream = resource.getInputStream();
+////		byte[] bs = new byte[128];
+////		int i = 0;
+////		StringBuilder stringBuilder=new StringBuilder();
+////		while((i = inputStream.read(bs, 0, bs.length)) != -1) {
+////			stringBuilder.append(new String(bs));
+////		}
+////		System.out.println(stringBuilder.toString());
+//		
+////		System.out.println("spring上下文初始化完成！");
+////		applicationContext.getBean("product");
+////		applicationContext.getBean("u1");
+//		
+////		applicationContext.getBean("product2");
+////		((ClassPathXmlApplicationContext)applicationContext).close();// 测试被@PreDestroy标注的方法
+//	}
+	
+//	@Test
+//	public void testImport() {
+//		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ConfigTest.class);
+//		Object bean = applicationContext.getBean("product4");
+////		applicationContext.getBean("p5");
+//		System.out.println(bean);
+//	}
+	
+//	@Test
+//	public void testProfile() {
+//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+//		context.register(ConfigTest.class);
+//		context.getEnvironment().setActiveProfiles("prod");
+//		context.refresh();
+//		
+//		DBInfo bean = context.getBean(DBInfo.class);
+//		System.out.println(bean);
+//	}
+	
+//	@Test
+//	public void testScope() {
+//		ApplicationContext context = new AnnotationConfigApplicationContext(ConfigTest.class);
+//		Object bean1 = context.getBean("product4");
+//		System.out.println(bean1);
+//		Object bean2 = context.getBean("product4");
+//		System.out.println(bean2);
+//		Object bean3 = context.getBean("product4");
+//		System.out.println(bean3);
+//	}
+	
+	/**
+	 * IOC原理
+	 */
+//	@Test
+//	public void testTheory() {
+//		/**
+//		 * 每一个bean定义（标签也好，注解也好）在内存中都以BeanDefination对象的形式存在，所有的BeanDefination最终都会注册到Map<String, BeanDefination>里面
+//		 */
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");// 这行代码是分析原理的入口，它的作用就是加载配置文件并解析配置文件到内存中从而完成ioc容器的初始化
+//		context.getBean(Product.class);
+//	}
+	
 	@Test
-	public void testAnnotation() throws IOException {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-//		UserController userController = (UserController) applicationContext.getBean("userController");
-//		User user = userController.queryUser();
-//		System.out.println(user);
-		
-//		UserController userController = (UserController) applicationContext.getBean("userController");
-//		User user = (User) applicationContext.getBean("u1");
-//		System.out.println(user);
-//		User user = userController.queryUser();
-//		System.out.println(user);
-		
-//		Product product = (Product) applicationContext.getBean("product");
-//		System.out.println(product);
-//		Resource resource = product.getFileResource();
-//		String filename = resource.getFilename();
-//		System.out.println("filename = " + filename);
-//		InputStream inputStream = resource.getInputStream();
-//		byte[] bs = new byte[128];
-//		int i = 0;
-//		StringBuilder stringBuilder=new StringBuilder();
-//		while((i = inputStream.read(bs, 0, bs.length)) != -1) {
-//			stringBuilder.append(new String(bs));
-//		}
-//		System.out.println(stringBuilder.toString());
-		
-//		System.out.println("spring上下文初始化完成！");
-//		applicationContext.getBean("product");
-//		applicationContext.getBean("u1");
-		
-//		applicationContext.getBean("product2");
-		((ClassPathXmlApplicationContext)applicationContext).close();// 测试被@PreDestroy标注的方法
+	public void testStaticProxy() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		StaticProxy staticProxy = context.getBean(StaticProxy.class);
+		staticProxy.sing();
 	}
 }

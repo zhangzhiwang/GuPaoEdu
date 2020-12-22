@@ -203,8 +203,15 @@ public class AppTest {
 //		context.getBean(Product.class);
 //	}
 	
+//	@Test
+//	public void testStaticProxy() {
+//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		StaticProxy staticProxy = context.getBean(StaticProxy.class);
+//		staticProxy.sing();
+//	}
+	
 	@Test
-	public void testStaticProxy() {
+	public void testJdkProxy() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		StaticProxy staticProxy = context.getBean(StaticProxy.class);
 		staticProxy.sing();

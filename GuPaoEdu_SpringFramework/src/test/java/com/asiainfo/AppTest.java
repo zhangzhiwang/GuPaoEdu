@@ -2,6 +2,7 @@ package com.asiainfo;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Proxy;
 
 import javax.annotation.PreDestroy;
 
@@ -21,7 +22,10 @@ import com.asiainfo.entity.Product;
 import com.asiainfo.entity.Product4;
 import com.asiainfo.entity.Product5;
 import com.asiainfo.entity.User;
+import com.asiainfo.proxy.jdkProxy.JdkProxyInvocationHandler;
+import com.asiainfo.proxy.staticProxy.JayChou;
 import com.asiainfo.proxy.staticProxy.StaticProxy;
+import com.asiainfo.proxy.staticProxy.VocalConcert;
 import com.asiainfo.service.impl.UserServiceImpl;
 
 public class AppTest {
@@ -213,7 +217,11 @@ public class AppTest {
 	@Test
 	public void testJdkProxy() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		StaticProxy staticProxy = context.getBean(StaticProxy.class);
-		staticProxy.sing();
+		VocalConcert proxyInstance = (VocalConcert) Proxy.newProxyInstance(JayChou.class.getClassLoader(),// 目标对象的类加载器
+				JayChou.class.getInterfaces(),// 弥补对象实现的接口
+				new JdkProxyInvocationHandler(new JayChou()));// InvocationHandler的实现类
+		
+		System.out.println("proxyInstance = " + proxyInstance);
+		proxyInstance.sing();
 	}
 }

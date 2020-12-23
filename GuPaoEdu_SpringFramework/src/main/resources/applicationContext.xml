@@ -90,7 +90,7 @@
 <!-- 	<bean id="userService" class="com.asiainfo.service.impl.UserServiceImpl" p:userDao-ref="userDao"></bean> -->
 <!-- 	<bean id="userDao2" class="com.asiainfo.dao.impl.UserDaoImpl"></bean> -->
 
-	<context:component-scan base-package="com.asiainfo"></context:component-scan>
+<!-- 	<context:component-scan base-package="com.asiainfo"></context:component-scan> -->
 	<!-- 如果需要扫描多个包可以有两种方式 -->
 	<!-- 方式1:使用多个<context:component-scan>标签，每个标签配置一个包 -->
 	<!-- @Controller、@Service、@Repository本质上都是@Component，它们之间可以混用。之所以它们之间可以混用是因为使用的是默认过滤器，但是混用会对代码的可读性带来误解，所以可以限制某一层用什么注解。 -->

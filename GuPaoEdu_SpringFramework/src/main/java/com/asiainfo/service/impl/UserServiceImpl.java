@@ -41,4 +41,20 @@ public class UserServiceImpl implements IUserService {
 //	public UserServiceImpl() {
 //		System.out.println("s1无參构造方法被调用");
 //	}
+	
+	/** 以下是aop的测试 */
+	
+	public void m1() {
+		System.out.println("m1");
+	}
+	
+	public String m2() {
+		System.out.println("m2");
+		return "m2";
+	}
+	
+	public String m3(int i) {
+		System.out.println("m3");
+		return "m3 : " + i;
+	}
 }

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.asiainfo.dao.IUserDao;
 import com.asiainfo.entity.User;
 
-//@Repository
-@Controller
+@Repository
+//@Controller
 public class UserDaoImpl implements IUserDao {
 	@Override
 	public User queryUser() {

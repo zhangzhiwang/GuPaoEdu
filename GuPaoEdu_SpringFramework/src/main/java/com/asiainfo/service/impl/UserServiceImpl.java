@@ -19,7 +19,7 @@ import lombok.Data;
 //@Component
 @Service("s1")
 //@Primary// 当通过类型匹配找到多个bean是，被标注@Primary的bean优先注入
-public class UserServiceImpl implements IUserService {
+public abstract class UserServiceImpl implements IUserService {
 	private int id = 1;
 	
 	@Autowired
@@ -56,5 +56,27 @@ public class UserServiceImpl implements IUserService {
 	public String m3(int i) {
 		System.out.println("m3");
 		return "m3 : " + i;
+	}
+	
+	public String m3(String i) {
+		System.out.println("m3");
+		return "m3 : " + i;
+	}
+	
+	public String m3(String i, byte b) {
+		System.out.println("m3");
+		return "m3 : " + i;
+	}
+	
+	public void m3(byte i) {
+		System.out.println("m3_byte");
+	}
+	
+	public void m3(short s) throws ArrayIndexOutOfBoundsException {
+		System.out.println("m3_ArrayIndexOutOfBoundsException");
+	}
+	
+	public void m3(short s1, short s2) throws NumberFormatException {
+		System.out.println("m3_NumberFormatException");
 	}
 }

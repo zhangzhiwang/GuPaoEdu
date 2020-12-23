@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.asiainfo.controller.UserController;
 import com.asiainfo.entity.User;
+import com.asiainfo.service.IUserService;
 import com.asiainfo.service.impl.UserServiceImpl;
 
 /**
@@ -24,11 +25,21 @@ import com.asiainfo.service.impl.UserServiceImpl;
 public class AppStarter {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppStarter.class);
-		Object bean = applicationContext.getBean("s1");
-		System.out.println("bean = " + bean.getClass().getName());
-		System.out.println(bean instanceof UserServiceImpl);
-//		UserServiceImpl userServiceImpl = (UserServiceImpl) applicationContext.getBean("s1");
-//		userServiceImpl.m1();
-//		userServiceImpl.m3(10010);
+		IUserService userServiceImpl = (IUserService) applicationContext.getBean("s1_ext");
+		userServiceImpl.m1();
+		System.out.println("-----------------");
+		userServiceImpl.m3(10010);
+		System.out.println("-----------------");
+		userServiceImpl.m3("10010");
+		System.out.println("-----------------");
+		userServiceImpl.m3("10010", (byte)1);
+		System.out.println("-----------------");
+		userServiceImpl.m3((byte)1);
+		System.out.println("-----------------");
+		userServiceImpl.m3((short)1);
+		System.out.println("-----------------");
+		userServiceImpl.m3((short)1, (short)1);
+		System.out.println("-----------------");
+		userServiceImpl.m4();
 	}
 }

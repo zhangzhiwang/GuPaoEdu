@@ -28,7 +28,7 @@ import com.asiainfo.proxy.staticProxy.StaticProxy;
 import com.asiainfo.proxy.staticProxy.VocalConcert;
 import com.asiainfo.service.impl.UserServiceImpl;
 
-public class AppTest {
+public class AppStarterTest {
 	/**
 	 * 不使用Spring的原始方式获取对象——自力更生
 	 * 
@@ -212,6 +212,9 @@ public class AppTest {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 //		StaticProxy staticProxy = context.getBean(StaticProxy.class);
 //		staticProxy.sing();
+//		System.out.println("----------------");
+//		String result = staticProxy.dance(10086);
+//		System.out.println("result =" + result);
 //	}
 	
 	@Test
@@ -223,5 +226,8 @@ public class AppTest {
 		
 		System.out.println("proxyInstance = " + proxyInstance);
 		proxyInstance.sing();
+		System.out.println("------------");
+		String result = proxyInstance.dance(10086);
+		System.out.println("result =" + result);
 	}
 }

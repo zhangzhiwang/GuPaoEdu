@@ -8,4 +8,5 @@ package com.asiainfo.proxy.staticProxy;
  */
 public interface VocalConcert {
 	void sing();
+	String dance(int i);
 }

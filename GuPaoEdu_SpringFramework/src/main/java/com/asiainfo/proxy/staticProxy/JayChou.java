@@ -8,4 +8,10 @@ public class JayChou implements VocalConcert {
 	public void sing() {
 		System.out.println("周杰伦开演唱会，唱歌");
 	}
+
+	@Override
+	public String dance(int i) {
+		System.out.println("周杰伦开演唱会，跳舞 : " + i);
+		return "" + i;
+	}
 }

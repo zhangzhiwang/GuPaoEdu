@@ -70,6 +70,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	public String m3(String i, byte b) {
+//		int ii = 1 / 0;
 		System.out.println("m3");
 		return "m3 : " + i;
 	}

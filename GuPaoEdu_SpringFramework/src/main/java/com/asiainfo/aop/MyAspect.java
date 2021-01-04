@@ -1,5 +1,10 @@
 package com.asiainfo.aop;
 
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -39,8 +44,10 @@ public class MyAspect {
 	 * execution(* com.asiainfo..*(..))		匹配任意访问权限的，任意返回值类型，com.asiainfo包及其子包下的所有类型，方法名称任意，入參类型任意
 	 * execution(* com.asiainfo..*(..) throws ArrayIndexOutOfBoundsException)	匹配任意访问权限的，任意返回值类型，com.asiainfo包及其子包下的所有类型，方法名称任意，入參类型任意，声明抛出ArrayIndexOutOfBoundsException
 	 * execution(* com.asiainfo.service.impl.UserServiceImpl+.m4(..))	匹配任意访问权限的，任意返回值类型，com.asiainfo.service.impl.UserServiceImpl及其子类，方法名称是m4，入參类型任意
+	 * 
+	 * @Before 前置通知
 	 */
-//	@Before("execution(* com.asiainfo.service.IUserService+.m4(..))")// @Before在执行目标方法前执行
+//	@Before("execution(* com.asiainfo.service.IUserService+.m4(..))")
 //	@Before("pointCutTest()")
 	public void inject1() {
 		System.out.println("MyAspect.inject1...");
@@ -79,7 +86,7 @@ public class MyAspect {
 	 * args匹配方法的入參类型，注意单独使用args会匹配扫描路径下的所有包的所有类的所有符合指定参数类型的方法
 	 * 可以组合使用注解并用&&连接，这样可以缩小范围
 	 */
-	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && args(String,byte)")
+//	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && args(String,byte)")
 	public void inject5() {
 		System.out.println("MyAspect.inject5...");
 	}
@@ -97,7 +104,7 @@ public class MyAspect {
 	 * @within 匹配的目标类要被指定注解修饰
 	 */
 //	@Before("@within(com.asiainfo.aop.MyAnnotation1)")
-	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @within(com.asiainfo.aop.MyAnnotation1)")
+//	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @within(com.asiainfo.aop.MyAnnotation1)")
 	public void inject7() {
 		System.out.println("MyAspect.inject7...");
 	}
@@ -106,8 +113,71 @@ public class MyAspect {
 	 * @annotation 匹配的目标方法要被指定注解修饰
 	 */
 //	@Before("@annotation(com.asiainfo.aop.MyAnnotation2)")
-	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @annotation(com.asiainfo.aop.MyAnnotation2)")
+//	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @annotation(com.asiainfo.aop.MyAnnotation2)")
 	public void inject8() {
 		System.out.println("MyAspect.inject8...");
+	}
+	
+	@Before("execution(* com.asiainfo.service.impl.UserServiceImpl.m3(..))")
+	public void before() {
+		System.out.println("前置通知");
+	}
+	
+	/**
+	 * @AfterReturning 后置通知
+	 * 
+	 * @param result
+	 * @author zhangzhiwang
+	 * @date Jan 4, 2021 10:26:47 PM
+	 */
+	@AfterReturning(value = "execution(* com.asiainfo.service.impl.UserServiceImpl.m3(..))", returning = "result")// returning参数表示接收目标方法的返回值，该属性的值要和标注@AfterReturning注解的方法定义的形参名一致，否则报异常
+	public void afterReturning(Object result) {// 形参名要和上面returning属性的值一致
+		System.out.println("后置通知：" + result);
+	}
+	
+	/**
+	 * @Around 环绕通知
+	 * 如果同时有潜质通知和后置通知和环绕通知，那么执行顺序是：环绕通知->前置通知->目标方法->后置通知->环绕通知
+	 * 
+	 * @author zhangzhiwang
+	 * @throws Throwable 
+	 * @date Jan 4, 2021 10:27:00 PM
+	 */
+	@Around(value = "execution(* com.asiainfo.service.impl.UserServiceImpl.m3(..))")
+	public void around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+		System.out.println("环绕通知，目标方法执行之前...");
+		Object[] args = proceedingJoinPoint.getArgs();
+		System.out.print("参数：");
+		for(Object arg : args) {
+			System.out.print(arg + "\t");
+		}
+		System.out.println();
+		
+		Object result = proceedingJoinPoint.proceed();// 执行目标方法，result为目标方法的返回值
+		
+		System.out.println("环绕通知，目标方法执行之后，返回结果：" + result);
+	}
+	
+	/**
+	 * @AfterThrowing 异常通知
+	 * 
+	 * @param e
+	 * @author zhangzhiwang
+	 * @date Jan 4, 2021 10:35:36 PM
+	 */
+	@AfterThrowing(value = "execution(* com.asiainfo.service.impl.UserServiceImpl.m3(..))", throwing = "e")// 注意throwing属性的值要和afterThrowing方法的形参名称一致
+	public void afterThrowing(Exception e) {
+		System.out.println("异常通知：" + e);
+	}
+	
+	/**
+	 * @After 最终通知——无论怎样都会执行，类似finally代码块
+	 * 
+	 * @author zhangzhiwang
+	 * @date Jan 4, 2021 10:43:12 PM
+	 */
+	@After(value = "execution(* com.asiainfo.service.impl.UserServiceImpl.m3(..))")
+	public void after() {
+		System.out.println("最终通知");
 	}
 }

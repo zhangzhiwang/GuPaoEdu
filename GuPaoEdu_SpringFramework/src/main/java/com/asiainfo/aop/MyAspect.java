@@ -3,6 +3,7 @@ package com.asiainfo.aop;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -53,8 +54,60 @@ public class MyAspect {
 	 * within(com.asiainfo.service.impl.*)	匹配com.asiainfo.service.impl包下所有类的所有方法，注意不包含impl下面的子包
 	 * within(com.asiainfo.service.impl..*)	匹配com.asiainfo.service.impl包及其子包下所有类的所有方法
 	 */
-	@Before("within(com.asiainfo.service.impl..*)")
+//	@Before("within(com.asiainfo.service.impl..*)")
 	public void inject2() {
 		System.out.println("MyAspect.inject2...");
+	}
+	
+	/**
+	 * this匹配代理对象
+	 */
+//	@Before("this(com.asiainfo.service.impl.UserServiceImpl)")// aop默认的是jdk动态代理，如果要强制使用cglib动态代理那么需要在@EnableAspectJAutoProxy加参数proxyTargetClass并设置值为true
+	public void inject3() {
+		System.out.println("MyAspect.inject3...");
+	}
+	
+	/**
+	 * target匹配目标对象
+	 */
+//	@Before("target(com.asiainfo.service.impl.UserServiceImpl)")
+	public void inject4() {
+		System.out.println("MyAspect.inject4...");
+	}
+	
+	/**
+	 * args匹配方法的入參类型，注意单独使用args会匹配扫描路径下的所有包的所有类的所有符合指定参数类型的方法
+	 * 可以组合使用注解并用&&连接，这样可以缩小范围
+	 */
+	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && args(String,byte)")
+	public void inject5() {
+		System.out.println("MyAspect.inject5...");
+	}
+	
+	/**
+	 * @args 匹配方法的入參的类型被指定注解修饰，注意是方法入參所属的类型不是方法的入參之前加注解，而且单独使用该注解会匹配扫描路径下的所有包的所有类的所有符合条件的方法
+	 */
+//	@Before("@args(com.asiainfo.aop.MyAnnotation1,com.asiainfo.aop.MyAnnotation3,org.springframework.stereotype.Service)")
+	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @args(com.asiainfo.aop.MyAnnotation1,com.asiainfo.aop.MyAnnotation3,org.springframework.stereotype.Service)")
+	public void inject6() {
+		System.out.println("MyAspect.inject6...");
+	}
+	
+	/**
+	 * @within 匹配的目标类要被指定注解修饰
+	 */
+//	@Before("@within(com.asiainfo.aop.MyAnnotation1)")
+	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @within(com.asiainfo.aop.MyAnnotation1)")
+	public void inject7() {
+		System.out.println("MyAspect.inject7...");
+	}
+	
+	/**
+	 * @annotation 匹配的目标方法要被指定注解修饰
+	 */
+//	@Before("@annotation(com.asiainfo.aop.MyAnnotation2)")
+	@Before("target(com.asiainfo.service.impl.UserServiceImpl) && @annotation(com.asiainfo.aop.MyAnnotation2)")
+	public void inject8() {
+		System.out.println("MyAspect.inject8...");
 	}
 }

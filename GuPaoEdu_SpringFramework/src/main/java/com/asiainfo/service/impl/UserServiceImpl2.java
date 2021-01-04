@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.asiainfo.dao.IUserDao;
+import com.asiainfo.entity.Cat;
+import com.asiainfo.entity.Cat2;
+import com.asiainfo.entity.Cat3;
 import com.asiainfo.entity.User;
 import com.asiainfo.service.IUserService;
 
@@ -85,6 +88,24 @@ public class UserServiceImpl2 implements IUserService {
 
 	@Override
 	public void m4() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void m5(Cat cat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void m5(Cat cat, Cat2 cat2, Cat3 cat3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void m6() {
 		// TODO Auto-generated method stub
 		
 	}

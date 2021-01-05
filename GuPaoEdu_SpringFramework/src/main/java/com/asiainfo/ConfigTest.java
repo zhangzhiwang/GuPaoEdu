@@ -28,7 +28,7 @@ import com.asiainfo.entity.DBInfo;
 import com.asiainfo.entity.Product;
 import com.asiainfo.entity.Product4;
 import com.asiainfo.entity.Product5;
-import com.asiainfo.entity.User;
+import com.asiainfo.entity.User3;
 import com.asiainfo.service.IUserService;
 import com.asiainfo.service.impl.UserServiceImpl;
 

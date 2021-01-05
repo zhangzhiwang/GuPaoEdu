@@ -3,10 +3,10 @@ package com.asiainfo.service;
 import com.asiainfo.entity.Cat;
 import com.asiainfo.entity.Cat2;
 import com.asiainfo.entity.Cat3;
-import com.asiainfo.entity.User;
+import com.asiainfo.entity.User3;
 
 public interface IUserService {
-	User queryUser();
+	User3 queryUser();
 	
 	void m1();
 	

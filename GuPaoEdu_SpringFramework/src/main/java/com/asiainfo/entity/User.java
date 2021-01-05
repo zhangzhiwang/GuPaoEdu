@@ -1,35 +1,21 @@
 package com.asiainfo.entity;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import org.springframework.context.annotation.Lazy;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User {
+	private int id;
 	private String name;
 	private int age;
-	private Product product;
-	private String[] hobbies;
-	private List<Product> products;
-	private Map<String, String> myMap;
-	private Properties properties;
-	private String nameTest = "张三";
-	
 	public User(String name, int age) {
-		System.out.println("user有参构造器");
+		super();
 		this.name = name;
 		this.age = age;
-	}
-	
-	public User() {
-		System.out.println("user无参构造器");
 	}
 }

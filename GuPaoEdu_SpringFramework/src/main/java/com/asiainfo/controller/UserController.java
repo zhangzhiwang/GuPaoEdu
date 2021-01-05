@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-import com.asiainfo.entity.User;
+import com.asiainfo.entity.User3;
 import com.asiainfo.service.IUserService;
 import com.asiainfo.service.IUserService2;
 import com.asiainfo.service.impl.UserServiceImpl;
@@ -32,9 +32,9 @@ public class UserController {
 //	@Resource(name = "s1", type = IUserService.class)
 	private IUserService userService;
 //	@Autowired
-	private User user;
+	private User3 user;
 	
-	public User queryUser() {
+	public User3 queryUser() {
 		System.out.println(userService);
 		System.out.println(user);
 		return userService.queryUser();

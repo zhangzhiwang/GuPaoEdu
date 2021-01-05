@@ -11,7 +11,7 @@ import com.asiainfo.dao.IUserDao;
 import com.asiainfo.entity.Cat;
 import com.asiainfo.entity.Cat2;
 import com.asiainfo.entity.Cat3;
-import com.asiainfo.entity.User;
+import com.asiainfo.entity.User3;
 import com.asiainfo.service.IUserService;
 
 import lombok.Data;
@@ -26,7 +26,7 @@ public class UserServiceImpl2 implements IUserService {
 	private IUserDao userDao;
 
 	@Override
-	public User queryUser() {
+	public User3 queryUser() {
 		return userDao.queryUser();
 	}
 

@@ -1,11 +1,18 @@
 package com.asiainfo;
 
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 import com.asiainfo.controller.UserController;
@@ -14,6 +21,7 @@ import com.asiainfo.entity.Cat;
 import com.asiainfo.entity.Cat2;
 import com.asiainfo.entity.Cat3;
 import com.asiainfo.entity.User;
+import com.asiainfo.entity.User3;
 import com.asiainfo.service.IUserService;
 import com.asiainfo.service.impl.UserServiceImpl;
 
@@ -34,7 +42,7 @@ public class AppStarter {
 //		userServiceImpl.m3("", (byte)1);
 //		System.out.println("-----------------");
 //		
-//		IUserDao userDao = (IUserDao) applicationContext.getBean("userDaoImpl");
+		IUserDao userDao = (IUserDao) applicationContext.getBean("userDaoImpl");
 //		userDao.test1("");
 		
 		userServiceImpl.m3("10010", (byte)1);
@@ -58,5 +66,20 @@ public class AppStarter {
 //		userServiceImpl.m6();
 //		System.out.println("-----------------");
 //		userDao.m6();
+//		userDao.insertUser(new User("ls", 19));
+		List<User> users = userDao.queryAllUsers();
+		System.out.println(users);
+	}
+	
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "zzw1234");
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		return dataSource;
+	}
+	
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
 	}
 }

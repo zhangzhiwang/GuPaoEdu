@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.asiainfo.controller.UserController;
 import com.asiainfo.dao.IUserDao;
@@ -36,6 +37,7 @@ import com.asiainfo.transaction.TxService;
 @Configuration
 @ComponentScan
 //@EnableAspectJAutoProxy(proxyTargetClass = true)// 开启Aspec tJ，前提是引入aspectjweaver的依赖
+@EnableTransactionManagement
 public class AppStarter {
 	public static void main(String[] args) throws Exception {
 //		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppStarter.class);

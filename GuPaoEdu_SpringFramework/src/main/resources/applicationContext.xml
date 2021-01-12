@@ -109,13 +109,13 @@
 	<!-- <bean id="product" class="com.asiainfo.entity.Product" lazy-init="true"></bean> -->	<!-- 延迟加载 -->
 	
 	<!-- 以配置的方式使用事务 -->
-<!-- 	<context:property-placeholder location="db.properties"/> -->
-<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
-<!-- 		<property name="driverClassName" value="${db.driver}"></property> -->
-<!-- 		<property name="url" value="${db.url}"></property> -->
-<!-- 		<property name="username" value="${db.username}"></property> -->
-<!-- 		<property name="password" value="${db.password}"></property> -->
-<!-- 	</bean> -->
+	<context:property-placeholder location="db.properties"/>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.driver}"></property>
+		<property name="url" value="${db.url}"></property>
+		<property name="username" value="${db.username}"></property>
+		<property name="password" value="${db.password}"></property>
+	</bean>
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>

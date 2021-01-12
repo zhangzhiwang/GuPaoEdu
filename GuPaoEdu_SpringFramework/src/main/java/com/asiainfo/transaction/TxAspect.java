@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.asiainfo.util.CommonUtil;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class TxAspect {
 	@Before("@within(com.asiainfo.transaction.MyTransactional)")
 	public void before() {

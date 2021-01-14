@@ -235,8 +235,8 @@
 		<module>GuPaoEdu_SpringCloudNetflix_Parent</module>
 		<module>GuPaoEdu_SpringBoot_AutoConfig</module>
 		<module>GuPaoEdu_SpringBoot</module>
-    <module>GuPaoEdu_SpringFramework</module>
-    <module>GuPaoEdu_Mybatis</module>
+    	<module>GuPaoEdu_SpringFramework</module>
+    	<module>GuPaoEdu_Mybatis</module>
   </modules>
 
 </project>

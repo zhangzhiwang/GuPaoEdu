@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.mapper.UserMapper">
+	<resultMap id="rm" type="user">
+		<id column="id" property="id"/>
+		<result column="name" property="name" typeHandler="myTypeHandler"/>
+		<result column="age" property="age"/>
+	</resultMap>
+
+	<select id="queryUserById" parameterType="int" resultMap="rm">
+		select * from t_user where id=#{id}
+	</select>
+	
+	<insert id="saveUser" parameterType="user" useGeneratedKeys="true" keyProperty="u.id">	<!-- 注意：保存的时候使用typeHandler时后面的值不需要放在引号里面 -->
+		insert into t_user (name,age) values (#{u.name, typeHandler=myTypeHandler},#{u.age})
+	</insert>
+</mapper>

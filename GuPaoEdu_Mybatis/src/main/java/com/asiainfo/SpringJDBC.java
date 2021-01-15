@@ -43,7 +43,7 @@ public class SpringJDBC {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				int age = rs.getInt("age");
-				User user = new User(id, name, age);
+				User user = new User(id, name, age, null);
 				return user;
 			}
 		}, 3);

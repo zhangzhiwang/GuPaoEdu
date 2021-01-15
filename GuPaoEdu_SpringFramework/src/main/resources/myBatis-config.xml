@@ -11,26 +11,26 @@
 	<!-- 配置类型别名，mybatis内置了好多类型别名，具体可以看源码：org.apache.ibatis.type.TypeAliasRegistry -->
 	<typeAliases>
 		<typeAlias alias="user" type="com.asiainfo.entity.User" />
-		<typeAlias alias="myTypeHandler" type="com.asiainfo.MyTypeHandler" />
+<!-- 		<typeAlias alias="myTypeHandler" type="com.asiainfo.MyTypeHandler" /> -->
 	</typeAliases>
 	
 	<!-- 类型处理器，用于实现表字段类型和Java类型的映射，mybatis默认了很多类型处理器，可以看源码：org.apache.ibatis.type.TypeHandlerRegistry -->
-	<typeHandlers>
+<!-- 	<typeHandlers> -->
 		<!-- 自定义TypeHandler步骤：
 			1、自定义类需要实现TypeHandler接口或继承BaseTypeHandler类
 			2、在mybatis全局配置文件中注册
 			3、并不是注册了之后所有该类型的映射都会走自定义的TypeHandler，而是在需要使用的地方加上它，比如resultMap里面使用typeHandler属性指定，插入的时候使用typeHandler属性指定自定义的类型处理器（注意：插入时使用typeHandler，其值不需要放在双引号里）
 		 -->
-		<typeHandler handler="com.asiainfo.MyTypeHandler"/>
-	</typeHandlers>
+<!-- 		<typeHandler handler="com.asiainfo.MyTypeHandler"/> -->
+<!-- 	</typeHandlers> -->
 	
 	<!-- 对象工厂，mybatis在获取结果集之后要对目标pojo进行映射，首先它要实例化目标对象，实例化的方式是通过默认的对象工厂DefaultObjectFactory
 		 通过反射的方式进行的，它只实例化目标对象不会干别的，但这已能满足大部分的需求。如果有对实体类实例化有特殊的要求可以自定义对象工厂，参见com.asiainfo.MyObjectFactory
 	 -->
-	<objectFactory type="com.asiainfo.MyObjectFactory">
-		<property name="url" value="localhost"/>
-		<property name="port" value="3306"/>
-	</objectFactory>
+<!-- 	<objectFactory type="com.asiainfo.MyObjectFactory"> -->
+<!-- 		<property name="url" value="localhost"/> -->
+<!-- 		<property name="port" value="3306"/> -->
+<!-- 	</objectFactory> -->
 	
 	<!-- 插件（略） -->
 <!-- 	<plugins> -->
@@ -60,7 +60,7 @@
 
 	<!-- 映射器配置 -->
 	<mappers>
-		<mapper resource="mapper/UserMapper.xml" />	<!-- 如果有很多mapper需要配置会导致<mapper>标签很多，可以使用简洁的配置方式：<package> -->
+		<!-- <mapper resource="mapper/UserMapper.xml" /> -->	<!-- 如果有很多mapper需要配置会导致<mapper>标签很多，可以使用简洁的配置方式：<package> -->
 		<!-- 使用<package>标签需要满足四个条件：
 			 1) 映射文件要与Dao接口在同一个包下，即mapper的java文件和xml文件在同一包下
  			 2) 映射文件名要与Dao接口的简单类名相同

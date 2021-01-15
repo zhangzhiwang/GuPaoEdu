@@ -43,7 +43,7 @@ public class MyBatisTest {
 			User user = userMapper.queryUserById(1);
 			System.out.println("user = " + user);
 			
-			userMapper.saveUser(new User(0, "lisi", 21));
+			userMapper.saveUser(new User(0, "lisi", 21, null));
 			sqlSession.commit();
 		} catch (IOException e) {
 			e.printStackTrace();

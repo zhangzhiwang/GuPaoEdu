@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.asiainfo.entity.User3;
+import com.asiainfo.mapper.StudentMapper;
 import com.asiainfo.service.IUserService;
 import com.asiainfo.service.IUserService2;
 import com.asiainfo.service.impl.UserServiceImpl;

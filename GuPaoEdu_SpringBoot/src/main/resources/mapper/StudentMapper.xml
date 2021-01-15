@@ -4,4 +4,8 @@
 	<select id="queryById" parameterType="int" resultType="student">
 		select * from t_student where id=#{id}
 	</select>
+	
+	<select id="queryAll" resultType="student3">
+		select * from t_student
+	</select>
 </mapper>

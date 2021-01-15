@@ -55,7 +55,7 @@ public class OriginJDBC {
 				int id = resultSet.getInt("id");
 				String name = resultSet.getString("name");
 				int age = resultSet.getInt("age");
-				list.add(new User(id, name, age));
+				list.add(new User(id, name, age ,null));
 			}
 			System.out.println(list);
 			

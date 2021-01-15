@@ -22,8 +22,10 @@ import com.asiainfo.dao.IUserDao;
 import com.asiainfo.entity.Cat;
 import com.asiainfo.entity.Cat2;
 import com.asiainfo.entity.Cat3;
+import com.asiainfo.entity.Student;
 import com.asiainfo.entity.User;
 import com.asiainfo.entity.User3;
+import com.asiainfo.mapper.StudentMapper;
 import com.asiainfo.service.IUserService;
 import com.asiainfo.service.impl.UserServiceImpl;
 import com.asiainfo.transaction.TxService;
@@ -75,8 +77,12 @@ public class AppStarter {
 //		List<User> users = userDao.queryAllUsers();
 //		System.out.println(users);
 		
-		TxService txService = applicationContext.getBean(TxService.class);
-		txService.serviceMethod();
+//		TxService txService = applicationContext.getBean(TxService.class);
+//		txService.serviceMethod();
+		
+		StudentMapper studentMapper = applicationContext.getBean(StudentMapper.class);
+		Student student = studentMapper.selectByPrimaryKey(1L);
+		System.out.println(student);
 	}
 	
 	@Bean

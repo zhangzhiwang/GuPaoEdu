@@ -24,7 +24,7 @@ public class MyObjectFactory extends DefaultObjectFactory {
 		T t = create(type, null, null);
 		if(t instanceof User) {
 			User user = (User) t;
-			user.setName(user.getName() + "---特殊处理：key1 = " + key1 + ",key2 = " + key2);// 可以对被创建的对象做一些特殊的操作，比如初始化等
+			user.setInit("特殊处理：key1 = " + key1 + ",key2 = " + key2);// 可以对被创建的对象做一些特殊的操作，比如初始化等
 		}
 		
 		return t;
@@ -45,7 +45,7 @@ public class MyObjectFactory extends DefaultObjectFactory {
 	@Override
 	public void setProperties(Properties properties) {
 		this.key1 = (String) properties.get("url");
-		this.key2 = (Integer) properties.get("port");
+		this.key2 = Integer.parseInt((String) properties.get("port"));
 	}
 
 	/**

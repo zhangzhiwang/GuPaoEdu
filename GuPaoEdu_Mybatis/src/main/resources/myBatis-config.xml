@@ -23,6 +23,11 @@
 		 -->
 		<typeHandler handler="com.asiainfo.MyTypeHandler"/>
 	</typeHandlers>
+	
+	<objectFactory type="com.asiainfo.MyObjectFactory">
+		<property name="key1" value="localhost"/>
+		<property name="key2" value="3306"/>
+	</objectFactory>
 
 	<environments default="dev">	<!-- 这个类似于maven的profile -->
 		<environment id="dev">

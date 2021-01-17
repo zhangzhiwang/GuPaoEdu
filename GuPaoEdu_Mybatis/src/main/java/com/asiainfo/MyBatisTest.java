@@ -2,12 +2,16 @@ package com.asiainfo;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.asiainfo.entity.Person;
 import com.asiainfo.entity.User;
 import com.asiainfo.mapper.UserMapper;
 
@@ -40,11 +44,49 @@ public class MyBatisTest {
 			sqlSession = sqlSessionFactory.openSession();
 //			User user = sqlSession.selectOne("com.asiainfo.mapper.UserMapper.queryUserById", 1);// 原始iBatis的使用方式，缺点是第一个参数statement由于是字符串，很可能写错，所以提供了第二种以面向对象的方式——getMapper()
 			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-			User user = userMapper.queryUserById(1);
-			System.out.println("user = " + user);
+//			User user = userMapper.queryUserById(1);
+//			System.out.println("user = " + user);
+//			
+//			userMapper.saveUser(new User(0, "lisi", 21, null));
+//			sqlSession.commit();
 			
-			userMapper.saveUser(new User(0, "lisi", 21, null));
-			sqlSession.commit();
+//			userMapper.testDynamicSqlIf(1);
+//			userMapper.testDynamicSqlTrim(new User(0, "wangwu", 19, null));
+//			userMapper.testDynamicSqlSet("wangwu", 22);
+//			userMapper.testDynamicSqlWhere(2);
+//			sqlSession.commit();
+			
+//			userMapper.testDynamicSqlForeach(Arrays.asList(1,2,3));
+//			userMapper.testDynamicSqlForeach2(Arrays.asList("a1","a2"));
+//			sqlSession.commit();
+			
+			// 测试插入10000条数据，一个是在循环里每次发送一条insert语句，一个是一次性批量发送10000条语句，比较二者的执行效率
+//			long begin1 = System.currentTimeMillis();
+//			for(int i = 0; i < 10000; i++) {
+//				userMapper.saveUser2(new User(0, "user_" + i, i, null));
+//			}
+//			sqlSession.commit();
+//			long end1 = System.currentTimeMillis();
+//			System.out.println("循环单条插入耗时：" + (end1 - begin1));// 2230	尽量不要在循环里一次性只保存一条，因为每循环一次就会和数据库交互一次，即使用的连接池那么每提交一次sql都会对sql进行编译和验证等，耗费时间，尽量走批量操作，这样可以大大减少和数据库的交互
+//			
+//			System.out.println("---------------------");
+//			long begin2 = System.currentTimeMillis();
+//			List<User> userList = new ArrayList<>();
+//			for(int i = 0; i < 10000; i++) {
+//				userList.add(new User(0, "user_" + i, i, null));
+//			}
+//			userMapper.testDynamicSqlForeach3(userList);
+//			sqlSession.commit();
+//			long end2 = System.currentTimeMillis();
+//			System.out.println("批量插入耗时：" + (end2 - begin2));// 325	如果有批量操作的需要，可以在配置文件中的settings部分设置defaultExecutorType属性为BATCH
+			
+			// 测试联合查询
+			List<Person> personList = userMapper.testAssociation();
+			System.out.println(personList);
+			
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

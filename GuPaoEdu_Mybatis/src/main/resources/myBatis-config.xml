@@ -7,6 +7,17 @@
 	<!-- <properties url="file:///Users/zhangzhiwang/Desktop/db_2.properties"> -->	<!-- resource属性和url属性都可以引入外部文件，区别就是前者引用的俄式classpath下面的文件，后者引用磁盘全路经名的文件或者网络文件 -->
 <!-- 		<property name="db.driver" value="com.mysql.jdbc.Driver" /> -->
 	</properties>
+	
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING"/>	<!-- 打印sql语句 -->
+		<setting name="cacheEnabled" value="true"/>	<!-- 开启二级缓存，默认是关闭的。开启之后要在需要使用二级缓存的mapper.xml里面用<cache>标签进行开启 -->
+		<!-- “关闭”一级缓存
+			注意：上面的“关闭”加上了双引号是因为以及缓存是默认开启的且不能关闭的，是的一级缓存没有开关。
+			localCacheScope是本地缓存的范围，本地缓存就是一级缓存。由于一级缓存默认是会话级别的，所以localCacheScope的默认值是SESSION，将localCacheScope的作用范围调小，比如STATEMENT，只对一条sql有效，那么就相当于关闭了一级缓存
+		 -->
+<!-- 		<setting name="localCacheScope" value="STATEMENT"/> -->
+<!-- 		<setting name="defaultExecutorType" value="BATCH"/> -->	<!-- 适用于批量操作 -->	
+	</settings>
 
 	<!-- 配置类型别名，mybatis内置了好多类型别名，具体可以看源码：org.apache.ibatis.type.TypeAliasRegistry -->
 	<typeAliases>
@@ -27,10 +38,10 @@
 	<!-- 对象工厂，mybatis在获取结果集之后要对目标pojo进行映射，首先它要实例化目标对象，实例化的方式是通过默认的对象工厂DefaultObjectFactory
 		 通过反射的方式进行的，它只实例化目标对象不会干别的，但这已能满足大部分的需求。如果有对实体类实例化有特殊的要求可以自定义对象工厂，参见com.asiainfo.MyObjectFactory
 	 -->
-	<objectFactory type="com.asiainfo.MyObjectFactory">
-		<property name="url" value="localhost"/>
-		<property name="port" value="3306"/>
-	</objectFactory>
+<!-- 	<objectFactory type="com.asiainfo.MyObjectFactory"> -->
+<!-- 		<property name="url" value="localhost"/> -->
+<!-- 		<property name="port" value="3306"/> -->
+<!-- 	</objectFactory> -->
 	
 	<!-- 插件（略） -->
 <!-- 	<plugins> -->

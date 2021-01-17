@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asiainfo.mapper.UserMapper">
+	<!-- 开启本namespace的二级缓存 -->
+<!-- 	<cache/>	如果二级缓存的属性都是用默认值的话，那么只用一个<cache>标签即可，除非需要特别设置某些参数		 -->
+	<!-- type属性指定缓存的实现类，如果用mybatis自定义的实现类可以使用org.apache.ibatis.cache.impl.PerpetualCache，或者不设置，也可以设置第三方的实现类，比如redis等，但需要引入相关依赖，比如mybatis-redis-*.*.*.jar，那么相应地type的值可以配置成org.mybatis.caches.redis.RedisCache，redis的相关配置（IP、端口等）也要在配置文件中配置
+		size是缓存能存储的条数，也就是key的个数，不是缓存的总大小
+		eviction是缓存淘汰策略，具体的淘汰策略可以看mybatis.jar里面org.apache.ibatis.cache.decorators包下面的类，eviction的值是LRU就对应org.apache.ibatis.cache.decorators.LruCache
+		flushInterval是缓存刷新间隔，默认是毫秒，多长时间刷新一次缓存
+		readOnly只读属性，默认为false，即非只读。就拿t_user表来举例子，隋英的实体类是User，缓存中会保存User对象给用户使用。
+			readOnly=true的意思是缓存返回给用户的User对象是只读的，建议用户不要对User对象进行修改，因为缓存保存的是User对象的引用。如果用户A取出了User对象之后进行了修改，那么用户B再去除该对象之后拿到的是A改后的对象，类似于浅拷贝。
+			readOnly=false（默认值）的意思是缓存存储的是User对象经序列化后的拷贝（深拷贝），每个用户从缓存取出来的对象都是一个拷贝的副本，一个用户取出来对象之后进行修改不会影响到另一个用户从缓存取出对象，这样是对安全的但却是好性能的，因为要对对象进行序列化并且要求被缓存的类要实现序列化接口
+	 -->
+	<cache type="org.apache.ibatis.cache.impl.PerpetualCache"
+			size="123"
+			eviction="LRU"
+			flushInterval="100000"
+			readOnly="true"
+	/>
+	
 	<resultMap id="rm" type="user">
 		<id column="id" property="id"/>
 		<result column="name" property="name" typeHandler="myTypeHandler"/>
@@ -14,4 +31,165 @@
 	<insert id="saveUser" parameterType="user" useGeneratedKeys="true" keyProperty="u.id">	<!-- 注意：保存的时候使用typeHandler时后面的值不需要放在引号里面 -->
 		insert into t_user (name,age) values (#{u.name, typeHandler=myTypeHandler},#{u.age})
 	</insert>
+	
+	<update id="updateById" parameterType="int">
+		update t_user set age = age + 1 where id=#{id}
+	</update>
+	
+	<select id="testDynamicSqlIf" parameterType="int" resultType="user">
+		select 
+		<trim suffixOverrides="," prefixOverrides=",">	<!-- <trim>标签用于去掉首尾指定的符号，去掉内容末尾的符号用suffixOverrides属性来指定，去掉内容首的符号用prefixOverrides属性来指定 -->
+			<if test="id &gt;= 1">	<!-- 相当于Java的if，每个if标签的test都要去判断 -->
+				,id,
+			</if>
+			<if test="id &gt;= 2">
+				name,
+			</if>
+			<if test="id == 3 or id == 4">
+				age,
+			</if>
+		</trim>
+		from t_user where id= 1
+	</select>
+	
+	<select id="testDynamicSqlChoose" parameterType="int" resultType="user">
+		select
+		<trim suffixOverrides=",">
+			<choose>	<!-- 相当于Java的switch -->
+				<when test="id == 1">
+					id,
+				</when>
+				<when test="id &lt;= 2">
+					name,
+				</when>
+				<otherwise>	<!-- 相当于switch里面的default -->
+					age,
+				</otherwise>
+			</choose>
+		</trim>
+		from t_user where id= 1
+	</select>
+	
+	<insert id="testDynamicSqlTrim" parameterType="user">
+		insert into t_user
+		<trim prefix="(" suffix=")" prefixOverrides=",">
+			<if test="u.id != null">
+				,id
+			</if>
+			<if test="u.name != null and u.name != ''">
+				,name
+			</if>
+			<if test="u.age != null">
+				,age
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="u.id != null">
+				#{u.id},
+			</if>
+			<if test="u.name != null and u.name != ''">
+				#{u.name},
+			</if>
+			<if test="u.age != null">
+				#{u.age},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="testDynamicSqlSet">
+		update t_user 
+		<set>	<!-- <set>标签在update时使用，作用可以去除掉首尾的逗号 -->
+			<if test="name != null and name != ''">
+				,name=#{name},
+			</if>
+			<if test="age != null">
+				age = #{age},
+			</if>
+		</set>
+		where id=3
+	</update>
+	
+	<select id="testDynamicSqlWhere" resultType="int">
+		select count(1) from t_user 
+		<where>	<!-- <where>标签只能去掉第一个条件的开头的“and”，不能去掉最后一个条件末尾的“and” -->
+			<if test="id &lt;= 2">
+				and id = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="testDynamicSqlForeach" resultType="user">
+		select * from t_user
+		where id in
+		<foreach collection="idList" item="idItem" open="(" close=")" separator=",">
+			#{idItem}
+		</foreach>
+	</select>
+	
+	<insert id="testDynamicSqlForeach2">
+		insert into t_user (name,age)
+		values
+		<foreach collection="nameList" item="item" index="i" separator=",">	<!-- index为集合的索引，从0开始 -->
+			(
+			#{item},
+			#{i}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="testDynamicSqlForeach3" parameterType="user">
+		insert into t_user (name,age)
+		values
+		<foreach collection="userList" item="u" index="i" separator=",">	<!-- index为集合的索引，从0开始 -->
+			(
+			#{u.name},
+			#{u.age}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="saveUser2" parameterType="user">
+		insert into t_user (name,age) values (#{u.name},#{u.age})
+	</insert>
+	
+	<select id="testAssociation" resultMap="rmAssociationResult">
+		SELECT
+	p.person_id,
+	p.name,
+	p.age,
+	c.id_card_id,
+	c.id_card_num,
+	c.address 
+FROM
+	t_person p
+	LEFT JOIN t_id_card c ON p.id_card_id = c.id_card_id 
+	</select>
+	
+	<!-- 一对一映射的association实现方式1:直接映射另一个对象的结果
+		 A对象里面组合了B对象，查询后直接将结果映射到B对象里面，这样只会发出一次sql
+	 -->	
+	<resultMap id="rmAssociationResult" type="com.asiainfo.entity.Person">
+		<id column="person_id" property="personId"/>
+		<result column="name" property="name"/>
+		<result column="age" property="age"/>
+		<!-- 一对一的关系用association -->		
+		<association property="idCard" javaType="com.asiainfo.entity.IdCard">
+			<id column="id_card_id" property="idCardId"/>
+			<result column="id_card_num" property="idCardNum"/>
+			<result column="address" property="address"/>
+		</association>
+	</resultMap>
+	
+	<resultMap id="rmAssociationQuery" type="com.asiainfo.entity.Person">
+		<id column="person_id" property="personId"/>
+		<result column="name" property="name"/>
+		<result column="age" property="age"/>
+		<!-- 一对一的关系用association -->		
+		<association property="idCard" javaType="com.asiainfo.entity.IdCard">
+			<id column="id_card_id" property="idCardId"/>
+			<result column="id_card_num" property="idCardNum"/>
+			<result column="address" property="address"/>
+		</association>
+	</resultMap>
 </mapper>

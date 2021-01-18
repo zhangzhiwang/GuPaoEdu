@@ -186,10 +186,11 @@ FROM
 		<result column="name" property="name"/>
 		<result column="age" property="age"/>
 		<!-- 一对一的关系用association -->		
-		<association property="idCard" javaType="com.asiainfo.entity.IdCard">
-			<id column="id_card_id" property="idCardId"/>
-			<result column="id_card_num" property="idCardNum"/>
-			<result column="address" property="address"/>
+		<association property="idCard" javaType="com.asiainfo.entity.IdCard" column="id_card_id" select="queryIdCardById">
 		</association>
 	</resultMap>
+	
+	<select id="queryIdCardById" parameterType="int" resultType="com.asiainfo.entity.IdCard">
+		select * from t_id_card where id_card_id=#{idCardId}
+	</select>
 </mapper>

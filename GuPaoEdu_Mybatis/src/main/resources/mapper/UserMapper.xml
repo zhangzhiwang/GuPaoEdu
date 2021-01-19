@@ -153,7 +153,7 @@
 		insert into t_user (name,age) values (#{u.name},#{u.age})
 	</insert>
 	
-	<select id="testAssociation" resultMap="rmAssociationResult">
+	<select id="testAssociation" resultMap="rmAssociationQuery">
 		SELECT
 	p.person_id,
 	p.name,
@@ -181,16 +181,21 @@ FROM
 		</association>
 	</resultMap>
 	
+	<!-- 一对一映射的association实现方式2:在映射另一个对象时进行一次查询
+		 A对象里面组合了B对象，在映射B对象的时候通过外键进行一次查询，然后对B对象进行映射
+		 这种方式会有N+1的问题，其中“1”就是查询外面A对象的关联查询，由于查询出来的时一个List，在映射A对象关联的B对象时，会单独发送一个sql去查询B，如果List里面有N条数据，那么就会发送N个sql去查询B，这就是N+1问题。
+		 解决N+1问题的方法是延迟加载，延迟加载还分为两种情况
+	 -->
 	<resultMap id="rmAssociationQuery" type="com.asiainfo.entity.Person">
 		<id column="person_id" property="personId"/>
 		<result column="name" property="name"/>
 		<result column="age" property="age"/>
 		<!-- 一对一的关系用association -->		
-		<association property="idCard" javaType="com.asiainfo.entity.IdCard" column="id_card_id" select="queryIdCardById">
+		<association property="idCard" javaType="com.asiainfo.entity.IdCard" column="id_card_id" select="queryIdCardById">	<!-- column为数据库的外键字段，select为另一个查询语句的statementId -->
 		</association>
 	</resultMap>
 	
-	<select id="queryIdCardById" parameterType="int" resultType="com.asiainfo.entity.IdCard">
+	<select id="queryIdCardById" parameterType="int" resultType="com.asiainfo.entity.IdCard">	<!-- 查询内嵌对象的sql -->
 		select * from t_id_card where id_card_id=#{idCardId}
 	</select>
 </mapper>

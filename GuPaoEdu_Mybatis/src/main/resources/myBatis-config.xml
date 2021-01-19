@@ -16,7 +16,9 @@
 			localCacheScope是本地缓存的范围，本地缓存就是一级缓存。由于一级缓存默认是会话级别的，所以localCacheScope的默认值是SESSION，将localCacheScope的作用范围调小，比如STATEMENT，只对一条sql有效，那么就相当于关闭了一级缓存
 		 -->
 <!-- 		<setting name="localCacheScope" value="STATEMENT"/> -->
-<!-- 		<setting name="defaultExecutorType" value="BATCH"/> -->	<!-- 适用于批量操作 -->	
+<!-- 		<setting name="defaultExecutorType" value="BATCH"/> -->	<!-- 适用于批量操作 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>	<!-- 开启驼峰命名 -->
+		<setting name="aggressiveLazyLoading" value="true"/>	<!-- 开启延迟加载方式1:使用lazyLoadingEnabled属性，如果A对象组合了B对象，当访问A对象的属性时（可能该属性不是B对象的属性）会出发对B对象的查询及映射 -->
 	</settings>
 
 	<!-- 配置类型别名，mybatis内置了好多类型别名，具体可以看源码：org.apache.ibatis.type.TypeAliasRegistry -->

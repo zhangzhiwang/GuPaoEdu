@@ -82,9 +82,10 @@ public class MyBatisTest {
 			
 			// 测试联合查询
 			List<Person> personList = userMapper.testAssociation();
-			Person person = personList.get(0);
-			person.getName();
-//			System.out.println(personList);
+//			Person person = personList.get(0);
+//			person.getName();
+//			person.getIdCard();
+//			System.out.println(person);
 			
 			
 			

@@ -19,6 +19,7 @@
 <!-- 		<setting name="defaultExecutorType" value="BATCH"/> -->	<!-- 适用于批量操作 -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>	<!-- 开启驼峰命名 -->
 		<setting name="aggressiveLazyLoading" value="true"/>	<!-- 开启延迟加载方式1:使用lazyLoadingEnabled属性，如果A对象组合了B对象，当访问A对象的属性时（可能该属性不是B对象的属性）会出发对B对象的查询及映射 -->
+		<!-- <setting name="lazyLoadingEnabled" value="true"/> -->	<!-- 延迟加载的全局开关，默认为false。打开后只有访问到被组合的对象时才回触发查询操作，这里的“访问”指外部对象get内嵌组合对象时，或者调用外部对象的equals,clone,hashCode,toString方法 -->
 	</settings>
 
 	<!-- 配置类型别名，mybatis内置了好多类型别名，具体可以看源码：org.apache.ibatis.type.TypeAliasRegistry -->

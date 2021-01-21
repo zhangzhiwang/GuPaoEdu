@@ -166,6 +166,7 @@ FROM
 	LEFT JOIN t_id_card c ON p.id_card_id = c.id_card_id 
 	</select>
 	
+	<!-- 1、mybatis关联映射之一对一映射 -->
 	<!-- 一对一映射的association实现方式1:直接映射另一个对象的结果
 		 A对象里面组合了B对象，查询后直接将结果映射到B对象里面，这样只会发出一次sql
 	 -->	
@@ -198,4 +199,49 @@ FROM
 	<select id="queryIdCardById" parameterType="int" resultType="com.asiainfo.entity.IdCard">	<!-- 查询内嵌对象的sql -->
 		select * from t_id_card where id_card_id=#{idCardId}
 	</select>
+	
+	<!--  2、mybatis关联映射之一对多映射 -->
+	<select id="testCollection" resultMap="rmCollectionQuery">
+		select
+			p.person_id,
+			p.name,
+			p.age,
+			c.car_id,
+			c.car_name
+		from
+			t_person p inner join t_car c on p.person_id=c.person_id
+		where
+			p.person_id=1
+	</select>
+	
+	<!-- 一对多关联查询结果集方式1:直接映射关联对象列表的结果 -->
+	<resultMap id="rmCollectionResult" type="com.asiainfo.entity.Person">
+		<id column="person_id" property="personId"/>
+		<result column="name" property="name"/>
+		<result column="age" property="age"/>
+		<!-- 一对多的关系用collection -->		
+		<collection property="carList" ofType="com.asiainfo.entity.Car">	<!-- 注意这里用的是ofType属性，ofType代表集合里面泛型的类型，而javaType指carList的类型，如果使用javaType属性那么值应该是java.util.ArrayList -->
+			<id column="car_id" property="carId"/>
+			<result column="car_name" property="carName"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 一对多关联查询结果集方式2:在映射关联对象列表时需要发出sql进行查询 -->
+	<resultMap id="rmCollectionQuery" type="com.asiainfo.entity.Person">
+		<id column="person_id" property="personId"/>
+		<result column="name" property="name"/>
+		<result column="age" property="age"/>
+		<collection property="carList" ofType="com.asiainfo.entity.Car" javaType="ArrayList" column="person_id" select="queryCar"></collection>
+	</resultMap>
+	
+	<resultMap type="com.asiainfo.entity.Car" id="carRm">
+		<id column="car_id" property="carId"/>
+		<result column="car_name" property="carName"/>
+	</resultMap>
+	
+	<select id="queryCar" resultMap="carRm" parameterType="int">
+		select car_id,car_name from t_car where person_id=#{personId}
+	</select>
+	
+	
 </mapper>

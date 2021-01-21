@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.asiainfo.entity.Car;
 import com.asiainfo.entity.Person;
 import com.asiainfo.entity.User;
 
@@ -33,4 +34,8 @@ public interface UserMapper {
 	int saveUser2(@Param("u") User user);
 	
 	List<Person> testAssociation();
+	
+	Person testCollection();
+	
+	List<Car> queryCar();
 }

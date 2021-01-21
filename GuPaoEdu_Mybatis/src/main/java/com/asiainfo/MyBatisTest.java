@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.asiainfo.entity.Car;
 import com.asiainfo.entity.Person;
 import com.asiainfo.entity.User;
 import com.asiainfo.mapper.UserMapper;
@@ -81,13 +82,16 @@ public class MyBatisTest {
 //			System.out.println("批量插入耗时：" + (end2 - begin2));// 325	如果有批量操作的需要，可以在配置文件中的settings部分设置defaultExecutorType属性为BATCH
 			
 			// 测试联合查询
-			List<Person> personList = userMapper.testAssociation();
+//			List<Person> personList = userMapper.testAssociation();
 //			Person person = personList.get(0);
 //			person.getName();
 //			person.getIdCard();
 //			System.out.println(person);
 			
-			
+			Person person = userMapper.testCollection();
+			System.out.println("person = " + person);
+//			List<Car> list = userMapper.queryCar();
+//			System.out.println(list);
 			
 			
 		} catch (IOException e) {

@@ -243,5 +243,68 @@ FROM
 		select car_id,car_name from t_car where person_id=#{personId}
 	</select>
 	
+	<!--  3、mybatis关联映射之多对多映射，多对多映射其实就是拆分成两个一对多映射 -->
+	<select id="testMultiToMulti" resultMap="teacherRm">
+		select
+			t.t_id,t.t_name,c.c_id,c.c_name
+		from
+			t_teacher t left join t_teacher_class tc on t.t_id=tc.t_id
+			left join t_class c on tc.c_id=c.c_id
+	</select>
 	
+	<resultMap id="teacherRm" type="com.asiainfo.entity.Teacher">
+		<id column="t_id" property="tId"/>
+		<result column="t_name" property="tName"/>
+		<collection property="tClassList" ofType="com.asiainfo.entity.TClass">
+			<id column="c_id" property="cId"/>
+			<result column="c_name" property="cName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="testMultiToMulti2" resultMap="tClassRm">
+		select
+			t.t_id,t.t_name,c.c_id,c.c_name
+		from
+			t_teacher t right join t_teacher_class tc on t.t_id=tc.t_id
+			right join t_class c on tc.c_id=c.c_id
+	</select>
+	
+	<resultMap id="tClassRm" type="com.asiainfo.entity.TClass">
+		<id column="c_id" property="cId"/>
+		<result column="c_name" property="cName"/>
+		<collection property="teacherList" ofType="com.asiainfo.entity.Teacher">
+			<id column="t_id" property="tId"/>
+			<result column="t_name" property="tName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="testAllRelation" resultMap="rmAll">
+		select
+			p.person_id,p.name,p.age,ic.id_card_num,ic.address,c.car_id,c.car_name,s.id,s.name seatName
+		from
+			t_person p left join t_id_card ic on p.id_card_id=ic.id_card_id
+			left join t_car c on p.person_id=c.person_id
+			left join t_seat s on c.car_id=s.car_id
+		where
+			p.person_id=1
+	</select>
+	
+	<resultMap id="rmAll" type="com.asiainfo.entity.Person">
+		<id column="person_id" property="personId"/>
+		<result column="name" property="name"/>
+		<result column="age" property="age"/>
+		<association property="idCard" javaType="com.asiainfo.entity.IdCard">
+			<id column="id_card_id" property="idCardId"/>
+			<result column="id_card_num" property="idCardNum"/>
+			<result column="address" property="address"/>
+		</association>
+		<collection property="carList" ofType="com.asiainfo.entity.Car">
+			<id column="car_id" property="carId"/>
+			<result column="car_name" property="carName"/>
+			<collection property="seatList" ofType="com.asiainfo.entity.Seat">
+				<id column="id" property="id"/>
+				<result column="seatName" property="seatName"/>
+			</collection>
+		</collection>
+	</resultMap>
 </mapper>

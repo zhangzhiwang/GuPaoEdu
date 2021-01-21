@@ -13,6 +13,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.asiainfo.entity.Car;
 import com.asiainfo.entity.Person;
+import com.asiainfo.entity.TClass;
+import com.asiainfo.entity.Teacher;
 import com.asiainfo.entity.User;
 import com.asiainfo.mapper.UserMapper;
 
@@ -88,12 +90,16 @@ public class MyBatisTest {
 //			person.getIdCard();
 //			System.out.println(person);
 			
-			Person person = userMapper.testCollection();
-			System.out.println("person = " + person);
+//			Person person = userMapper.testCollection();
+//			System.out.println("person = " + person);
 //			List<Car> list = userMapper.queryCar();
 //			System.out.println(list);
 			
+//			List<TClass> list = userMapper.testMultiToMulti2();
+//			System.out.println(list);
 			
+			Person person = userMapper.testAllRelation();
+			System.out.println(person);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

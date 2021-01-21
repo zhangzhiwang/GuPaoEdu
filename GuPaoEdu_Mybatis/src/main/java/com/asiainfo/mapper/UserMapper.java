@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.asiainfo.entity.Car;
 import com.asiainfo.entity.Person;
+import com.asiainfo.entity.TClass;
+import com.asiainfo.entity.Teacher;
 import com.asiainfo.entity.User;
 
 public interface UserMapper {
@@ -38,4 +40,10 @@ public interface UserMapper {
 	Person testCollection();
 	
 	List<Car> queryCar();
+	
+	List<Teacher> testMultiToMulti();
+	
+	List<TClass> testMultiToMulti2();
+	
+	Person testAllRelation();
 }

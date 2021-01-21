@@ -43,7 +43,7 @@ public class MyBatisTest {
 		SqlSession sqlSession = null;
 		try {
 			inputStream = Resources.getResourceAsStream("myBatis-config.xml");
-			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);//通过看源码可以知道返回的SqlSessionFactory的实现类是DefaultSqlSessionFactory
 			sqlSession = sqlSessionFactory.openSession();
 //			User user = sqlSession.selectOne("com.asiainfo.mapper.UserMapper.queryUserById", 1);// 原始iBatis的使用方式，缺点是第一个参数statement由于是字符串，很可能写错，所以提供了第二种以面向对象的方式——getMapper()
 			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);

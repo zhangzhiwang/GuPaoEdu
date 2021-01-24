@@ -39,15 +39,25 @@ public class OriginJDBC {
 			/**
 			 * PreparedStatement和Statement区别：
 			 * 1、PreparedStatement是Statement的子接口
-			 * 2、PreparedStatement支持占位符“？”并提供了对占位符设置参数的方法set***，Statement不支持占位符，只能在sql中去拼接参数
+			 * 2、PreparedStatement支持占位符“？”并提供了对占位符设置参数的方法set***，Statement不支持占位符，只能在sql中去拼接参数，有sql注入的风险
 			 * 3、PreparedStatement会对sql进行预编译，多次执行效率高于Statement，但是第一次执行的时候效率低于Statemen，所以适用于多次反复执行或者批量执行的场景下t；
 			 *    Statement不会对sql进行预编译，适用于只执行一次
 			 */
-			prepareStatement = connection.prepareStatement("select * from t_user where id < ?");
-			prepareStatement.setInt(1, 3);
+//			prepareStatement = connection.prepareStatement("select * from t_user where id < ?");
+//			prepareStatement.setInt(1, 3);
+//			
+//			// 5、执行sql语句，如果是执行查询语句则需要使用executeQuery方法，写方法需要使用execute方法
+//			resultSet = prepareStatement.executeQuery();
 			
-			// 5、执行sql语句，如果是执行查询语句则需要使用executeQuery方法，写方法需要使用execute方法
-			resultSet = prepareStatement.executeQuery();
+			//***************模拟Statement的sql注入****************
+			String nameP = "zs' -- ";// mysql里面“--”代表注释，参数里面有“--”可以把sql的后半部分注释掉
+			int ageP = 20;
+			
+			Statement statement = connection.createStatement();
+			String sql = "select * from t_user where name='" + nameP + "' and age=" + ageP;
+			resultSet = statement.executeQuery(sql);
+			
+			//*******************************
 			
 			// 【可选】6、如果执行的是查询方法则需要对结果集ResultSet进行后续处理
 			List<User> list = new ArrayList<>();

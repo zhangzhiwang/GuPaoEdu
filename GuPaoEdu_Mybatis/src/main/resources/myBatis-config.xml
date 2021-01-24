@@ -9,7 +9,7 @@
 	</properties>
 	
 	<settings>
-		<setting name="logImpl" value="STDOUT_LOGGING"/>	<!-- 打印sql语句 -->
+		<setting name="logImpl" value="STDOUT_LOGGING"/>	<!-- 打印sql语句，此种方式不需要单独配置log4j；另一种方式是使用log4j，需要引入相关依赖 -->
 		<setting name="cacheEnabled" value="true"/>	<!-- 开启二级缓存，默认是关闭的。开启之后要在需要使用二级缓存的mapper.xml里面用<cache>标签进行开启 -->
 		<!-- “关闭”一级缓存
 			注意：上面的“关闭”加上了双引号是因为以及缓存是默认开启的且不能关闭的，是的一级缓存没有开关。

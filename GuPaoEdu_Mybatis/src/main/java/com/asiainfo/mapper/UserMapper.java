@@ -10,7 +10,7 @@ import com.asiainfo.entity.TClass;
 import com.asiainfo.entity.Teacher;
 import com.asiainfo.entity.User;
 
-public interface UserMapper {
+public interface UserMapper {// mapper必须是一个接口否则不处理，可以查看源码：org.apache.ibatis.binding.MapperRegistry.addMapper(Class<T>)
 	User queryUserById(@Param("id") int id);
 	
 	int saveUser(@Param("u") User user);

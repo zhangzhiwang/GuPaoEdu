@@ -93,4 +93,6 @@ public interface StudentMapper {
      * @mbg.generated Fri Jan 15 16:05:22 CST 2021
      */
     int updateByPrimaryKey(Student record);
+    
+    int updateUser();
 }

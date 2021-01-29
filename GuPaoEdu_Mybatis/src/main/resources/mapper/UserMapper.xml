@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asiainfo.mapper.UserMapper">
 	<!-- 开启本namespace的二级缓存 -->
-<!-- 	<cache/>	如果二级缓存的属性都是用默认值的话，那么只用一个<cache>标签即可，除非需要特别设置某些参数		 -->
+	<cache/>	<!-- 如果二级缓存的属性都是用默认值的话，那么只用一个<cache>标签即可，除非需要特别设置某些参数 -->		
 	<!-- type属性指定缓存的实现类，如果用mybatis自定义的实现类可以使用org.apache.ibatis.cache.impl.PerpetualCache，或者不设置，也可以设置第三方的实现类，比如redis等，但需要引入相关依赖，比如mybatis-redis-*.*.*.jar，那么相应地type的值可以配置成org.mybatis.caches.redis.RedisCache，redis的相关配置（IP、端口等）也要在配置文件中配置
 		size是缓存能存储的条数，也就是key的个数，不是缓存的总大小
 		eviction是缓存淘汰策略，具体的淘汰策略可以看mybatis.jar里面org.apache.ibatis.cache.decorators包下面的类，eviction的值是LRU就对应org.apache.ibatis.cache.decorators.LruCache
@@ -11,12 +11,12 @@
 			readOnly=true的意思是缓存返回给用户的User对象是只读的，建议用户不要对User对象进行修改，因为缓存保存的是User对象的引用。如果用户A取出了User对象之后进行了修改，那么用户B再去除该对象之后拿到的是A改后的对象，类似于浅拷贝。
 			readOnly=false（默认值）的意思是缓存存储的是User对象经序列化后的拷贝（深拷贝），每个用户从缓存取出来的对象都是一个拷贝的副本，一个用户取出来对象之后进行修改不会影响到另一个用户从缓存取出对象，这样是对安全的但却是好性能的，因为要对对象进行序列化并且要求被缓存的类要实现序列化接口
 	 -->
-	<cache type="org.apache.ibatis.cache.impl.PerpetualCache"
-			size="123"
-			eviction="LRU"
-			flushInterval="100000"
-			readOnly="true"
-	/>
+<!-- 	<cache type="org.apache.ibatis.cache.impl.PerpetualCache" -->
+<!-- 			size="123" -->
+<!-- 			eviction="LRU" -->
+<!-- 			flushInterval="100000" -->
+<!-- 			readOnly="true" -->
+<!-- 	/> -->
 	
 	<resultMap id="rm" type="user">
 		<id column="id" property="id"/>

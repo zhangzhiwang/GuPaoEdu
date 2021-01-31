@@ -18,7 +18,20 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<!-- eclipse中Dependency Hierarchy视图中依赖的顺序和pom.xml依赖定义的顺序是一样的。 maven依赖冲突解决原则： 
+		1、定义优先原则，即谁先定义就是用谁的jar包（这里主要是指间接依赖的jar包） 2、最短路径原则，即谁到达指定依赖的路径短就是用谁的 -->
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>5.1.17.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -40,16 +53,17 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.16</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>5.1.17.RELEASE</version>
-		</dependency>
+
 		<!-- spring framework集成mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>2.0.6</version>
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework</groupId> -->
+		<!-- <artifactId>spring-core</artifactId> -->
+		<!-- <version>5.0.0.RELEASE</version> -->
+		<!-- </dependency> -->
 	</dependencies>
 </project>

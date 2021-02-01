@@ -66,4 +66,8 @@
 		<!-- <version>5.0.0.RELEASE</version> -->
 		<!-- </dependency> -->
 	</dependencies>
+	
+<!-- 	<build> -->
+<!-- 		<finalName>GuPaoEdu_SpringFramework</finalName> -->
+<!-- 	</build> -->
 </project>

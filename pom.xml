@@ -241,14 +241,14 @@
 		</plugins>
 	</build>
 
-	<modules>
-		<module>GuPaoEdu_SpringCloudAlibaba_Parent</module>
-		<module>GuPaoEdu_SpringBoot_Redis</module>
-		<module>GuPaoEdu_SpringCloudNetflix_Parent</module>
-		<module>GuPaoEdu_SpringBoot_AutoConfig</module>
-		<module>GuPaoEdu_SpringBoot</module>
-    	<module>GuPaoEdu_SpringFramework</module>
-    	<module>GuPaoEdu_Mybatis</module>
-  </modules>
+<!-- 	<modules> -->
+<!-- 		<module>GuPaoEdu_SpringCloudAlibaba_Parent</module> -->
+<!-- 		<module>GuPaoEdu_SpringBoot_Redis</module> -->
+<!-- 		<module>GuPaoEdu_SpringCloudNetflix_Parent</module> -->
+<!-- 		<module>GuPaoEdu_SpringBoot_AutoConfig</module> -->
+<!-- 		<module>GuPaoEdu_SpringBoot</module> -->
+<!--     	<module>GuPaoEdu_SpringFramework</module> -->
+<!--     	<module>GuPaoEdu_Mybatis</module> -->
+<!--   </modules> -->
 
 </project>

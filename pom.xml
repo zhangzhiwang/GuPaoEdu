@@ -251,4 +251,7 @@
 <!--     	<module>GuPaoEdu_Mybatis</module> -->
 <!--   </modules> -->
 
+  <modules>
+    <module>GuPaoEdu_JavaBasic</module>
+  </modules>
 </project>

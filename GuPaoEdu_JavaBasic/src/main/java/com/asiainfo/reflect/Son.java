@@ -47,7 +47,7 @@ public class Son extends Father implements GrandFather, Cloneable, Serializable 
 	}
 
 	protected String SonMet3(String s) {
-		return "SonMet3";
+		return "SonMet3 : " + s;
 	}
 
 	public String SonMet4(String s) {
@@ -70,7 +70,7 @@ public class Son extends Father implements GrandFather, Cloneable, Serializable 
 	}
 	
 	public static String staticSonMet4(String s) {
-		return "staticSonMet4";
+		return "staticSonMet4 : " + s;
 	}
 	
 	
@@ -116,5 +116,9 @@ public class Son extends Father implements GrandFather, Cloneable, Serializable 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+	
+	public int getSonAge() {
+		return sonAge;
 	}
 }

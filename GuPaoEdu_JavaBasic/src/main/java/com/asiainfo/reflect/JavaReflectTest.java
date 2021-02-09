@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -94,5 +97,49 @@ public class JavaReflectTest {
 		for(Constructor con : constructors) {
 			System.out.println("构造器：" + con);
 		}
+		
+		// 获取方法
+		Method[] methods = clazz1.getMethods();// 获取该类及其父类的所有public方法
+		for(Method method : methods) {
+			System.out.println("方法：" + method.getName());
+		}
+		System.out.println("--------------------");
+		
+		Method[] methods2 = clazz1.getDeclaredMethods();// 获取该类所有访问权限的方法
+		for(Method method : methods2) {
+			System.out.println("Declared方法：" + method.getName());
+		}
+		System.out.println("--------------------");
+		
+		Method staticSonMet4 = clazz1.getDeclaredMethod("staticSonMet4", String.class);
+		String result = (String) staticSonMet4.invoke(null, "hello");// 反射调用静态方法
+		System.out.println(result);
+		
+		Method SonMet3 = clazz1.getDeclaredMethod("SonMet3", String.class);
+		result = (String) SonMet3.invoke(son1, "hello");// 反射调用普通方法
+		System.out.println(result);
+		System.out.println("--------------------");
+		
+		// 获取属性
+		Field[] fields = clazz1.getFields();// 获取该类及其父类的所有属性
+		for(Field f : fields) {
+			System.out.println("属性：" + f.getName());
+		}
+		System.out.println("--------------------");
+		
+		Field[] fields2 = clazz1.getDeclaredFields();// 获取该类所有访问权限的属性
+		for(Field f : fields2) {
+			System.out.println("Declared属性：" + f.getName());
+		}
+		System.out.println("--------------------");
+		
+		Field sonAge = clazz1.getDeclaredField("sonAge");
+		Son son6 = new Son();
+		sonAge.set(son6, 18);
+		System.out.println(son6.getSonAge());
+		
+		Field sonStaticDate = clazz1.getDeclaredField("sonStaticDate");
+		sonStaticDate.set(null, new Date());
+		System.out.println(Son.sonStaticDate);
 	}
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- 配置mvc最核心的组件——前端控制器DispatcherServlet -->
+  <!-- DispatcherServlet本质就是一个servlet，是servlet就要配置在web.xml中以及初始化的时候会执行所配置servlet的init方法（具体可以系统学习一下servlet及其相关规范） -->
+  <servlet>
+  	<servlet-name>spring_mvc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>	<!-- 初始化参数 -->
+  		<param-name>contextConfigLocation</param-name>	<!-- 在DispatcherServlet的父类FrameworkServlet可以找到该属性 -->
+  		<param-value>classpath:spring-mvc.xml</param-value>	<!-- 值是mvc的配置文件路径（在初始化servlet的时候如果配置了init-param，应该是会自动调用该属性的setter方法（猜测是这样的，可以在系统学习servlet技术之后给出答案）） -->
+  	</init-param>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>spring_mvc</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

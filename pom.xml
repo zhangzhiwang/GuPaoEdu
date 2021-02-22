@@ -253,5 +253,6 @@
 
   <modules>
     <module>GuPaoEdu_JavaBasic</module>
+    <module>GuPaoEdu_SpringMVC</module>
   </modules>
 </project>

@@ -6,5 +6,6 @@
 	<input type="file">
 	<input type="submit" name="提交">
 </form>
+<img src="/GuPaoEdu_SpringMVC/img/1.png">
 </body>
 </html>

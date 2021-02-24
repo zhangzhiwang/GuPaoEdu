@@ -48,8 +48,59 @@
   	</init-param>
   </servlet>
   
-  <servlet-mapping>
-  	<servlet-name>spring_mvc</servlet-name>
-  	<url-pattern>/</url-pattern>
-  </servlet-mapping>
+  <!-- 
+  	tomcat部署路径下面的conf目录下面又一个web.xml文件，部署的项目也有一个web.xml文件，家在顺序是先加载tomcat的web.xml再加载项目的，并且项目的web.xml会进行覆盖。打开tomcat的web.xml可以看到这样的配置：
+  	 <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+  	
+  	<servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+    可以看到url-pattern为/的servlet是名称为default的DefaultServlet，而本项目的也有同样的配置，“/”使用的servlet是DispatcherServlet，这个配置覆盖掉了toncat的web.xml的相关内容，所以所有请求都被DispatcherServlet拦截到了。当客户端访问静态资源的时候也会被DispatcherServlet拦截，并将访问的静态资源当作url路径去寻找相应的控制器，这样肯定是找不到了，所以会报404。
+    但是为什么访问jsp页面是可以的，而访问html或者图片是不行的呢？那是因为在tomcat的web.xml中配置了后缀是jsp或者jspx的文件会被JspServlet进行拦截并处理，所以可以访问并解析jsp，但是只配置了对jsp的拦截，没有配置其他，所以要想访问其它类型的静态资源必须在自己的项目中惊醒配置，如下对html和png的配置，需要访问什么静态资源就配置什么后缀即可。
+   -->
+<!--   <servlet-mapping> -->
+<!--   	<servlet-name>spring_mvc</servlet-name> -->
+<!--   	<url-pattern>/</url-pattern> -->
+<!--   </servlet-mapping> -->
+  
+<!--    <servlet-mapping> -->
+<!--         <servlet-name>default</servlet-name> -->
+<!--         <url-pattern>*.html</url-pattern> -->
+<!--     </servlet-mapping> -->
+<!--    <servlet-mapping> -->
+<!--         <servlet-name>default</servlet-name> -->
+<!--         <url-pattern>*.png</url-pattern> -->
+<!--     </servlet-mapping> -->
 </web-app>

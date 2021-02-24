@@ -24,6 +24,20 @@
 	<!-- 开启扫描 -->
     <context:component-scan base-package="com.asiainfo" />
     <!-- 开启SpringMVC注解的使用 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven conversion-service="formattingConversionServiceFactoryBean"/>
 	
+	<!-- 配置自定义转换器 -->
+	<bean id="formattingConversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="com.asiainfo.DateConverter"></bean>
+			</set>
+		</property>
+	</bean>
+	
+	<!-- 配置视图转换器 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/a/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
 </beans>

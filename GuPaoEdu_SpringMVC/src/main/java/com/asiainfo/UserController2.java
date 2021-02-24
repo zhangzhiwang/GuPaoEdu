@@ -1,6 +1,8 @@
 package com.asiainfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,5 +76,48 @@ public class UserController2 {
 				System.out.println(s);
 			}
 		}
+	}
+	
+	@RequestMapping(value = "/requestParam8", method = {RequestMethod.GET})
+	@ResponseBody
+	public void requestParam8(Date date) {
+		System.out.println("date = " + date);
+	}
+	
+	@RequestMapping(value = "/response1", method = {RequestMethod.GET})
+	public String response1() {// 直接返回String，mvc会自动封装成ModelAndView，返回的字符串作为逻辑视图名
+		return "/a/hello.jsp";// 注意：如果不配置视图解析器的前后缀的话，那么必须写全路径，如果在跟路径下前面必须写“/”，比如：“/index.jsp”
+	}
+	
+	@RequestMapping(value = "/response2", method = {RequestMethod.GET})
+	@ResponseBody// 将返回的字符串放到response的body里面返回给客户端
+	public String response2() {
+		return "/index.jsp";
+	}
+	
+	@RequestMapping(value = "/response3", method = {RequestMethod.GET})
+	public void response3() {
+		System.out.println("response3");
+	}
+	
+	@RequestMapping(value = "/response4", method = {RequestMethod.POST})
+	public ModelAndView response4() {// 直接返回ModelAndView的效率更高，因为如果返回字符串的话mvc框架还要将其封装进ModelAndView，多了一步操作
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("hello");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/response5", method = {RequestMethod.POST})
+	public String response5() {
+		return "redirect:/user2/response4";// 重定向
+	}
+	
+	@RequestMapping(value = "/response6", method = {RequestMethod.POST})
+	public void response6(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		String param1 = (String) request.getAttribute("param1");// getAttribute一般用于转发，A转发到B，A在转发前可以先setAttribute，然后B在getAttribute，注意getAttribute之前必须先setAttribute
+		String param1 = (String) request.getParameter("param1");//getParameter是获取客户端传过来对策参数
+		System.out.println("param1 = " + param1);
+		
+		response.sendRedirect("/user2/response4");
 	}
 }

@@ -41,7 +41,19 @@
 <!-- 		<property name="suffix" value=".jsp"></property> -->
 <!-- 	</bean> -->
 	
+	<!-- 配置文件解析器，用于文件的上传。文件上传必须配置文件解析器，而且bean的名称必须为multipartResolver，不能是别的 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5242880"></property>
+	</bean>
 	<!-- 配置访问静态资源 -->
 <!-- 	<mvc:resources mapping="/img/**" location="/img/"></mvc:resources> -->
 <!-- 	<mvc:resources mapping="/*.html" location="/"></mvc:resources> -->
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.asiainfo.MyInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

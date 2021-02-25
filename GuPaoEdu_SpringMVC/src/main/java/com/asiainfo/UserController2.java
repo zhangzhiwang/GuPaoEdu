@@ -4,21 +4,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 @Component
 @RequestMapping("user2")
+@SessionAttributes({"age"})
 public class UserController2 {
 
 	@RequestMapping(value = "/requestParam1", method = {RequestMethod.POST})
@@ -100,7 +105,7 @@ public class UserController2 {
 		System.out.println("response3");
 	}
 	
-	@RequestMapping(value = "/response4", method = {RequestMethod.POST})
+	@RequestMapping(value = "/response4", method = {RequestMethod.GET})
 	public ModelAndView response4() {// 直接返回ModelAndView的效率更高，因为如果返回字符串的话mvc框架还要将其封装进ModelAndView，多了一步操作
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("hello");
@@ -112,12 +117,43 @@ public class UserController2 {
 		return "redirect:/user2/response4";// 重定向
 	}
 	
-	@RequestMapping(value = "/response6", method = {RequestMethod.POST})
+	@RequestMapping(value = "/response6", method = {RequestMethod.GET})
 	public void response6(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		String param1 = (String) request.getAttribute("param1");// getAttribute一般用于转发，A转发到B，A在转发前可以先setAttribute，然后B在getAttribute，注意getAttribute之前必须先setAttribute
 		String param1 = (String) request.getParameter("param1");//getParameter是获取客户端传过来对策参数
 		System.out.println("param1 = " + param1);
 		
-		response.sendRedirect("/user2/response4");
+		response.sendRedirect("/GuPaoEdu_SpringMVC/index.jsp");
+//		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	
+	@RequestMapping(value = "/getResContent1", method = {RequestMethod.GET})
+	public ModelAndView getResContent1() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/index.jsp");
+		mav.addObject("userName", "张三");
+		return mav;
+	}
+	
+	/**
+	 * 下面的getResContent2-4方法并没有返回ModelAndView，而是将返回数据保存进了入參里并放入request里面，所以在页面可以通过请求域对象requestScope进行获取，如果想把返回的数据同时放到session域里面，需要在类上面添加@SessionAttributes注解，value值是自定义的，只要和页面获取的值一致即可，这样页面就可以通过session域对象进行获取，比如sessionScope.age
+	 */
+	@RequestMapping(value = "/getResContent2", method = {RequestMethod.GET})
+	public String getResContent2(Map<String, String> map) {
+		map.put("userName", "李四");
+		return "/index.jsp";
+	}
+	
+	@RequestMapping(value = "/getResContent3", method = {RequestMethod.GET})
+	public String getResContent3(Model model) {
+		model.addAttribute("userName", "王五");
+		return "/index.jsp";
+	}
+	
+	@RequestMapping(value = "/getResContent4", method = {RequestMethod.GET})
+	public String getResContent4(ModelMap modelMap) {// ModelMap是上面的Model和Map的结合形式，它既有Model的addAttribute方法又有Map的put方法
+		modelMap.addAttribute("userName", "赵六");
+		modelMap.put("age", 18);
+		return "/index.jsp";
 	}
 }

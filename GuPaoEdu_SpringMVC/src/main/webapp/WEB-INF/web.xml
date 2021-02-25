@@ -90,17 +90,39 @@
     可以看到url-pattern为/的servlet是名称为default的DefaultServlet，而本项目的也有同样的配置，“/”使用的servlet是DispatcherServlet，这个配置覆盖掉了toncat的web.xml的相关内容，所以所有请求都被DispatcherServlet拦截到了。当客户端访问静态资源的时候也会被DispatcherServlet拦截，并将访问的静态资源当作url路径去寻找相应的控制器，这样肯定是找不到了，所以会报404。
     但是为什么访问jsp页面是可以的，而访问html或者图片是不行的呢？那是因为在tomcat的web.xml中配置了后缀是jsp或者jspx的文件会被JspServlet进行拦截并处理，所以可以访问并解析jsp，但是只配置了对jsp的拦截，没有配置其他，所以要想访问其它类型的静态资源必须在自己的项目中惊醒配置，如下对html和png的配置，需要访问什么静态资源就配置什么后缀即可。
    -->
-<!--   <servlet-mapping> -->
-<!--   	<servlet-name>spring_mvc</servlet-name> -->
-<!--   	<url-pattern>/</url-pattern> -->
-<!--   </servlet-mapping> -->
+  <servlet-mapping>
+  	<servlet-name>spring_mvc</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
   
 <!--    <servlet-mapping> -->
 <!--         <servlet-name>default</servlet-name> -->
 <!--         <url-pattern>*.html</url-pattern> -->
 <!--     </servlet-mapping> -->
-<!--    <servlet-mapping> -->
-<!--         <servlet-name>default</servlet-name> -->
-<!--         <url-pattern>*.png</url-pattern> -->
-<!--     </servlet-mapping> -->
+   <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+  
+  <!-- 解决中文乱码问题，要在web.xml中添加字符编码过滤器 -->
+  <filter>
+  	<filter-name>encodeFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>utf-8</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>forceRequestEncoding</param-name>
+  		<param-value>true</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>forceResponseEncoding</param-name>
+  		<param-value>false</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>encodeFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

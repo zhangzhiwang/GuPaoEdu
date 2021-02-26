@@ -3,8 +3,18 @@ package com.asiainfo;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 public class User {
+	@NotBlank(message = "姓名不能为空！")
+	@Length(message = "{valid.name}", min = 3, max = 10, groups = {ValidateGroup1.class})
 	private String name;
+	@Min(message = "年龄必须大于18岁", value = 18, groups = {ValidateGroup1.class, ValidateGroup2.class})
+	@Max(message = "年龄必须小于30岁", value = 30, groups = {ValidateGroup2.class})
 	private int age;
 	private String[] hobbies;
 	private List<String> addresses;

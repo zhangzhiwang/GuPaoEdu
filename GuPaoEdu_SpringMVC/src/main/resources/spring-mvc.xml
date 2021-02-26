@@ -24,7 +24,7 @@
 	<!-- 开启扫描 -->
     <context:component-scan base-package="com.asiainfo" />
     <!-- 开启SpringMVC注解的使用 -->
-    <mvc:annotation-driven conversion-service="formattingConversionServiceFactoryBean"/>
+    <mvc:annotation-driven conversion-service="formattingConversionServiceFactoryBean" validator="localValidatorFactoryBean"/>
 	
 	<!-- 配置自定义转换器 -->
 	<bean id="formattingConversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
@@ -50,10 +50,21 @@
 <!-- 	<mvc:resources mapping="/*.html" location="/"></mvc:resources> -->
 
 	<!-- 配置拦截器 -->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="com.asiainfo.MyInterceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+<!-- 	<mvc:interceptors> -->
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/**"/> -->
+<!-- 			<bean class="com.asiainfo.MyInterceptor"></bean> -->
+<!-- 		</mvc:interceptor> -->
+<!-- 	</mvc:interceptors> -->
+
+	<!-- 集成hibernate校验框架 -->
+	<bean id="localValidatorFactoryBean" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+		<property name="validationMessageSource" ref="reloadableResourceBundleMessageSource"></property>
+	</bean>
+	<bean id="reloadableResourceBundleMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:validate"></property>	<!-- 看ReloadableResourceBundleMessageSource源码可知属性value的值所配置的properties文件不需要配后缀 -->
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="cacheSeconds" value="120"></property>
+	</bean>
 </beans>

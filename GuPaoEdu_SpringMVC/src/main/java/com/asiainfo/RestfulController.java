@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhangzhiwang
  * @date 2021年2月25日 下午2:18:36
  */
-@RestController
+@RestController// @RestController/@GetMapping/@PostMapping/@PutMapping/@DeleteMapping... 像这些标签多是spring原生自带的，不是spb特有的
 @RequestMapping("rest")
 public class RestfulController {
 	@GetMapping("/met1")

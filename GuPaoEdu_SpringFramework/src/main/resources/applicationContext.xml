@@ -109,7 +109,7 @@
 	<!-- <bean id="product" class="com.asiainfo.entity.Product" lazy-init="true"></bean> -->	<!-- 延迟加载 -->
 	
 	<!-- 以配置的方式使用事务 -->
-	<context:property-placeholder location="db.properties"/>
+	<context:property-placeholder location="classpath:db.properties"/>
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${db.driver}"></property>
 		<property name="url" value="${db.url}"></property>
@@ -139,7 +139,31 @@
 
 	<!-- 以注解的方式使用事务 -->
 	<tx:annotation-driven transaction-manager="txManager"/>
-	<context:component-scan base-package="com.asiainfo"></context:component-scan>
+	
+	<!-- 
+		为什么在Spring的配置文件里面context:component-scan标签的属性use-default-filters设置为true，然后子标签用exclude-filter；而mvc的配置文件里面use-default-filters为false，子标签用include-filter呢？
+		我们要达到这样一个效果：Spring要扫描除@Controller外的所有注解，mvc只扫描@Controller注解不能扫描别的。
+		use-default-filters的默认值是true，即扫描所有@Component的注解（当然还有两外连两个，下面会提到），然后在这些注解里面排除掉exclude-filter配置的注解；
+		use-default-filters如果设置为false，那么就不扫描任何注解，只扫描用户自定义的注解，即用include-filter制定的注解。
+		
+		结合源码层面，与context:component-scan相对应的源码在org.springframework.context.config.ContextNamespaceHandler的第38行：
+		1、找到第38行，进入ComponentScanBeanDefinitionParser类
+		2、这个类里面只有一个pbluc方法——parse方法，所以就看这个方法
+		3、parse方法的关键在于89行的configureScanner方法
+		4、进入configureScanner方法可以看到useDefaultFilters的默认值是true，如果用户配置了就用用户配置的值，然后将此值传给了第103行的createScanner方法
+		5、进入createScanner方法，接着进入ClassPathBeanDefinitionScanner的构造方法
+		6、进入ClassPathBeanDefinitionScanner的构造方法之后关键代码在第165行，如果是true，那么就执行registerDefaultFilters方法，否则不执行，那么关键就在registerDefaultFilters方法了
+		7、进入registerDefaultFilters方法可以看到，默认将@Component、ManagedBean和Named加入到ClassPathScanningCandidateComponentProvider的includeFilters属性里面，
+		   而@Controller、@Service、@Repository的本质就是@Component，所以在默认情况下（即use-default-filters=true的时候）会扫描所有注解。如果use-default-filters为false，那么本方法不会执行，也就是includeFilters的值就是空。
+		8、逐步返回到ComponentScanBeanDefinitionParser.configureScanner方法的第125行，进入parseTypeFilters方法
+		9、进入该方法可以看到如果用户配置了exclude或者include的自标签，那么会将相应标签的值放入ClassPathScanningCandidateComponentProvider的includeFilters属性里面或者excludeFilters属性里面。
+		   如果use-default-filters为false，那么现在includeFilters里面只有用户在include自标签里面配置的注解
+		10、（如果use-default-filters=true，那么什么时候从includeFilters里面把excludeFilters的注解排除掉就不知道了，尚且没有找到相关的源码）
+		至此，应该知道为什么spring的配置文件里面的use-default-filters要为true，而且使用exclude-filter把@Controller注解排除掉了，还有为什么mvc的配置文件里面use-default-filters为false，使用include-filter自标签将@Controller注解注解添加进去了
+	 -->
+	<context:component-scan base-package="com.asiainfo" use-default-filters="true">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
 	<!-- 集成mybatis -->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">

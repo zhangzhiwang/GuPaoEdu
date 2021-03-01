@@ -9,8 +9,10 @@
 		<artifactId>GuPaoEdu</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
+	<!-- <groupId>com.asiainfo</groupId> -->
 	<artifactId>GuPaoEdu_SpringFramework</artifactId>
+<!-- 	<version>0.0.1-SNAPSHOT</version> -->
+	<packaging>war</packaging>
 	<name>GuPaoEdu_SpringFramework</name>
 	<url>http://maven.apache.org</url>
 
@@ -35,8 +37,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.3.2</version>
+			<version>5.1.17.RELEASE</version>
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework</groupId> -->
+		<!-- <artifactId>spring-web</artifactId> -->
+		<!-- <version>5.3.2</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -65,9 +72,24 @@
 		<!-- <artifactId>spring-core</artifactId> -->
 		<!-- <version>5.0.0.RELEASE</version> -->
 		<!-- </dependency> -->
+		<!-- 整合mvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.1.17.RELEASE</version>
+		</dependency>
 	</dependencies>
-	
-<!-- 	<build> -->
-<!-- 		<finalName>GuPaoEdu_SpringFramework</finalName> -->
-<!-- 	</build> -->
+
+	<build>
+		<finalName>GuPaoEdu_SpringFramework</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

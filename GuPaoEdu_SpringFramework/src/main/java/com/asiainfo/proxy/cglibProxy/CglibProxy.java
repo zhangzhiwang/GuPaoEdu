@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 
 import com.asiainfo.proxy.staticProxy.VocalConcert;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+//import net.sf.cglib.proxy.MethodInterceptor;
+//import net.sf.cglib.proxy.MethodProxy;
 
 /**
  * cglib动态代理——被代理类不需要实现任何接口，需要引入cglib的包
@@ -21,12 +21,12 @@ import net.sf.cglib.proxy.MethodProxy;
  * @author zhangzhiwang
  * @date Dec 22, 2020 9:04:42 PM
  */
-public class CglibProxy implements MethodInterceptor {
-	@Override
-	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-		System.out.println("cglib动态代理之前...");
-		Object result = proxy.invokeSuper(obj, args);
-		System.out.println("cglib动态代理之后");
-		return result;
-	}
-}
+//public class CglibProxy implements MethodInterceptor {
+//	@Override
+//	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+//		System.out.println("cglib动态代理之前...");
+//		Object result = proxy.invokeSuper(obj, args);
+//		System.out.println("cglib动态代理之后");
+//		return result;
+//	}
+//}

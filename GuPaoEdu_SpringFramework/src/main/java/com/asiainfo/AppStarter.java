@@ -37,9 +37,9 @@ import com.asiainfo.transaction.TxService;
  * @date Dec 23, 2020 1:43:57 PM
  */
 @Configuration
-@ComponentScan
-//@EnableAspectJAutoProxy(proxyTargetClass = true)// 开启Aspec tJ，前提是引入aspectjweaver的依赖
-@EnableTransactionManagement
+//@ComponentScan
+////@EnableAspectJAutoProxy(proxyTargetClass = true)// 开启Aspec tJ，前提是引入aspectjweaver的依赖
+//@EnableTransactionManagement
 public class AppStarter {
 	public static void main(String[] args) throws Exception {
 //		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppStarter.class);

@@ -43,7 +43,7 @@
   	<servlet-name>spring_mvc</servlet-name>
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   	<init-param>	<!-- 初始化参数 -->
-  		<param-name>contextConfigLocation</param-name>	<!-- 在DispatcherServlet的父类FrameworkServlet可以找到该属性 -->
+  		<param-name>contextConfigLocation</param-name>	<!-- 在DispatcherServlet的父类FrameworkServlet可以找到该属性，可以参考FrameworkServlet无參构造器的注释 -->
   		<param-value>classpath:spring-mvc.xml</param-value>	<!-- 值是mvc的配置文件路径（在初始化servlet的时候如果配置了init-param，应该是会自动调用该属性的setter方法（猜测是这样的，可以在系统学习servlet技术之后给出答案）） -->
   	</init-param>
   </servlet>

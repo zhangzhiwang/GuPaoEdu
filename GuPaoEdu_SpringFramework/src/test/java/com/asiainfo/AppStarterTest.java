@@ -6,7 +6,7 @@ import java.lang.reflect.Proxy;
 
 import javax.annotation.PreDestroy;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -217,7 +217,7 @@ public class AppStarterTest {
 //		System.out.println("result =" + result);
 //	}
 	
-	@Test
+//	@Test
 	public void testJdkProxy() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		VocalConcert proxyInstance = (VocalConcert) Proxy.newProxyInstance(JayChou.class.getClassLoader(),// 目标对象的类加载器

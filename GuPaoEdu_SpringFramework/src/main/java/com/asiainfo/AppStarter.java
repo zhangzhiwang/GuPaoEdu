@@ -17,8 +17,10 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.asiainfo.controller.StudentController;
 import com.asiainfo.controller.UserController;
 import com.asiainfo.dao.IUserDao;
+import com.asiainfo.dao.impl.StudentDaoImpl;
 import com.asiainfo.entity.Cat;
 import com.asiainfo.entity.Cat2;
 import com.asiainfo.entity.Cat3;
@@ -27,6 +29,7 @@ import com.asiainfo.entity.User;
 import com.asiainfo.entity.User3;
 import com.asiainfo.mapper.StudentMapper;
 import com.asiainfo.service.IUserService;
+import com.asiainfo.service.impl.StudentServiceImpl;
 import com.asiainfo.service.impl.UserServiceImpl;
 import com.asiainfo.transaction.TxService;
 
@@ -44,6 +47,8 @@ public class AppStarter {
 	public static void main(String[] args) throws Exception {
 //		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppStarter.class);
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		StudentController bean = applicationContext.getBean(StudentController.class);
+//		System.out.println(bean);
 //		IUserService userServiceImpl = (IUserService) applicationContext.getBean("s1");
 //		System.out.println(userServiceImpl instanceof UserServiceImpl);// 如果被代理类实现了接口，那么Spring默认使用jdk动态代理，如果强制使用cglib动态代理，那么@EnableAspectJAutoProxy要加上参数proxyTargetClass并设置值为true
 //		userServiceImpl.m3("", (byte)1);
@@ -80,9 +85,15 @@ public class AppStarter {
 //		TxService txService = applicationContext.getBean(TxService.class);
 //		txService.serviceMethod();
 		
-		StudentMapper studentMapper = applicationContext.getBean(StudentMapper.class);
-		Student student = studentMapper.selectByPrimaryKey(1L);
-		System.out.println(student);
+//		StudentMapper studentMapper = applicationContext.getBean(StudentMapper.class);
+//		Student student = studentMapper.selectByPrimaryKey(1L);
+//		System.out.println(student);
+//		StudentController bean = applicationContext.getBean(StudentController.class);
+//		System.out.println(bean);
+//		StudentServiceImpl bean2 = applicationContext.getBean(StudentServiceImpl.class);
+//		System.out.println(bean2);
+		StudentDaoImpl bean3 = applicationContext.getBean(StudentDaoImpl.class);
+		System.out.println(bean3);
 	}
 	
 	@Bean

@@ -11,7 +11,7 @@
 	</parent>
 	<!-- <groupId>com.asiainfo</groupId> -->
 	<artifactId>GuPaoEdu_SpringFramework</artifactId>
-<!-- 	<version>0.0.1-SNAPSHOT</version> -->
+	<!-- <version>0.0.1-SNAPSHOT</version> -->
 	<packaging>war</packaging>
 	<name>GuPaoEdu_SpringFramework</name>
 	<url>http://maven.apache.org</url>
@@ -90,22 +90,33 @@
 		</dependency>
 		<!-- shiro相关依赖 -->
 		<dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.4.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.21</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.21</version>
-            <scope>test</scope>
-        </dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.21</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.21</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- 集成swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.4.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

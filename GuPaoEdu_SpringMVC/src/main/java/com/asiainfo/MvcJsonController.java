@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("json")
 public class MvcJsonController {
 	/**
-	 * mvc默认支持jackson，会将返回的对象自动转换成惊悚格式 如果入參是一个对象的话，比如User对象，客户端传过来的是json格式，那么要使用@RequestBody。
+	 * mvc默认支持jackson，会将返回的对象自动转换成json格式 如果入參是一个对象的话，比如User对象，客户端传过来的是json格式，那么要使用@RequestBody。
 	 * 
 	 * @RequestBody 注解表明接受请求体里面的内容，一般是json格式，mvc框架自动将请求体的json内容转换为入參对象的属性（前提是要引入相关json的jar包）。get请求事没有请求体的，所以要使用@RequestBody接受请求体的参数必须使用post来访问
 	 *

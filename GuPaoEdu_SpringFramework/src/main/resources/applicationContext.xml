@@ -161,18 +161,35 @@
 		10、（如果use-default-filters=true，那么什么时候从includeFilters里面把excludeFilters的注解排除掉就不知道了，尚且没有找到相关的源码）
 		至此，应该知道为什么spring的配置文件里面的use-default-filters要为true，而且使用exclude-filter把@Controller注解排除掉了，还有为什么mvc的配置文件里面use-default-filters为false，使用include-filter自标签将@Controller注解注解添加进去了
 	 -->
-	<context:component-scan base-package="com.asiainfo" use-default-filters="true">
+	<context:component-scan base-package="springfox,com.asiainfo" use-default-filters="true">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<!-- 集成mybatis -->
+	<!-- 集成mybatis
+		步骤：
+		1、引入三个依赖：spring-orm、mybais、mybatis-spring
+		2、编写mybatis全局配置文件和Spring全局配置文件，其中mybatis的配置文件里面可以去掉数据源部分，采用Spring的数据源
+		3、将mybatis全局配置文件配置到spring全局配置文件中，配置方式如下两步：SqlSessionFactoryBean和MapperScannerConfigurer，这两个类都在mybatis-spring的jar包里面
+	 -->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="classpath:myBatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>	<!-- 引入数据源 -->
+		<property name="configLocation" value="classpath:myBatis-config.xml"></property>	<!-- 配置mybatis全局配置文件 -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>		<!-- 配置mapper xml文件的位置 -->
 	</bean>
 	
-	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- 此配置将mapper的java接口识别为Spring的bean -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">	
 		<property name="basePackage" value="com.asiainfo.mapper"></property>
 	</bean>
+	
+	<!-- 注意：Spring和spring MVC集成的时候不需要把mvc的配置文件引入到Spring的配置文件中，这两个文件可以完全无关，因为在web.xml中配置了两个文件，并且Spring MVC的IOC容器把Spring的IOC容器设置为父容器 -->	
+<!-- 	<import resource="classpath:springmvc.xml"/> -->
+
+	<!-- 整合swagger，实际上就是放开springfox-swagger-ui.jar中的静态资源不被拦截，实际上就是mvc对静态资源的配置 -->
+<!-- 	<mvc:resources location="classpath:META-INF/resources/" mapping="swagger-ui.html"></mvc:resources> -->
+<!-- 	<mvc:resources location="classpath:META-INF/resources/webjars/" mapping="/webjars/**"></mvc:resources> -->
+	<!--将静态资源交由默认的servlet处理-->
+<!--     <mvc:default-servlet-handler/> -->
+    
+<!--     <bean class="com.asiainfo.controller.SwaggerConfig"></bean> -->
 </beans>

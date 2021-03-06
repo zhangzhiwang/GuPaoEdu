@@ -1,5 +1,8 @@
 package com.asiainfo.shiro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -37,7 +40,14 @@ public class MyRealm extends AuthorizingRealm {
 		String roleInDb2 = "role4";
 		
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-		return null;
+		simpleAuthorizationInfo.addRole(roleInDb1);
+		simpleAuthorizationInfo.addRole(roleInDb2);
+		
+		List<String> permissionList = new ArrayList<>();
+		permissionList.add("insert");
+		permissionList.add("update");
+		simpleAuthorizationInfo.addStringPermissions(permissionList);// 添加用户的权限
+		return simpleAuthorizationInfo;
 	}
 
 	/**

@@ -77,21 +77,21 @@ public class ShiroTest {
 		boolean hasAllRoles = subject.hasAllRoles(roleList);// 是否有列表里面所有的角色，列表中有一个角色没有就返回false
 		System.out.println("hasAllRoles = " + hasAllRoles);
 		
-		subject.checkRole("role1");// 如果包含制定角色则通过，否则抛异常
+//		subject.checkRole("role1");// 如果包含制定角色则通过，否则抛异常
 		
 		boolean permitted = subject.isPermitted("queryzzw1");
 		System.out.println("permitted = " + permitted);
 		System.out.println("-----------------------------");
 		
-		boolean[] permitted2 = subject.isPermitted("insertzzw", "queryzzw");
+		boolean[] permitted2 = subject.isPermitted("insert", "update");
 		for(boolean b : permitted2) {
 			System.out.println(b);
 		}
 		
-		boolean permittedAll = subject.isPermittedAll("insertzzw", "queryzzw1");// 类似上面的hasAllRoles方法
+		boolean permittedAll = subject.isPermittedAll("insert", "update");// 类似上面的hasAllRoles方法
 		System.out.println("permittedAll = " + permittedAll);
 		
-		subject.checkPermission("insertzzw1");// 类似checkRole方法
+//		subject.checkPermission("insertzzw1");// 类似checkRole方法
 		
 		// shiro使用授权的方式有三种：一种是if/else，一种是注解，还有一种是通过页面标签，这里只测试第一种
 		if(subject.hasRole("role1")) {

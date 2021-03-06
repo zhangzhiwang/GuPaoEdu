@@ -161,7 +161,11 @@
 		10、（如果use-default-filters=true，那么什么时候从includeFilters里面把excludeFilters的注解排除掉就不知道了，尚且没有找到相关的源码）
 		至此，应该知道为什么spring的配置文件里面的use-default-filters要为true，而且使用exclude-filter把@Controller注解排除掉了，还有为什么mvc的配置文件里面use-default-filters为false，使用include-filter自标签将@Controller注解注解添加进去了
 	 -->
-	<context:component-scan base-package="springfox,com.asiainfo" use-default-filters="true">
+	<!-- 注意：spring和Springmvc整合之后，controller必须由mvc来扫描，注意是“必须”不是“可以”。
+		以为mvc和spring是两个ioc容器，controller层的bean必须要放到mvc的容器中，这样前端控制器才能通过处理器映射器找到对应的处理器，找到对应处理器的前提是处理器映射器得知道有哪些处理器，处理器映射器是mvc容器中去找所有处理器的。
+		如果controller的bean放到了Spring的ioc容器里，那么处理器映射器永远不会找到处理器，也就永远报404。所以mvc的配置文件（至少）要扫描controller层。
+	 -->		
+	<context:component-scan base-package="com.asiainfo" use-default-filters="true">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
@@ -182,7 +186,9 @@
 		<property name="basePackage" value="com.asiainfo.mapper"></property>
 	</bean>
 	
-	<!-- 注意：Spring和spring MVC集成的时候不需要把mvc的配置文件引入到Spring的配置文件中，这两个文件可以完全无关，因为在web.xml中配置了两个文件，并且Spring MVC的IOC容器把Spring的IOC容器设置为父容器 -->	
+	<!-- 注意：Spring和spring MVC集成的时候不需要把mvc的配置文件引入到Spring的配置文件中，这两个文件可以完全无关，因为在web.xml中配置了两个文件，并且Spring MVC的IOC容器把Spring的IOC容器设置为父容器
+			SSM整合：mybatis的配置文件需要和Spring的配置文件整合，sping mvc的配置文件不需要和Spring的配置文件整合
+	 -->	
 <!-- 	<import resource="classpath:springmvc.xml"/> -->
 
 	<!-- 整合swagger，实际上就是放开springfox-swagger-ui.jar中的静态资源不被拦截，实际上就是mvc对静态资源的配置 -->

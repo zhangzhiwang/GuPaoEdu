@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2021年3月4日 下午2:54:18
  */
 @Configuration
-@EnableSwagger2// 启用swagger
+@EnableSwagger2 // 启用swagger
 public class SwaggerConfig {
 	/**
 	 * 覆盖swagger的默认配置

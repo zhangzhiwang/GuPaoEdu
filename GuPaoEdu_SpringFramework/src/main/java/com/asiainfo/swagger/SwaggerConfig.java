@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 1、引入相关依赖：springfox-swagger2、springfox-swagger-ui
  * 2、编写配置类代码（本类就是swagger的配置类），配置类可以是一个空类，这样swagger就采用默认的配置，但一般会在里面写代码定义bean来覆盖默认的配置
  * 3、在Spring的配置文件中编写swagger的配置（对springfox-swagger-ui.jar中静态资源的访问）
- * 	  注意：如果启动之后访问swagger-ui.html页面之后报../configuration/ui 404，要在组件扫描的时候base-package属性加上“springfox”
+ * 	  注意：如果启动之后访问swagger-ui.html页面之后报../configuration/ui 404，要在mvc配置文件组件扫描的时候base-package属性加上“springfox”并且use-default-filters设置为true
  * 4、使用swagger
  * 
  * @author zhangzhiwang

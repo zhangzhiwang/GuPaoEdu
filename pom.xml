@@ -254,5 +254,6 @@
   <modules>
     <module>GuPaoEdu_JavaBasic</module>
     <module>GuPaoEdu_SpringMVC</module>
+    <module>GuPaoEdu_Spring_SpringMVC_Swagger</module>
   </modules>
 </project>

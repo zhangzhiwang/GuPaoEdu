@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.asiainfo</groupId>
@@ -28,11 +30,6 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring.cloud-version}</version>
@@ -42,20 +39,28 @@
 		</dependencies>
 	</dependencyManagement>
 
-  <modules>
-    <module>GuPaoEdu_SpringCloudNetflix_Eureka_1</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Provider_Product_1</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Consumer_User_1</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Eureka_2</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Eureka_3</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Provider_Product_2</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Provider_Product_3</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Config_Server</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Provider_User_Api</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Provider_User_Service</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Gateway</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Hystrix_Dashboard</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Hystrix_Turbine</module>
-    <module>GuPaoEdu_SpringCloudNetflix_Product_Api</module>
-  </modules>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>GuPaoEdu_SpringCloudNetflix_Eureka_1</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Provider_Product_1</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Consumer_User_1</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Eureka_2</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Eureka_3</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Provider_Product_2</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Provider_Product_3</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Config_Server</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Provider_User_Api</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Provider_User_Service</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Gateway</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Hystrix_Dashboard</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Hystrix_Turbine</module>
+		<module>GuPaoEdu_SpringCloudNetflix_Product_Api</module>
+	</modules>
 </project>

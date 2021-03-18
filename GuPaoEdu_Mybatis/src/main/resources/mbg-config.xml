@@ -5,8 +5,39 @@
 
 <generatorConfiguration>
 	<properties resource="db_1.properties"/>
+
+	<!-- 如果使用tk.mybatis***要在pom的插件中配置该依赖，如：
+		 <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>tk.mybatis</groupId>
+                        <artifactId>mapper</artifactId>
+                        <version>${mapper.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            插件中既要配置mysql-connector-java依赖也要配置tk.mybatis依赖
+            但是要注意：使用tk.mybatis.mapper.generator.MapperPlugin插件时生成的mapper不包含任何常用方法，比如insert、update、delete相关方法
+	 -->	
+<!--    <plugin type="tk.mybatis.mapper.generator.MapperPlugin"> -->
+<!--       <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/> -->
+<!--    </plugin> -->
 	
-	<context id="MySQLTables" targetRuntime="MyBatis3">
+	<context id="MySQLTables" targetRuntime="MyBatis3">	<!-- targetRuntime的值如果是MyBatis3Simple则不会生成带“Selective”的方法 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/test" userId="root"
 			password="zzw1234">

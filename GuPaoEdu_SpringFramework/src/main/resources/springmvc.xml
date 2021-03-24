@@ -2,16 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- 配置注解扫描 -->
-	<context:component-scan base-package="springfox,com.asiainfo" use-default-filters="true">
+<!-- 	<context:component-scan base-package="springfox,com.asiainfo" use-default-filters="true"> -->
+	<context:component-scan base-package="com.asiainfo,com.asiainfo.shiro" use-default-filters="true">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
@@ -25,8 +29,21 @@
 		</property>
 	</bean>
 	<!-- 整合swagger，实际上就是放开springfox-swagger-ui.jar中的静态资源不被拦截，实际上就是mvc对静态资源的配置 -->
-	<mvc:resources location="classpath:META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
-	<mvc:resources location="classpath:META-INF/resources/webjars/" mapping="/webjars/**"></mvc:resources>
+<!-- 	<mvc:resources location="classpath:META-INF/resources/" mapping="swagger-ui.html"></mvc:resources> -->
+<!-- 	<mvc:resources location="classpath:META-INF/resources/webjars/" mapping="/webjars/**"></mvc:resources> -->
 	<!--将静态资源交由默认的servlet处理-->
     <mvc:default-servlet-handler/>
+    
+    <aop:config proxy-target-class="true"></aop:config>
+<!--     <bean id="authorizationAttributeSourceAdvisor" class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"> -->
+<!--     	<property name="securityManager" ref="defaultWebSecurityManager"></property>	defaultWebSecurityManager在shiro.xml里面配置的 -->
+<!--     </bean> -->
+    
+<!--     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
+<!--     	<property name="exceptionMappings"> -->
+<!--     		<props> -->
+<!--     			<prop key="org.apache.shiro.authz.UnauthorizedException">redirect:/noRole.jsp</prop> -->
+<!--     		</props> -->
+<!--     	</property> -->
+<!--     </bean> -->
 </beans>

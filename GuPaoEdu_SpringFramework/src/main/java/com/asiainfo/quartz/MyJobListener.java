@@ -46,5 +46,4 @@ public class MyJobListener implements JobListener {
 		String jobName = context.getJobDetail().getJobClass().getSimpleName();
 		System.out.println(jobName + "执行完成！");
 	}
-
 }

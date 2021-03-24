@@ -4,7 +4,7 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-
+import org.springframework.stereotype.Component;
 public class MyJob1 implements Job {
 
 	/**
@@ -13,9 +13,10 @@ public class MyJob1 implements Job {
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 //		System.out.println("jobExecutionContext = " + context);
-		JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
-		for(String key : jobDataMap.keySet()) {
-			System.out.println(key + " : " + jobDataMap.getString(key));
-		}
+//		JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
+//		for(String key : jobDataMap.keySet()) {
+//			System.out.println(key + " : " + jobDataMap.getString(key));
+//		}
+		System.out.println("MyJob1...");
 	}
 }

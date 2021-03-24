@@ -53,11 +53,11 @@ public class StudentController {
 	}
 	
 	@PostMapping(value = "/met", produces = "text/html;charset=utf-8")
-	public List<Student> query(long id) {
+	public String query(long id) {
 		Student student = studentService.query(id);
 		List<Student> list = new ArrayList<>();
 		list.add(student);
-		return list;
+		return list.toString();
 	}
 	
 	@PostMapping("/testDate")

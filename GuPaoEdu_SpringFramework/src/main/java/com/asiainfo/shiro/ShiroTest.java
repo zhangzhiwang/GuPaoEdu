@@ -11,6 +11,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
@@ -57,7 +58,7 @@ public class ShiroTest {
 		Md5Hash md5Hash = new Md5Hash("12345", // 明文，明文很容易破解
 				"abc", // 盐值，用明文和盐值一起加密安全系数更高，但可能会被破解
 				10);// 加密次数，将前一次的加密结果作为明文继续加密，一直循环加密到用户指定的次数为止
-		System.out.println(md5Hash);
+		System.out.println("md5Hash = " + md5Hash);
 		System.out.println("--------------------");
 		
 		/**
@@ -99,5 +100,8 @@ public class ShiroTest {
 		} else if(subject.hasRole("role2")) {
 			System.out.println("执行查询和删除操作");
 		}
+		
+		Sha1Hash sha1Hash = new Sha1Hash("111", "aaa", 20);
+		System.out.println("sha1Hash = " + sha1Hash);
 	}
 }

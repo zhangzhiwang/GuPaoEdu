@@ -110,11 +110,28 @@
 	
 	<!-- 以配置的方式使用事务 -->
 	<context:property-placeholder location="classpath:db.properties"/>
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="${db.driver}"></property> -->
+<!-- 		<property name="url" value="${db.url}"></property> -->
+<!-- 		<property name="username" value="${db.username}"></property> -->
+<!-- 		<property name="password" value="${db.password}"></property> -->
+<!-- 	</bean> -->
+	<!-- 使用druid数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<!-- 数据库连接池的必要配置 -->
 		<property name="driverClassName" value="${db.driver}"></property>
 		<property name="url" value="${db.url}"></property>
 		<property name="username" value="${db.username}"></property>
 		<property name="password" value="${db.password}"></property>
+		<!-- 和单独使用druid一样（见DruidTest.java），和spring整合后连接池的非必要配置在配置文件中进行 -->
+		<property name="initialSize" value="5"></property>
+		<property name="minIdle" value="5"></property>
+		<property name="maxActive" value="30"></property>
+		<property name="maxWait" value="1000"></property>
+		<property name="minEvictableIdleTimeMillis" value="400000"></property>
+		<!-- 开启监控统计 -->
+		<!-- 监控Filter的别名在druid.jar的/META-INF/druid-filter.properties里面 -->
+		<property name="filters" value="stat"></property>
 	</bean>
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
@@ -183,7 +200,7 @@
 	
 	<!-- 此配置将mapper的java接口识别为Spring的bean -->
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">	
-		<property name="basePackage" value="com.asiainfo.mapper"></property>
+		<property name="basePackage" value="com.asiainfo.mapper,com.asiainfo.springSecurity"></property>
 	</bean>
 	
 	<!-- 注意：Spring和spring MVC集成的时候不需要把mvc的配置文件引入到Spring的配置文件中，这两个文件可以完全无关，因为在web.xml中配置了两个文件，并且Spring MVC的IOC容器把Spring的IOC容器设置为父容器
@@ -198,4 +215,67 @@
 <!--     <mvc:default-servlet-handler/> -->
     
 <!--     <bean class="com.asiainfo.controller.SwaggerConfig"></bean> -->
+
+	<!-- spring整合quartz
+		 步骤：
+		 1、定义Job（写代码）
+		 2、定义JobDetail（配置文件里面配置）
+		 3、定义Trigger并绑定Job（配置文件里面配置）
+		 4、定义Scheduler并将Trigger注册进来（配置文件里面配置）
+		 相较于单独使用quartz，和Spring整合之后只有定义Job使用代码来实现的，其余的都是在配置文件里面配置，而前者以上四步都是在代码里面实现的，见QuartzTest
+	 -->
+	<!-- 定义JobDetail -->
+	<bean id="jobDetail1" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="name" value="jobDetail1"></property>
+		<property name="group" value="jobDetailInSpringGroup1"></property>
+		<property name="jobClass" value="com.asiainfo.quartz.MyJob1"></property>
+		<!-- 必须设置为true，如果设置为false（默认是false），当没有活动的触发器与之关联时会在调度器中删除该任务 -->
+		<property name="durability" value="true"></property>
+	</bean>
+	<bean id="jobDetail2" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="name" value="jobDetail2"></property>
+		<property name="group" value="jobDetailInSpringGroup2"></property>
+		<property name="jobClass" value="com.asiainfo.quartz.MyJob2"></property>
+		<!-- 必须设置为true，如果设置为false（默认是false），当没有活动的触发器与之关联时会在调度器中删除该任务 -->
+		<property name="durability" value="true"></property>
+	</bean>
+	<!-- 定义Trigger -->
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="name" value="simpleTrigger"></property>
+		<property name="group" value="triggerInSpringGroup1"></property>
+		<property name="jobDetail" ref="jobDetail1"></property>
+		<property name="startDelay" value="1000"></property>
+		<property name="repeatInterval" value="1000"></property>
+		<property name="repeatCount" value="10"></property>
+	</bean>
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="name" value="cronTrigger"></property>
+		<property name="group" value="triggerInSpringGroup2"></property>
+		<property name="jobDetail" ref="jobDetail2"></property>
+		<!-- 
+		quartz中的cron表达式，一共6-7为，其中第七位年份是可选位：
+		秒 分钟 小时 日期 月份 星期 （年份）
+		符号：
+		星号(*)：可用在所有字段中，表示对应时间域的每一个时刻，例如，在分钟字段时，表示“每分钟”； 
+		问号（?）：该字符只在日期和星期字段中使用，它通常指定为“无意义的值”，相当于点位符； 
+		减号(-)：表达一个范围，如在小时字段中使用“10-12”，则表示从 10 到 12 点，即 10,11,12； 
+		逗号(,)：表达一个列表值，如在星期字段中使用“MON,WED,FRI”，则表示星期一，星期三和星期五； 
+		斜杠(/)：x/y 表达一个等步长序列，x 为起始值，y 为增量步长值。如在分钟字段中使用 0/15，则表示为 0,15,30 和 45 秒，而 5/15 在分钟字段中表示 5,20,35,50，你也可以使用*/y，它等同于 0/y
+		 -->
+		<property name="cronExpression" value="0/3 * * * * ?"></property>
+	</bean>
+	
+	<!-- 定义Scheduler -->
+<!-- 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+<!-- 		<property name="triggers"> -->
+<!-- 			<list> -->
+<!-- 				<ref bean="simpleTrigger"/> -->
+<!-- 				<ref bean="cronTrigger"/> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	<!-- 开源认证授权框架——shiro -->
+<!-- 	<import resource="classpath:shiro.xml"/> -->
+	<!-- 开源认证授权框架——Spring Security -->
+	<import resource="classpath:springSecurity.xml"/>
 </beans>

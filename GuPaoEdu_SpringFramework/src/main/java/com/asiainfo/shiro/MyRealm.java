@@ -32,22 +32,25 @@ public class MyRealm extends AuthorizingRealm {
 		 * 注意：getPrimaryPrincipal方法的返回值是Object，该返回值可以转换为什么类型取决于认证doGetAuthenticationInfo方法的返回值对象的第一个字段是什么类型。
 		 * 比如本例中doGetAuthenticationInfo方法返回的是SimpleAccount对象，构造方法的第一个参数是Object principal，实际传入的是String，那么在本方法中可以将getPrimaryPrincipal方法的返回值转换为String类型
 		 */
-		String userName = (String) principals.getPrimaryPrincipal();
-		System.out.println("MyRealm授权，userName = " + userName);
-		
-		// 根据userName到数据库查询该用户的角色，这里模拟查询结果
-		String roleInDb1 = "role3";
-		String roleInDb2 = "role4";
-		
-		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-		simpleAuthorizationInfo.addRole(roleInDb1);
-		simpleAuthorizationInfo.addRole(roleInDb2);
-		
-		List<String> permissionList = new ArrayList<>();
-		permissionList.add("insert");
-		permissionList.add("update");
-		simpleAuthorizationInfo.addStringPermissions(permissionList);// 添加用户的权限
-		return simpleAuthorizationInfo;
+//		String userName = (String) principals.getPrimaryPrincipal();
+//		System.out.println("md5,MyRealm授权，userName = " + userName);
+//		
+//		// 根据userName到数据库查询该用户的角色，这里模拟查询结果
+//		String roleInDb1 = "admin_nation";
+//		String roleInDb2 = "admin_province";
+//		
+//		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+//		simpleAuthorizationInfo.addRole(roleInDb1);
+//		simpleAuthorizationInfo.addRole(roleInDb2);
+//		
+//		List<String> permissionList = new ArrayList<>();
+//		permissionList.add("USER_QUERY");
+//		permissionList.add("USER_CREATE");
+////		permissionList.add("USER_UPDATE");
+////		permissionList.add("USER_DELETE");
+//		simpleAuthorizationInfo.addStringPermissions(permissionList);// 添加用户的权限
+//		return simpleAuthorizationInfo;
+		return null;
 	}
 
 	/**
@@ -58,6 +61,9 @@ public class MyRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		String username = usernamePasswordToken.getUsername();// 客户端传入的用户名
+		System.out.println("md5客户端传入用户名：" + username);
+		System.out.println("md5客户端传入密码：" + new String(usernamePasswordToken.getPassword()));
+		
 		String userNameInDb = "liming";// 模拟数据库查出来的用户名
 //		String passwordInDb = "111";// 模拟数据库查出来的密码
 		String passwordInDb = "5816bd8c3cf33169a7a9e3fada69049d";// 模拟数据库查出来的密码的密文

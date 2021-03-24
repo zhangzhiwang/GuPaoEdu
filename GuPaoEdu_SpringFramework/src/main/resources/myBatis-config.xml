@@ -7,12 +7,17 @@
 	<!-- <properties url="file:///Users/zhangzhiwang/Desktop/db_2.properties"> -->	<!-- resource属性和url属性都可以引入外部文件，区别就是前者引用的俄式classpath下面的文件，后者引用磁盘全路经名的文件或者网络文件 -->
 <!-- 		<property name="db.driver" value="com.mysql.jdbc.Driver" /> -->
 	</properties>
+	
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
 
 	<!-- 配置类型别名，mybatis内置了好多类型别名，具体可以看源码：org.apache.ibatis.type.TypeAliasRegistry -->
-	<typeAliases>
-		<typeAlias alias="user" type="com.asiainfo.entity.User" />
+<!-- 	<typeAliases> -->
+<!-- 		<typeAlias alias="user" type="com.asiainfo.entity.User" /> -->
 <!-- 		<typeAlias alias="myTypeHandler" type="com.asiainfo.MyTypeHandler" /> -->
-	</typeAliases>
+<!-- 	</typeAliases> -->
 	
 	<!-- 类型处理器，用于实现表字段类型和Java类型的映射，mybatis默认了很多类型处理器，可以看源码：org.apache.ibatis.type.TypeHandlerRegistry -->
 <!-- 	<typeHandlers> -->

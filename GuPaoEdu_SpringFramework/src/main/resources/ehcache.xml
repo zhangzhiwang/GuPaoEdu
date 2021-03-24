@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd">
+	<!-- 缓存持久化到磁盘的路径 -->
+	<diskStore path="/Users/zhangzhiwang/Desktop/ehcache"/>
+	
+	<!-- 
+		maxElementsInMemory：缓存中能存放最多的元素条数
+		maxElementsOnDisk：磁盘中能存放最多的元素条数
+		eternal：缓存元素是否永久有效，如果设置为true那么超时时间将不生效
+		overflowToDisk：当缓存元素的个数达到了maxElementsInMemory的限制时是否启用磁盘存储
+		diskPersistent：当缓存重启或者JVM重启时是否将内存重的数据持久化到磁盘上
+		timeToIdleSeconds：缓存元素的空闲时间，即在多长时间没有被访问就会失效，前提是将eternal设置为false否则该设置无效
+		timeToLiveSeconds：缓存的元素存活时间，前提是将eternal设置为false否则该设置无效
+		diskExpiryThreadIntervalSeconds：标识缓存元素状态的线程运行间隔，即标识缓存元素状态的线程多长时间运行一次
+		memoryStoreEvictionPolicy：数据淘汰策略，当达到maxElementsInMemory时，ehcache会根据淘汰策略进行数据清理，常用的策略有：LRU、LFU、FIFO
+	 -->
+	<defaultCache
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="2000"
+		eternal="true"
+		overflowToDisk="true"
+		diskPersistent="true"
+		timeToIdleSeconds="10000"
+		timeToLiveSeconds="30000"
+		diskExpiryThreadIntervalSeconds="1000"
+		memoryStoreEvictionPolicy="LRU"
+	></defaultCache>
+</ehcache>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		
+	<!-- shiro和spring整合步骤：
+		 1、添加相关依赖：shiro-spring和shiro-ehcache
+		 2、在web.xml中配置shiro的过滤器
+		 3、在spring的配置文件中配置shiro（为了方便管理可以讲shiro的配置问文件单独出来然后import进Spring的配置文件）
+		 	配置的内容和单独使用shiro时配置的ini文件内容一样
+	 -->
+	<!-- 下面的配置可以参考shiro_md5.ini -->
+	<bean id="hashedCredentialsMatcherMd5" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5"></property>
+		<property name="hashIterations" value="10"></property>
+	</bean>
+	<bean id="hashedCredentialsMatcherSHA" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="sha1"></property>
+		<property name="hashIterations" value="20"></property>
+	</bean>
+	
+	<bean id="myRealm" class="com.asiainfo.shiro.MyRealm">
+		<property name="credentialsMatcher" ref="hashedCredentialsMatcherMd5"></property>
+	</bean>
+	<bean id="myRealmSHA" class="com.asiainfo.shiro.MyRealmSHA">
+		<property name="credentialsMatcher" ref="hashedCredentialsMatcherSHA"></property>
+	</bean>
+	
+	<!-- 配置ehcache缓存管理器
+		 其实也可以不配置ehcache.xml，因为cacheManagerConfigFile默认读取shiro-ehcache.jar里面默认的配置文件，详见EhCacheManager源码
+	 -->
+	<bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+	</bean>
+	
+	<bean id="defaultWebSecurityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 当DefaultWebSecurityManager配置多个realm的时候，就要配置认证的策略了：策略一共有三个（对应AuthenticationStrategy的三个实现类）：
+			 1、至少一个realm通过则认证通过
+			 2、所有realm通过则认证通过
+			 3、第一个realm通过则认证通过
+			 注意：authenticator属性的配置要放在realms之前，否则不生效
+		 -->
+		<property name="authenticator">
+			<bean class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+				<property name="authenticationStrategy">
+					<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean>
+<!-- 					<bean class="org.apache.shiro.authc.pam.AllSuccessfulStrategy"></bean> -->
+<!-- 					<bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy"></bean> -->
+				</property>
+			</bean>
+		</property>
+<!-- 		<property name="realm" ref="myRealm"></property> -->
+		<property name="realms">
+			<list>
+				<ref bean="myRealm"/>
+				<ref bean="myRealmSHA"/>
+			</list>
+		</property>
+		<property name="cacheManager" ref="ehCacheManager"></property>
+		<property name="rememberMeManager" ref="rememberMeManager"></property>
+	</bean>
+	
+	<!-- 自定义FormAuthenticationFilter
+		 登陆成功后如果要往session里面写数据不能在自定义的reaml里面实现，因为密码的验证在依赖的jar包里面，解决方案是扩展FormAuthenticationFilter并重写onLoginSuccess方法，然后在spring的配置文件里面进行配置。
+		 配置自定义的FormAuthenticationFilter时，可以自定义usernameParam、passwordParam和rememberMeParam的值，这样页面提交的属性名称和自定义的名称一致即可，否则要使用默认的属性名，见FormAuthenticationFilter源码
+	 -->
+	<bean id="myFormAuthenticationFilter" class="com.asiainfo.shiro.MyFormAuthenticationFilter">
+		<property name="usernameParam" value="userNameZzw"></property>
+		<property name="passwordParam" value="passwordZzw"></property>
+		<property name="rememberMeParam" value="rememberMeZzw"></property>
+	</bean>
+	
+	<!-- 配置ShiroFilterFactoryBean，注意它的id必须和web.xml中DelegatingFilterProxy的targetBeanName一致 -->		
+	<bean id="shiroZzw" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="defaultWebSecurityManager"></property>
+		<!-- 配置登陆地址 -->
+		<!-- 
+			loginUrl的值配置了一个url，按常理来说要定义一个路径是/login.do的Controller，包括login.jsp里面表单提交的地址也是/login.do。
+			这里要注意，提交表单之后并不会直接到标注了“login.do”的controller方法上，而是先被shiro的过滤器拦截，拦截之后会调用配置的realm进行认证，如果认证通过那么会跳转到
+			下面配置的successUrl所指定的路径，然后结束，这个时候并不会路由到controller上面，只有当认证不通过的时候才会转发到controller的相关方法上，这里是要注意的。
+		 -->
+		<property name="loginUrl" value="/login.do"></property>
+		<!-- 认证成功后跳转的地址 -->
+		<property name="successUrl" value="/success.jsp"></property>
+		<!-- 访问未授权的资源时跳转的地址
+			 注意：这个不是认证失败时跳转的地址
+		 -->
+		<property name="unauthorizedUrl" value="/unAuth.jsp"></property>
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="myFormAuthenticationFilter"></entry>
+			</map>
+		</property>
+		<property name="filterChainDefinitions">
+			<!-- 下面所配置的authc和anon是org.apache.shiro.web.filter.mgt.DefaultFilter的枚举值，可以看它的源码。
+				 当指定authc时，会执行FormAuthenticationFilter里面的方法，
+			 -->			
+			<value>
+				 <!--加载顺序从上往下。
+                    authc：需要认证
+                    anon：可以匿名访问的资源
+                    user：rememberMe必须使用user级别
+                 -->
+                /login.do=authc
+                /success.jsp=authc
+                /login.jsp=anon
+                /**=user	
+			</value>
+		</property>
+	</bean>
+	
+	<!-- remenberMe配置 -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe" />
+        <property name="httpOnly" value="true" />
+        <!-- 默认记住7天（单位：秒） -->
+        <property name="maxAge" value="604800" />
+    </bean>
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+        <property name="cookie" ref="rememberMeCookie" />
+    </bean>
+</beans>

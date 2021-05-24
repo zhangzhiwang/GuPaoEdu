@@ -2,7 +2,12 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
 	<display-name>Archetype Created Web Application</display-name>
 
 	<servlet>
@@ -10,7 +15,7 @@
 		<servlet-class>com.asiainfo.servlet.ZzwDispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>zzwConfigFileLocation</param-name>
-			<param-value>ZzwConfig.xml</param-value>
+			<param-value>zzwConfig.xml</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

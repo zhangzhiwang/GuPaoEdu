@@ -11,6 +11,58 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
+	
+	<!-- 解决中文乱码 -->
+	<filter>
+		<filter-name>encodeFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceRequestEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceResponseEncoding</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<!--druid 监控 -->
+	<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+<!-- 		<async-supported>true</async-supported> -->
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>/static/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sessionStatMaxCount</param-name>
+			<param-value>1000</param-value>
+		</init-param>
+	</filter>
+	<!-- 集成Spring Security——配置security的过滤器，注意：名称必须是springSecurityFilterChain，不能自定义 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- 配置Spring的ContextLoaderListener 一个项目要想使用Spring框架就必须在web.xml中配置ContextLoaderListener，该类继承了ContextLoader并实现了ServletContextListener接口 
 		1、ContextLoader的作用：在应用程序启动的时候初始化ioc容器。该类有一个属性叫contextConfigLocation，需要外部进行配置，所以上面配置了contextConfigLocation，具体可以参考ContextLoaderListener无參构造器上面的注释，这也就是为什么要在<context-param>里面配置ContextLoaderListener。 
 		2、ServletContextListener接口的作用：将初始化好的ioc容器放在具有全局生命周期的ServletContext里面，这样只要能获取到Servlet就能拿到ioc容器，从而得到里面的bean 
@@ -32,27 +84,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- 解决中文乱码 -->
-	<filter>
-		<filter-name>encodeFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>utf-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceRequestEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceResponseEncoding</param-name>
-			<param-value>false</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodeFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	
 
 	<!-- mvc整合shiro，配置shiro的过滤器 -->
 	<!-- <filter> -->
@@ -72,38 +104,6 @@
 	<!-- <url-pattern>/*</url-pattern> -->
 	<!-- </filter-mapping> -->
 
-
-	<!--druid 监控 -->
-	<filter>
-		<filter-name>DruidWebStatFilter</filter-name>
-		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
-		<async-supported>true</async-supported>
-		<init-param>
-			<param-name>exclusions</param-name>
-			<param-value>/static/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
-		</init-param>
-		<init-param>
-			<param-name>sessionStatMaxCount</param-name>
-			<param-value>1000</param-value>
-		</init-param>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>DruidWebStatFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<!-- 集成Spring Security——配置security的过滤器，注意：名称必须是springSecurityFilterChain，不能自定义 -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -112,16 +112,15 @@
 			<param-value>classpath:springmvc.xml</param-value>
 		</init-param>
 	</servlet>
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+<!-- 		<async-supported>true</async-supported> -->
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>DruidStatView</servlet-name>
-		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-		<async-supported>true</async-supported>
-	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>

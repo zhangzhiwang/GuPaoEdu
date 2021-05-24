@@ -137,4 +137,9 @@ public class TestController {
 		outputStream.close();
 		inputStream.close();
 	}
+	
+	@GetMapping("/testOOM")
+	public void testOOM() {
+		userService.testOOM();
+	}
 }

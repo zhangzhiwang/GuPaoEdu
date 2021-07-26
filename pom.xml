@@ -239,5 +239,9 @@
 		<module>GuPaoEdu_SpringMVC</module>
 		<module>GuPaoEdu_Spring_SpringMVC_Swagger</module>
     <module>GuPaoEdu_WriteMiniSpring</module>
+    <module>GuPaoEdu_Algorithm</module>
+    <module>GuPaoEdu_Rpc_Api</module>
+    <module>GuPaoEdu_Service</module>
+    <module>GuPaoEdu_Rpc_Client</module>
   </modules>
 </project>

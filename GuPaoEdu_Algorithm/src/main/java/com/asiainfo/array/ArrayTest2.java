@@ -3,7 +3,7 @@ package com.asiainfo.array;
 import java.util.Iterator;
 
 /**
- * 数组高级操作
+ * 数组高级操作——插入元素：在一个无序数组中插入一个元素
  *
  * @author zhangzhiwang
  * @date 2021年7月27日 上午10:11:53
@@ -125,9 +125,10 @@ public class ArrayTest2 {
 		}
 		
 		// 解法2:后续遍历
-		// 后续遍历的代码更加简洁，一行代码搞定，不需要像前序遍历那样保存两个临时变量
+		// 后续遍历的代码更加简洁，一行代码搞定，不需要像前序遍历那样保存两个临时变量。
 		for (int i = size - 1; i >= index; i--) {
 			arr[i + 1] = arr[i];
+			size++;
 		}
 		// 最后给index的位置赋新值
 		arr[index] = element;
